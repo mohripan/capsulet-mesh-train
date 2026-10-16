@@ -1,4 +1,4 @@
-name: Core foundation
+name: Native core and toolchain
 
 on:
   push:
@@ -18,4 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Build and validate ${{ matrix.target }}
-        run: docker build --target "${{ matrix.target }}" --progress plain .
+        run: docker build --target "${{ matrix.target }}" -t "meshtrain-${{ matrix.target }}:ci" --progress plain .
+      - name: Exchange bytes between two containers
+        if: matrix.target == 'native-test'
+        run: sh tools/check_tcp_containers.sh meshtrain-native-test:ci

@@ -1,12 +1,14 @@
 #include <meshtrain/buffer.hpp>
 #include <meshtrain/config.hpp>
 #include <meshtrain/error.hpp>
+#include <meshtrain/tcp.hpp>
 #include <meshtrain/transport.hpp>
 
 #include <cstddef>
 #include <iostream>
 
 int main() {
+    std::cout << "TCP enabled: " << meshtrain::tcp_enabled() << '\n';
     meshtrain::RunConfig config;
     config.world_size = 1;
     config.run_id = "installed-consumer";

@@ -1,4 +1,10 @@
 @PACKAGE_INIT@
 
+set(meshtrain_TCP_ENABLED @MESHTRAIN_ENABLE_TCP@)
+if(meshtrain_TCP_ENABLED)
+    include(CMakeFindDependencyMacro)
+    find_dependency(Threads)
+endif()
+
 include("${CMAKE_CURRENT_LIST_DIR}/meshtrainTargets.cmake")
 check_required_components(meshtrain)

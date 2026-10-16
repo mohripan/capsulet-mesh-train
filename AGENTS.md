@@ -11,7 +11,7 @@ GitHub issues are the source of truth for live work status. Repository documents
 
 ## Current phase
 
-M1 implementation is authorized by the user's 2026-10-16 request to start implementation. The CPU MVP specification is the accepted implementation contract. The standalone core foundation is implemented; read `docs/DEVELOPMENT.md` for build commands and evidence. TCP transport is next in issue #4. Later subsystems still need their own focused design before implementation.
+M1 implementation is authorized by the user's 2026-10-16 request to start implementation. The CPU MVP specification is the accepted implementation contract. The standalone foundation and Linux TCP startup/transport are implemented; read `docs/DEVELOPMENT.md` for commands/evidence and `docs/TCP_PROTOCOL.md` for framing, deadlines, and ownership. Centralized all-reduce is next in issue #5. Later subsystems still need their own focused design before implementation.
 
 ## Project boundaries
 

@@ -6,7 +6,7 @@ The core project implements its own transport and collective algorithms. GPU tra
 
 ## Current state
 
-M1 implementation has started. The standalone C++ foundation provides validated configuration, contextual errors, checked FP32 buffer sizes, and a transport interface. Native tests, relocatable CMake packaging, and pinned Linux/Python toolchain checks are implemented. TCP communication and all-reduce are the next steps.
+M1 implementation is underway. The standalone C++ core now provides Linux TCP communication with framed group startup, total deadlines, and safe connection cleanup. Validation covers 1–5 worker processes, failure scenarios, and a two-container hostname exchange, alongside relocatable CMake packaging and pinned toolchain checks. Centralized all-reduce is next, followed by Python bindings and trainer parity.
 
 This is an open-ended side project. Milestones describe outcomes and dependencies, with no dates or time estimates.
 
