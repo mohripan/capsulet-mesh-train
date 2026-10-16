@@ -2,7 +2,7 @@
 
 Date: 2026-10-16
 
-Status: draft for review. The library-first direction and project boundaries are approved. The detailed defaults below are proposed for the first implementation milestone. This document specifies M1 only; `docs/ROADMAP.md` scopes later subsystems.
+Status: accepted for implementation following the user's 2026-10-16 request to start. This document is the M1 implementation contract; `docs/ROADMAP.md` scopes later subsystems. Native-foundation evidence is recorded in `docs/DEVELOPMENT.md`.
 
 ## 1. Outcome
 
@@ -34,7 +34,7 @@ Later milestones own ring/tree algorithms, CUDA, asynchronous work, backward ove
 
 Each worker receives its rank, world size, common run identifier, ordered rank-to-endpoint list, and application context fingerprint. Each endpoint consists of a hostname or IPv4 address and port. The endpoint list must contain exactly one entry for each rank. Ports and listen interfaces are explicit; loopback is a local configuration choice rather than a transport assumption.
 
-Rank is in `[0, world_size)`. World size is positive. A run identifier is a nonempty ASCII string of at most 128 bytes, unique to a launch attempt. The application fingerprint is a bounded string of at most 256 bytes used to catch incompatible training layouts or initial state. Native collective tests use a shared test-context fingerprint; the trainer supplies a hash of its parameter layout, initialization, and relevant training configuration.
+Rank is in `[0, world_size)`. World size is positive. A run identifier contains 1 to 128 printable ASCII bytes and is unique to a launch attempt. The application fingerprint contains 1 to 256 printable ASCII bytes and catches incompatible training layouts or initial state. Native collective tests use a shared test-context fingerprint; the trainer supplies a hash of its parameter layout, initialization, and relevant training configuration. Reject duplicate advertised host/port pairs using hostname comparison that ignores case and a final dot; wildcard listening is configured separately.
 
 Default startup and collective timeouts are separately configurable and both default to 30 seconds. The default maximum collective payload is 256 MiB per rank. Validate integer overflow and configured bounds before allocating or receiving payloads. A run may choose a smaller limit; all ranks must agree.
 

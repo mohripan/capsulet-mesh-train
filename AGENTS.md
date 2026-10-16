@@ -11,7 +11,7 @@ GitHub issues are the source of truth for live work status. Repository documents
 
 ## Current phase
 
-Planning. The library-first architecture is approved. The detailed CPU MVP specification is a draft for user review; implementation has not started. The current planning work may document the design and publish the agreed roadmap/backlog. Review the focused specification with the user before beginning implementation. Later subsystems need their own focused design before implementation.
+M1 implementation is authorized by the user's 2026-10-16 request to start implementation. The CPU MVP specification is the accepted implementation contract. The standalone core foundation is implemented; read `docs/DEVELOPMENT.md` for build commands and evidence. TCP transport is next in issue #4. Later subsystems still need their own focused design before implementation.
 
 ## Project boundaries
 
@@ -33,3 +33,5 @@ Planning. The library-first architecture is approved. The detailed CPU MVP speci
 - Record exact commands, environment, raw results, and tolerances when closing an implementation or benchmark issue.
 - Milestones are navigation aids with no deadlines. Work from the earliest unmet dependency rather than assuming issue number is execution order.
 - Preserve unrelated local changes, including locally installed skills and agent configuration.
+- Keep C++ interfaces narrow, ownership explicit, and compiler requirements/warnings scoped to targets. Apply `.clang-format`. Run native contracts and the installed-consumer test after relevant changes.
+- The optional Python toolchain probe is not the tensor-binding API; that API belongs to issue #6.

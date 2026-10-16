@@ -10,9 +10,9 @@ GitHub is the source of truth for live status. This index records the initial wo
 
 ## Current entry point
 
-Review the [CPU MVP specification](superpowers/specs/2026-10-16-cpu-mvp-design.md), then start [#3 — Build the standalone C++ core and reproducible Linux toolchain](https://github.com/mohripan/capsulet-mesh-train/issues/3). The library-first direction is approved; detailed implementation has not started.
+The [CPU MVP specification](superpowers/specs/2026-10-16-cpu-mvp-design.md) is accepted for implementation. The native core foundation from [#3](https://github.com/mohripan/capsulet-mesh-train/issues/3) is implemented and validated. Continue with [#4 — framed TCP transport and bounded I/O](https://github.com/mohripan/capsulet-mesh-train/issues/4). See [development instructions](DEVELOPMENT.md).
 
-M1 work is labeled `needs-review`. Later work is labeled `needs-design`, and M10 also carries `hardware-required`. Labels are navigation cues; a design, implementation, or validation gate is complete only with its stated evidence.
+The M1 design gate is satisfied. Later work is labeled `needs-design`, and M10 also carries `hardware-required`. Labels are navigation cues; a design, implementation, or validation gate is complete only with its stated evidence.
 
 ## Milestone trackers
 

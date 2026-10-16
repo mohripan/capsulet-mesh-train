@@ -1,0 +1,6 @@
+# Python 3.12 packaging toolchain. Runtime training dependencies belong to #6/#7.
+build==1.6.1
+cmake==4.4.4
+ninja==1.13.2
+pybind11==3.1.0
+scikit-build-core==1.1.1

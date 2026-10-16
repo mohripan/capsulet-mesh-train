@@ -19,9 +19,9 @@ Recorded 2026-10-16 from the initial design discussion.
 | Running jobs are not preempted for priority | Token admission controls concurrency. Guaranteed immediate service still requires actual spare or reserved hardware. |
 | Airflow described an analogy | DAG execution is not a project deliverable. |
 
-## Proposed defaults for the first specification
+## Implementation defaults
 
-These choices make the CPU milestone concrete for review. They are design defaults, not claims that code or compatibility has already been verified.
+The user authorized implementation of the CPU specification on 2026-10-16. Its defaults are the M1 contract. Defaults for later subsystems, including FIFO token admission, remain subject to their focused designs. Actual compatibility evidence is recorded in [development instructions](DEVELOPMENT.md).
 
 | Default | Reason |
 | --- | --- |

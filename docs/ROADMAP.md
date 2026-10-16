@@ -1,6 +1,6 @@
 # Roadmap
 
-Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap tracker](https://github.com/mohripan/capsulet-mesh-train/issues/1) and [milestones](https://github.com/mohripan/capsulet-mesh-train/milestones) track live progress; this document explains the scope, dependencies, and evidence needed to finish each milestone. The detailed CPU specification is the first design for review. Later milestones are scoped backlog items that require their own design before implementation.
+Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap tracker](https://github.com/mohripan/capsulet-mesh-train/issues/1) and [milestones](https://github.com/mohripan/capsulet-mesh-train/milestones) track live progress; this document explains the scope, dependencies, and evidence needed to finish each milestone. The CPU specification is accepted for implementation. Its native foundation is implemented; see [build instructions and evidence](DEVELOPMENT.md). Later milestones require their own design before implementation.
 
 ## Milestone map
 

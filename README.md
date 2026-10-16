@@ -6,13 +6,14 @@ The core project implements its own transport and collective algorithms. GPU tra
 
 ## Current state
 
-Planning and design. There is no engine implementation yet. The library-first architecture is agreed; the detailed CPU MVP design is ready for review.
+M1 implementation has started. The standalone C++ foundation provides validated configuration, contextual errors, checked FP32 buffer sizes, and a transport interface. Native tests, relocatable CMake packaging, and pinned Linux/Python toolchain checks are implemented. TCP communication and all-reduce are the next steps.
 
 This is an open-ended side project. Milestones describe outcomes and dependencies, with no dates or time estimates.
 
 ## Start here
 
 - [Roadmap and milestone completion criteria](docs/ROADMAP.md)
+- [Build instructions and verified environments](docs/DEVELOPMENT.md)
 - [CPU MVP design](docs/superpowers/specs/2026-10-16-cpu-mvp-design.md)
 - [Decisions and their rationale](docs/DECISIONS.md)
 - [GitHub work index](docs/ISSUES.md)
