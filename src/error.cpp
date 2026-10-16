@@ -71,6 +71,6 @@ std::string_view to_string(ErrorCode code) noexcept {
 
 EngineError::EngineError(ErrorCode code, std::string message, ErrorContext context)
     : std::runtime_error(diagnostic(code, message, context)), code_(code),
-      context_(std::move(context)) {}
+      context_(std::move(context)), message_(std::move(message)) {}
 
 } // namespace meshtrain

@@ -1,0 +1,70 @@
+numerical rank=0 world=1 collectives=14 max_abs=0 max_rel=0
+PASS numerical workers=1 group_elapsed_ms=15
+numerical rank=0 world=2 collectives=14 max_abs=5.96046447754e-08 max_rel=5.9602857814e-08
+numerical rank=1 world=2 collectives=14 max_abs=5.96046447754e-08 max_rel=5.9602857814e-08
+PASS numerical workers=2 group_elapsed_ms=344
+numerical rank=1 world=3 collectives=14 max_abs=1.78813934326e-07 max_rel=0.00149031296572
+numerical rank=0 world=3 collectives=14 max_abs=1.78813934326e-07 max_rel=0.00149031296572
+numerical rank=2 world=3 collectives=14 max_abs=1.78813934326e-07 max_rel=0.00149031296572
+PASS numerical workers=3 group_elapsed_ms=392
+numerical rank=1 world=4 collectives=14 max_abs=2.98023223877e-07 max_rel=0.00297619047619
+numerical rank=2 world=4 collectives=14 max_abs=2.98023223877e-07 max_rel=0.00297619047619
+numerical rank=0 world=4 collectives=14 max_abs=2.98023223877e-07 max_rel=0.00297619047619
+numerical rank=3 world=4 collectives=14 max_abs=2.98023223877e-07 max_rel=0.00297619047619
+PASS numerical workers=4 group_elapsed_ms=528
+numerical rank=1 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+numerical rank=2 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+numerical rank=3 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+numerical rank=0 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+numerical rank=4 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+PASS numerical workers=5 group_elapsed_ms=624
+PASS rank_order workers=3 group_elapsed_ms=8
+PASS reconnect workers=2 group_elapsed_ms=10
+failure case=count rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+failure case=count rank=1 category=peer_closed elapsed_ms=0 sequence=0
+PASS count workers=2 group_elapsed_ms=5
+failure case=local_limit rank=1 category=invalid_buffer elapsed_ms=0 sequence=0
+failure case=local_limit rank=0 category=peer_closed elapsed_ms=0 sequence=0
+PASS local_limit workers=2 group_elapsed_ms=5
+failure case=stale_sequence rank=0 category=protocol_mismatch elapsed_ms=0 sequence=1
+PASS stale_sequence workers=2 group_elapsed_ms=6
+failure case=future_sequence rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS future_sequence workers=2 group_elapsed_ms=6
+failure case=bad_dtype rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS bad_dtype workers=2 group_elapsed_ms=5
+failure case=bad_reduction rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS bad_reduction workers=2 group_elapsed_ms=5
+failure case=bad_count_bytes rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS bad_count_bytes workers=2 group_elapsed_ms=5
+failure case=oversize_data rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS oversize_data workers=2 group_elapsed_ms=5
+failure case=wrong_operation rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS wrong_operation workers=2 group_elapsed_ms=5
+failure case=wrong_source rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS wrong_source workers=2 group_elapsed_ms=5
+failure case=wrong_destination rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS wrong_destination workers=2 group_elapsed_ms=5
+failure case=result_sequence rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_sequence workers=2 group_elapsed_ms=5
+failure case=result_count rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_count workers=2 group_elapsed_ms=5
+failure case=result_source rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_source workers=2 group_elapsed_ms=5
+failure case=result_destination rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_destination workers=2 group_elapsed_ms=5
+failure case=result_dtype rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_dtype workers=2 group_elapsed_ms=6
+failure case=stall_payload rank=0 category=timeout elapsed_ms=1001 sequence=0
+PASS stall_payload workers=2 group_elapsed_ms=1008
+failure case=slow_payload rank=0 category=timeout elapsed_ms=1000 sequence=0
+PASS slow_payload workers=2 group_elapsed_ms=1407
+failure case=stalled_result rank=1 category=timeout elapsed_ms=1001 sequence=0
+PASS stalled_result workers=2 group_elapsed_ms=1007
+failure case=kill_root rank=1 category=peer_closed elapsed_ms=0 sequence=0
+PASS kill_root workers=2 group_elapsed_ms=5
+PASS cancel workers=2 group_elapsed_ms=5
+failure case=cumulative_deadline rank=0 category=timeout elapsed_ms=1000 sequence=0
+PASS cumulative_deadline workers=3 group_elapsed_ms=1306
+failure case=kill_worker rank=0 category=peer_closed elapsed_ms=0 sequence=0
+failure case=kill_worker rank=2 category=peer_closed elapsed_ms=0 sequence=0
+PASS kill_worker workers=3 group_elapsed_ms=6

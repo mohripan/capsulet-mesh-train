@@ -7,10 +7,11 @@ GitHub is the source of truth for live status. This index records the initial wo
 - [All issues](https://github.com/mohripan/capsulet-mesh-train/issues)
 - [Architecture and milestone outcomes](ROADMAP.md)
 - [Decision record](DECISIONS.md)
+- [Architecture decision records](adr/README.md)
 
 ## Current entry point
 
-The [CPU MVP specification](superpowers/specs/2026-10-16-cpu-mvp-design.md) is accepted for implementation. The native foundation [#3](https://github.com/mohripan/capsulet-mesh-train/issues/3) and Linux TCP transport [#4](https://github.com/mohripan/capsulet-mesh-train/issues/4) are implemented and validated. Continue with [#5 — centralized in-place FP32 SUM all-reduce](https://github.com/mohripan/capsulet-mesh-train/issues/5). See [development instructions](DEVELOPMENT.md) and the [wire/lifetime contract](TCP_PROTOCOL.md).
+The [CPU MVP specification](superpowers/specs/2026-10-16-cpu-mvp-design.md) is accepted for implementation. The native foundation [#3](https://github.com/mohripan/capsulet-mesh-train/issues/3), Linux TCP transport [#4](https://github.com/mohripan/capsulet-mesh-train/issues/4), and centralized FP32 SUM [#5](https://github.com/mohripan/capsulet-mesh-train/issues/5) are implemented and validated. Continue with [#6 — safe CPU buffers through an optional pybind11 package](https://github.com/mohripan/capsulet-mesh-train/issues/6). See [development instructions](DEVELOPMENT.md), the [wire/lifetime contract](TCP_PROTOCOL.md), and [ADR 0001](adr/0001-blocking-centralized-fp32-communicator.md).
 
 The M1 design gate is satisfied. Later work is labeled `needs-design`, and M10 also carries `hardware-required`. Labels are navigation cues; a design, implementation, or validation gate is complete only with its stated evidence.
 

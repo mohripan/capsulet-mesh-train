@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../deadline.hpp"
+
 #include <meshtrain/config.hpp>
 #include <meshtrain/error.hpp>
 #include <meshtrain/tcp.hpp>
@@ -26,9 +28,8 @@ class Socket {
     int descriptor_{-1};
 };
 
-[[nodiscard]] Deadline deadline_after(std::chrono::milliseconds timeout,
-                                      const ErrorContext& context);
-void check_deadline(Deadline deadline, const ErrorContext& context);
+using detail::check_deadline;
+using detail::deadline_after;
 [[nodiscard]] Socket listen(const RunConfig& config, const TcpOptions& options, Deadline deadline,
                             const ErrorContext& context);
 [[nodiscard]] Socket accept(const Socket& listener, const TcpOptions& options, Deadline deadline,

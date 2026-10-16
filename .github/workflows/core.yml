@@ -22,3 +22,6 @@ jobs:
       - name: Exchange bytes between two containers
         if: matrix.target == 'native-test'
         run: sh tools/check_tcp_containers.sh meshtrain-native-test:ci
+      - name: Verify centralized SUM across four containers
+        if: matrix.target == 'native-test'
+        run: sh tools/check_collective_containers.sh meshtrain-native-test:ci

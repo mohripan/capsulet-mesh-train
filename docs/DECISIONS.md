@@ -2,6 +2,8 @@
 
 Recorded 2026-10-16 from the initial design discussion.
 
+Focused implementation decisions are recorded in [architecture decision records](adr/README.md), starting with [ADR 0001 — blocking centralized FP32 communicator](adr/0001-blocking-centralized-fp32-communicator.md). This document retains the project-wide agreements.
+
 ## Agreed direction
 
 | Decision | Rationale and consequence |

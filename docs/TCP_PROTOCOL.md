@@ -20,7 +20,7 @@ Startup uses one absolute `steady_clock` deadline across name resolution, connec
 
 Hostnames use `getaddrinfo` in a detached POSIX worker, avoiding a blocking DNS call on the caller's path. If the deadline expires, the call throws while the worker retains its request strings, synchronization state, and eventual result. The worker releases those resources when libc returns. The lookup itself cannot be cancelled; repeated timed-out lookups can temporarily retain threads. Destruction of the library's containing shared object must wait for such workers. Numeric IPv4 addresses skip DNS. No process-wide signals or global resolver pool are installed.
 
-The wire codec validates fixed headers before payload allocation. Data frames are bounded by the agreed application limit, with overflow-safe FP32 count/byte consistency. HELLO has a separate 22–404 byte bound so small application payload limits remain usable. ERROR has a separate 1,024-byte maximum. The raw `ByteTransport` moves exact bytes and does not inspect application framing; the startup layer and future communicator own frame validation.
+The wire codec validates fixed headers before payload allocation. Data frames are bounded by the agreed application limit, with overflow-safe FP32 count/byte consistency. HELLO has a separate 22–404 byte bound so small application payload limits remain usable. ERROR has a separate 1,024-byte maximum. The raw `ByteTransport` moves exact bytes and does not inspect application framing; the startup layer and communicator own frame validation.
 
 ## Header
 
@@ -40,7 +40,13 @@ Every frame starts with exactly 48 bytes. All integers are unsigned, explicitly 
 | 42 | 2 | Reduction |
 | 44 | 4 | Reserved, must be zero |
 
-Source and destination must differ. Operation values are HELLO=1, READY=2, ALL_REDUCE_REQUEST=3, ALL_REDUCE_RESULT=4, ERROR=5. Unknown operations fail. Control frames require zero sequence/count/dtype/reduction. HELLO requires destination 0; READY requires source 0 and an empty payload. Data frames require dtype FP32=1, reduction SUM=1, and `payload_bytes == count * 4`. Count zero is valid. The collective layer will enforce expected ranks, operation direction, matching counts, and sequence order; implementing reduction and collective lifecycle belongs to #5. ERROR encoding is reserved; this increment does not send ERROR frames.
+Source and destination must differ. Operation values are HELLO=1, READY=2, ALL_REDUCE_REQUEST=3, ALL_REDUCE_RESULT=4, ERROR=5. Unknown operations fail. Control frames require zero sequence/count/dtype/reduction. HELLO requires destination 0; READY requires source 0 and an empty payload. Data frames require dtype FP32=1, reduction SUM=1, and `payload_bytes == count * 4`. Count zero is valid. The communicator enforces expected ranks, operation direction, matching counts, and sequence before receiving payloads. ERROR encoding remains reserved; M1 propagates failures through transport closure and each peer's deadline.
+
+## Centralized collective exchange
+
+Each nonroot sends ALL_REDUCE_REQUEST with its current sequence, followed by exactly `count * 4` payload bytes. Root receives contributions in ascending rank order and adds them into its own buffer using FP32 arithmetic and one receive scratch buffer. Once every contribution arrives, root sends ALL_REDUCE_RESULT and its summed payload to each nonroot. Empty calls exchange the same headers with zero payload bytes. Sequence begins at zero and advances only after local success; it never wraps.
+
+One original collective deadline covers every transfer and reduction check. A mismatch or other admitted failure makes the communicator unusable; closing its transport wakes peers. Results may be partially modified on failure. Explicit close can race with a collective and leaves state closed. See [ADR 0001](adr/0001-blocking-centralized-fp32-communicator.md) for ownership, alternatives, and consequences.
 
 ## HELLO payload
 

@@ -6,7 +6,7 @@ The core project implements its own transport and collective algorithms. GPU tra
 
 ## Current state
 
-M1 implementation is underway. The standalone C++ core now provides Linux TCP communication with framed group startup, total deadlines, and safe connection cleanup. Validation covers 1–5 worker processes, failure scenarios, and a two-container hostname exchange, alongside relocatable CMake packaging and pinned toolchain checks. Centralized all-reduce is next, followed by Python bindings and trainer parity.
+M1 implementation is underway. The standalone C++ core now implements blocking centralized FP32 SUM all-reduce over its own Linux TCP transport, with bounded failures and safe cleanup. Validation covers 1–5 worker processes, exact/random numerical checks, failure scenarios, and four independent containers. Python bindings and trainer parity are next.
 
 This is an open-ended side project. Milestones describe outcomes and dependencies, with no dates or time estimates.
 
@@ -16,6 +16,7 @@ This is an open-ended side project. Milestones describe outcomes and dependencie
 - [Build instructions and verified environments](docs/DEVELOPMENT.md)
 - [CPU MVP design](docs/superpowers/specs/2026-10-16-cpu-mvp-design.md)
 - [Decisions and their rationale](docs/DECISIONS.md)
+- [Architecture decision records](docs/adr/README.md)
 - [GitHub work index](docs/ISSUES.md)
 - [Contributor and agent navigation](AGENTS.md)
 - [Primary references](docs/REFERENCES.md)

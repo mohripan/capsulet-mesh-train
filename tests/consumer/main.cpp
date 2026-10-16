@@ -1,4 +1,5 @@
 #include <meshtrain/buffer.hpp>
+#include <meshtrain/communicator.hpp>
 #include <meshtrain/config.hpp>
 #include <meshtrain/error.hpp>
 #include <meshtrain/tcp.hpp>
@@ -17,6 +18,13 @@ int main() {
     meshtrain::validate(config);
     float storage[]{1.0F, 2.0F};
     const meshtrain::HostFloat32Buffer buffer(storage);
+    if (meshtrain::tcp_enabled()) {
+        meshtrain::Communicator communicator(config, meshtrain::connect_tcp(config));
+        communicator.all_reduce_sum(buffer);
+        if (storage[0] != 1.0F || storage[1] != 2.0F || communicator.next_sequence() != 1) {
+            return 4;
+        }
+    }
     if (meshtrain::checked_payload_bytes(buffer.size(), config.max_payload_bytes) != 8U) {
         return 1;
     }

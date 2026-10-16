@@ -34,11 +34,14 @@ class EngineError : public std::runtime_error {
     EngineError(ErrorCode code, std::string message, ErrorContext context = {});
 
     [[nodiscard]] ErrorCode code() const noexcept { return code_; }
+    // Original text without diagnostic formatting, for adding layer context.
+    [[nodiscard]] const std::string& message() const noexcept { return message_; }
     [[nodiscard]] const ErrorContext& context() const noexcept { return context_; }
 
   private:
     ErrorCode code_;
     ErrorContext context_;
+    std::string message_;
 };
 
 } // namespace meshtrain

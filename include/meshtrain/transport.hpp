@@ -22,8 +22,9 @@ class ByteTransport {
     virtual void receive_bytes(std::uint32_t peer, std::span<std::byte> bytes,
                                Deadline deadline) = 0;
 
-    // Idempotent and noexcept. An implementation must unblock outstanding I/O;
-    // socket-level cancellation and its concurrency contract belong to #4.
+    // Idempotent, noexcept, and safe concurrently with an operation. An
+    // implementation must unblock outstanding I/O. Join active callers before
+    // destroying the transport; the owner retains its lifetime during close.
     virtual void close() noexcept = 0;
 
   protected:

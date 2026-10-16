@@ -11,7 +11,7 @@ GitHub issues are the source of truth for live work status. Repository documents
 
 ## Current phase
 
-M1 implementation is authorized by the user's 2026-10-16 request to start implementation. The CPU MVP specification is the accepted implementation contract. The standalone foundation and Linux TCP startup/transport are implemented; read `docs/DEVELOPMENT.md` for commands/evidence and `docs/TCP_PROTOCOL.md` for framing, deadlines, and ownership. Centralized all-reduce is next in issue #5. Later subsystems still need their own focused design before implementation.
+M1 implementation is authorized by the user's 2026-10-16 request to start implementation. The CPU MVP specification is the accepted implementation contract. The standalone foundation, Linux TCP transport, and centralized FP32 SUM all-reduce are implemented. Read `docs/DEVELOPMENT.md` for commands/evidence, `docs/TCP_PROTOCOL.md` for framing, and `docs/adr/0001-blocking-centralized-fp32-communicator.md` for collective ownership/failure decisions. Safe Python bindings are next in issue #6. Later subsystems still need their own focused design before implementation.
 
 ## Project boundaries
 
@@ -34,4 +34,5 @@ M1 implementation is authorized by the user's 2026-10-16 request to start implem
 - Milestones are navigation aids with no deadlines. Work from the earliest unmet dependency rather than assuming issue number is execution order.
 - Preserve unrelated local changes, including locally installed skills and agent configuration.
 - Keep C++ interfaces narrow, ownership explicit, and compiler requirements/warnings scoped to targets. Apply `.clang-format`. Run native contracts and the installed-consumer test after relevant changes.
+- Record durable interface, ownership, numerical, and failure decisions in `docs/adr/`, linking the accepted specification and implementation issue. Supersede accepted records when decisions change; keep validation evidence in the corresponding reports/issues.
 - The optional Python toolchain probe is not the tensor-binding API; that API belongs to issue #6.

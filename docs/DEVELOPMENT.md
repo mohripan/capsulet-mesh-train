@@ -1,6 +1,6 @@
 # Building the native engine
 
-The standalone core provides configuration validation, typed contextual errors, checked FP32 payload sizes, framed group startup, and exact-byte TCP communication. Collectives, tensor bindings, and training are subsequent issues. These checks establish transport behavior; training parity remains an M1 completion gate.
+The standalone core provides configuration validation, contextual errors, framed TCP startup, and blocking in-place centralized FP32 SUM all-reduce. Tensor bindings and training are subsequent issues. Native collective correctness is validated; training parity remains an M1 completion gate.
 
 ## Native Linux build
 
@@ -13,17 +13,19 @@ cmake --build build/native
 ctest --test-dir build/native --output-on-failure
 ```
 
-Requirements: C++20 compiler, CMake 3.24 or newer, and Ninja or another CMake generator. TCP defaults on for Linux and uses POSIX threads; the current validated libc is glibc. The core does not discover/download Python, PyTorch, CUDA, MPI, or Kubernetes. Native checks use CTest, with real subprocesses and Linux socket/signal APIs for transport tests.
+Requirements: C++20 compiler, CMake 3.24 or newer, and Ninja or another CMake generator. The core links CMake's platform Threads target for lifecycle synchronization. TCP defaults on for Linux and uses POSIX sockets/resolver workers; the current validated libc is glibc. The core does not discover/download Python, PyTorch, CUDA, MPI, or Kubernetes. Native checks use CTest, with real subprocesses and Linux socket/signal APIs for integration tests.
 
-The five CTest entries are:
+The seven CTest entries are:
 
 - `core_contracts`: eight groups of configuration, payload-overflow, and diagnostic checks.
 - `wire_protocol`: golden network-order bytes, corrupt headers, count overflow, HELLO bounds/identifiers/representation, and empty data frames.
+- `communicator_contracts`: one-rank identity including preserved special-value bits, empty calls, owned transport destruction, terminal validation/transport/allocation failures, and contextual errors.
+- `centralized_collectives`: 30 subprocess groups. Seventy numerical configurations span 1–5 workers, seven counts, exact/random inputs, and repeated calls on each communicator. Also checks ascending FP32 addition/rounding, 20 group recreations without leaked descriptors, malformed requests/results, stale/future sequence, read stalls, slow/cumulative deadlines, SIGKILL of a root/worker, concurrent-call rejection, and close.
 - `tcp_processes`: 29 subprocess scenarios covering 1–5 workers, fragmented 524,295-byte transfers with a 4,096-byte requested send buffer, late root, invalid/mismatched startup, duplicate ranks, incomplete membership, stalled reads/writes, slow-drip headers, EINTR, concurrent close/call rejection, and repeated construction. Includes 20 successful reconnects per rank with unchanged descriptor counts and 20 failed startup/rebind attempts.
 - `resolver_deadline`: a test-only linker wrapper holds DNS past a 50 ms deadline, then verifies retained inputs and exactly one output release after late completion. Process/container tests use the real resolver.
-- `installed_consumer`: installs and relocates the package, then builds/runs an independent consumer, including linkage to the TCP capability function and its native dependencies.
+- `installed_consumer`: installs and relocates the package, then builds/runs an independent consumer, including the public communicator header, a one-rank collective when TCP is enabled, and native dependencies.
 
-For the foundation without Linux networking, configure with `-DMESHTRAIN_ENABLE_TCP=OFF`; its three portable tests still run. See [TCP protocol and lifetime contracts](TCP_PROTOCOL.md).
+For the core without Linux networking, configure with `-DMESHTRAIN_ENABLE_TCP=OFF`; its four portable/package tests still run. The communicator remains available for an explicitly supplied transport. See [TCP protocol and lifetime contracts](TCP_PROTOCOL.md) and [ADR 0001](adr/0001-blocking-centralized-fp32-communicator.md).
 
 ## Consuming the C++ library
 
@@ -38,6 +40,22 @@ ctest --test-dir build/consumer --output-on-failure
 Use `find_package(meshtrain 0.1 CONFIG REQUIRED)` and link `meshtrain::core`. C++20 and include paths propagate through that target; our warning flags remain private. `add_subdirectory` is also supported, with native tests defaulting off for subproject builds.
 
 The static library is position-independent so a later extension can link it. Interfaces are evolving during M1; a stable binary ABI is not yet promised.
+
+With a fully populated per-rank `RunConfig config`, create one communicator for the run:
+
+```cpp
+#include <meshtrain/communicator.hpp>
+#include <meshtrain/tcp.hpp>
+#include <vector>
+
+meshtrain::Communicator communicator(config, meshtrain::connect_tcp(config));
+std::vector<float> buffer{1.0F, 2.0F, 3.0F};
+communicator.all_reduce_sum(buffer); // Every rank supplies the same element count.
+communicator.all_reduce_sum(buffer); // The next sequence on the same fixed group.
+communicator.close();
+```
+
+The operation changes the caller's storage and performs SUM without averaging. Each call has one `collective_timeout` deadline. A failed call leaves the communicator unusable and the buffer potentially partially changed. A rejected concurrent call leaves the original call active. Join active callers before destruction. Future adapters can provide another already joined `ByteTransport` with the same configuration and close contract.
 
 ## Optional Python 3.12 toolchain check
 
@@ -65,30 +83,31 @@ Then run this in a Linux shell with Docker access (including WSL):
 
 ```sh
 sh tools/check_tcp_containers.sh meshtrain-native-test:dev
+sh tools/check_collective_containers.sh meshtrain-native-test:dev
 ```
 
-It starts two independent containers on a private Docker network. The client resolves the root by hostname and exchanges 524,295 payload bytes in each direction. No loopback address or published host port connects the containers. The script removes its own containers/network on exit.
+The TCP script starts two containers and exchanges 524,295 bytes each way. The collective script starts four containers, runs 14 SUM calls per rank using exact/random fixtures, and checks every rank against the reference. Both use private Docker networks and root hostnames, with no published host ports; each script removes its own containers/network on exit. These are native collective tests; the four-container PyTorch trainer remains in #8.
 
 The native target asserts that neither `python` nor `python3` is installed before building/testing. The separate packaging target uses Python 3.12.15. Base-image digests, direct apt tool versions, and Python package hashes are pinned; apt transitive dependencies follow the Debian repositories.
 
-The GitHub workflow builds both targets and runs the two-container exchange. The four-worker-container trainer demonstration remains in issue #8.
+The GitHub workflow builds both targets and runs both container scripts.
 
 ## Verified environments
 
-Transport increment evidence, 2026-10-16:
+Centralized collective increment evidence, 2026-10-16:
 
 | Environment | Tools | Result |
 | --- | --- | --- |
-| Ubuntu 26.04 / WSL2 | GCC 15.2.0, CMake 4.2.3, Ninja 1.13.2 | Debug, warnings as errors; 5/5 CTest entries passed. |
-| Ubuntu 26.04 / WSL2 | Clang 21.1.8, CMake 4.2.3 | Release, warnings as errors; 5/5 passed, including a custom install include directory. |
-| Ubuntu 26.04 / WSL2 | Clang 21.1.8, AddressSanitizer + UBSan | Debug native/wire/process/resolver tests: 4/4 passed; no sanitizer reports. Installed consumer checked separately above. |
-| Ubuntu 26.04 / WSL2 | GCC 15.2.0, TCP disabled | Release, warnings as errors; 3/3 portable/package tests passed. |
-| Pinned Debian container | GCC 12.2.0, CMake 3.25.1, Ninja 1.11.1 | Native-only Release build; 5/5 passed without Python installed; CTest total 5.68 s in the recorded run. |
-| Two pinned Debian containers | Docker private network and DNS | 524,295 bytes each way; both workers exited 0; temporary resources cleaned up. |
+| Ubuntu 26.04 / WSL2 | GCC 15.2.0, CMake 4.2.3, Ninja 1.13.2 | Debug, warnings as errors; 7/7 CTest entries passed, total 18.21 s in the recorded run. |
+| Ubuntu 26.04 / WSL2 | Clang 21.1.8, CMake 4.2.3 | Release, warnings as errors; 7/7 passed, including a custom install include directory, total 16.69 s. |
+| Ubuntu 26.04 / WSL2 | Clang 21.1.8, AddressSanitizer + UBSan | Six native/wire/communicator/process/resolver entries passed with no reports, total 12.80 s. Installed consumer checked separately above. |
+| Ubuntu 26.04 / WSL2 | GCC 15.2.0, TCP disabled | Release, warnings as errors; 4/4 portable/package tests passed. |
+| Pinned Debian container | GCC 12.2.0, CMake 3.25.1, Ninja 1.11.1 | Native-only Release build; 7/7 passed without Python installed, total 12.10 s. |
+| Four pinned Debian containers | Docker private network and DNS | 14 SUM calls per rank; exact fixtures passed; random max absolute error `2.98023223877e-7`; all ranks exited 0. |
 | Pinned Python container | Python 3.12.15, hash-locked tools | Wheel build, isolated import, native result, and exception passed. |
 | Ubuntu 26.04 / WSL2 (foundation increment) | Python 3.12.13, same locked tools | Wheel/import/native-result/exception probe passed before the transport increment. |
 
-The pinned container is the reproducible packaging proof. This increment has not validated native Windows networking, distributed training, CUDA compute, or physical multi-host/device performance. Representative raw transport output is recorded in [the validation report](validation/2026-10-16-tcp.md).
+The pinned container is the reproducible packaging proof. This increment has not validated native Windows networking, distributed training, CUDA compute, or physical multi-host/device performance. See [collective numerical/timing evidence](validation/2026-10-16-centralized.md) and the earlier [transport report](validation/2026-10-16-tcp.md).
 
 To repeat the sanitizer check:
 
@@ -114,4 +133,4 @@ The installed consumer is a separately configured project and does not inherit t
 - Prefer RAII and explicit value ownership. Add abstractions at real ownership/platform/integration boundaries; keep framework dependencies and global state out of the core.
 - Apply `.clang-format`; initial formatting used clang-format 22.1.7.
 
-Next: [#5 — centralized in-place FP32 SUM all-reduce](https://github.com/mohripan/capsulet-mesh-train/issues/5).
+Next: [#6 — safe CPU buffers through an optional pybind11 package](https://github.com/mohripan/capsulet-mesh-train/issues/6).
