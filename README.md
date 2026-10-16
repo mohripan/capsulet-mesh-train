@@ -1,1 +1,48 @@
 # capsulet-mesh-train
+
+A distributed training communication engine built in C++, with PyTorch integration.
+
+The core project implements its own transport and collective algorithms. GPU training is the main target; a four-process CPU trainer establishes correctness first. Existing communication libraries and training frameworks can attach through adapters.
+
+## Current state
+
+Planning and design. There is no engine implementation yet. The library-first architecture is agreed; the detailed CPU MVP design is ready for review.
+
+This is an open-ended side project. Milestones describe outcomes and dependencies, with no dates or time estimates.
+
+## Start here
+
+- [Roadmap and milestone completion criteria](docs/ROADMAP.md)
+- [CPU MVP design](docs/superpowers/specs/2026-10-16-cpu-mvp-design.md)
+- [Decisions and their rationale](docs/DECISIONS.md)
+- [GitHub work index](docs/ISSUES.md)
+- [Contributor and agent navigation](AGENTS.md)
+- [Primary references](docs/REFERENCES.md)
+
+## First working example
+
+Four independent CPU processes consume different minibatches, compute gradients with PyTorch, and synchronize them through our native C++ centralized all-reduce. Their losses, averaged gradients, and updated parameters must match a single-process reference using the same combined batches within specified numerical tolerances.
+
+The engine owns socket communication and reduction. PyTorch owns the model, autograd, and initial optimizer. Gloo, MPI, and NCCL are reference implementations or explicit adapters; benchmark baselines remain separate from our collective implementations.
+
+## Architecture
+
+```mermaid
+flowchart TB
+    Trainer[PyTorch trainer] --> Bindings[Python bindings]
+    Backend[Future torch.distributed adapter] --> Engine[C++ collective engine]
+    Bindings --> Engine
+    Engine --> TCP[Our TCP transport]
+    Engine --> External[Future transport adapters]
+    K8s[Kubernetes deployment and job admission] -. launches .-> Trainer
+```
+
+The standalone C++ library does not require PyTorch, Python, Kubernetes, or CUDA to build. CUDA and framework integrations are optional layers.
+
+## Development and validation direction
+
+Linux is the primary runtime. Development can use Ubuntu under WSL2; Linux containers provide a reproducible deployment environment. Native Windows support has its own milestone.
+
+The currently available machine has one NVIDIA RTX 5070 Ti Laptop GPU with approximately 12 GB VRAM. This permits CUDA integration tests. Shared-GPU tests and local containers do not establish multi-GPU or physical multi-host scaling; those results have a separate hardware-dependent milestone.
+
+Later work covers ring and tree collectives, GPU transfers and overlap, reduce-scatter/all-gather, sharded Adam states, checkpoint recovery, Kubernetes deployment with exclusive job-token pools, external transports, and a PyTorch communication backend.
