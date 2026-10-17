@@ -7,3 +7,4 @@ The existing [decision record](../DECISIONS.md) retains the initial project agre
 | ADR | Status | Scope |
 | --- | --- | --- |
 | [0001 — Blocking centralized FP32 communicator](0001-blocking-centralized-fp32-communicator.md) | Accepted | Issue #5: ownership, reduction order, sequence, deadlines, and terminal failures. |
+| [0002 — Strict NumPy borrowing at the Python boundary](0002-python-buffer-ownership.md) | Proposed | Issue #6: optional package, storage ownership, GIL scopes, and Python/native admission. |
