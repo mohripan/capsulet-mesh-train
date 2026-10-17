@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: implementation and complete local acceptance passed; exact-revision manual CI/delivery pending.
+Status: complete; implemented, verified and pushed. #8, #2 and M1 are closed.
 
 Source: [issue #8](https://github.com/mohripan/capsulet-mesh-train/issues/8), after completion of #7. The owner's current request is: “Okay. Lets go next! Please make the OpenSpec and use sub-agent to review.”
 
@@ -17,7 +17,7 @@ The [accepted M1 specification](../../superpowers/specs/2026-10-16-cpu-mvp-desig
 - Add Linux-only native fault fixtures and controlled root/nonroot kill/stall cases for startup and an admitted collective, with structured evidence and repeated resource cleanup checks.
 - Add a validation image that installs the real sdist-derived Python wheel and locked CPU dependencies, plus a host-side Docker controller that runs the existing worker in four isolated containers and verifies collected artifacts afterwards.
 - Automate native TCP-on/TCP-off installed-consumer checks, Torch-free bindings, local trainer parity and container training from fresh build/runtime directories. Record commands, environments, timing, digests, logs and failure evidence.
-- Add a nightly/manual M1 validation workflow and artifact retention. Keep the current push/PR regressions; exclude only the newly added broad fault label from their default native invocation. This task adds that scheduling lane; existing regressions remain.
+- Add a nightly/manual M1 validation workflow and artifact retention. Keep the current push/PR regressions; exclude only the newly added broad fault label from their default native invocation. The separate nightly/manual lane is implemented.
 - Update validation documentation and GitHub navigation after actual acceptance. Review existing ADRs; no new production interface/ownership decision is proposed, so no new ADR is initially needed.
 
 Excluded: new algorithms, performance baselines, CUDA, native Windows, physical multi-host/distinct-GPU claims, Kubernetes, scheduling/admission policy, heartbeat detection, automatic retries, checkpoints, elastic membership, public fault-injection APIs, dependency upgrades and production image size optimization. Existing native shell checks are reused; unrelated refactors and wholesale CI reshuffling are excluded.
@@ -42,4 +42,4 @@ Excluded: new algorithms, performance baselines, CUDA, native Windows, physical 
 
 ## Delivery
 
-The reviewed scope is implemented under the owner's explicit go-ahead. Native fixtures, controller/runtime/clean-run tools and the nightly/manual workflow are written. Focused checks and complete local clean acceptance passed; exact-revision manual CI and artifact inspection remain required before #8/M1 closure. See [actual implementation evidence](verification.md); prior #7 results are context rather than substitutes for #8 acceptance.
+The reviewed scope is implemented under the owner's explicit go-ahead. Native fixtures, controller/runtime/clean-run tools and the nightly/manual workflow are shipped in `80903ea`, pushed to main without a co-author trailer. Focused checks, complete local clean acceptance and exact-revision manual/regular CI passed; downloaded artifact inspection confirmed numerical, failure and cleanup evidence. #8/M1 acceptance is satisfied and the issue, parent tracker and milestone are closed. Root/M2 navigation now points to #10’s focused OpenSpec. See [actual implementation evidence](verification.md); prior #7 results are context rather than substitutes for #8 acceptance.

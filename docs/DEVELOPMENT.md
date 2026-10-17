@@ -1,6 +1,6 @@
 # Building the native engine
 
-The standalone core provides configuration validation, contextual errors, framed TCP startup, and blocking in-place centralized FP32 SUM all-reduce. The optional [Python package](PYTHON.md) exposes safe NumPy storage to this engine; PyTorch training parity remains an M1 completion gate.
+The standalone core provides configuration validation, contextual errors, framed TCP startup, and blocking in-place centralized FP32 SUM all-reduce. The optional [Python package](PYTHON.md) exposes safe NumPy storage to this engine; PyTorch training parity and M1 clean/failure/four-container acceptance have passed; see [evidence](openspecs/m1-validation/verification.md).
 
 ## Native Linux build
 
@@ -88,7 +88,7 @@ sh tools/check_tcp_containers.sh meshtrain-native-test:dev
 sh tools/check_collective_containers.sh meshtrain-native-test:dev
 ```
 
-The TCP script starts two containers and exchanges 524,295 bytes each way. The collective script starts four containers, runs 14 SUM calls per rank using exact/random fixtures, and checks every rank against the reference. Both use private Docker networks and root hostnames, with no published host ports; each script removes its own containers/network on exit. These are native collective tests; the four-container PyTorch trainer remains in #8.
+The TCP script starts two containers and exchanges 524,295 bytes each way. The collective script starts four containers, runs 14 SUM calls per rank using exact/random fixtures, and checks every rank against the reference. Both use private Docker networks and root hostnames, with no published host ports; each script removes its own containers/network on exit. These are native collective tests; [the separate four-container PyTorch trainer](VALIDATION.md) also passed full M1 acceptance.
 
 The native target asserts that neither `python` nor `python3` is installed before building/testing. The separate packaging target uses Python 3.12.15. Base-image digests, direct apt tool versions, and Python package hashes are pinned; apt transitive dependencies follow the Debian repositories.
 
@@ -96,9 +96,11 @@ The push/PR workflow builds the native, real Python-binding and short CPU traine
 
 ## CPU trainer
 
-See [training installation/commands](TRAINING.md) and [recorded verification](openspecs/cpu-mlp-trainer/verification.md). The installed CPU wheel passed four-worker/100-step parity with zero tolerance failures and lower evaluation loss. The focused container and WSL checks passed, including bounded supervisor cleanup. Four-container trainer validation remains #8.
+See [training installation/commands](TRAINING.md) and [recorded verification](openspecs/cpu-mlp-trainer/verification.md). The installed CPU wheel passed four-worker/100-step parity with zero tolerance failures and lower evaluation loss. The focused container and WSL checks passed, including bounded supervisor cleanup. The same full profile passed in four independent containers; [clean/failure/deployment evidence](openspecs/m1-validation/verification.md) includes exact-revision manual CI.
 
 ## Verified environments
+
+M1 closure, 2026-10-17: complete no-layer-cache validation passed locally on WSL/Docker Desktop and in an Ubuntu 24.04 hosted runner at `80903ea`. Native images use GCC 12.2.0/CMake 3.25.1/Ninja 1.11.1 without Python; the installed CPU runtime uses CPython 3.12.15, Torch 2.14.1+cpu and NumPy 2.5.4. Both 100-step training profiles, 28 controlled failure groups and all controller/resource checks passed. [Source/image/package hashes, raw results, CI artifact and limitations](openspecs/m1-validation/verification.md).
 
 Python binding increment, 2026-10-17: the real sdist-derived package passed all ten focused checks in WSL CPython 3.12.13 and the pinned CPython 3.12.15 container with NumPy 2.5.4. Two-process exact SUM had maximum absolute error 0.0; GIL/lifetime, export cleanup and bounded close/timeout cases passed. Native default/TCP-disabled installed-consumer checks and the Python-free container also passed. See [binding commands/raw results and limits](openspecs/python-buffer-bindings/verification.md).
 
@@ -141,4 +143,4 @@ The installed consumer is a separately configured project and does not inherit t
 - Prefer RAII and explicit value ownership. Add abstractions at real ownership/platform/integration boundaries; keep framework dependencies and global state out of the core.
 - Apply `.clang-format`; initial formatting used clang-format 22.1.7.
 
-Next: [#8 — failure/clean-build and four-container trainer validation](https://github.com/mohripan/capsulet-mesh-train/issues/8).
+Next: [#10 — explicit host-staged CUDA adapter](https://github.com/mohripan/capsulet-mesh-train/issues/10), beginning with its focused OpenSpec/review/go-ahead under M2.

@@ -1,6 +1,6 @@
 # Roadmap
 
-Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap tracker](https://github.com/mohripan/capsulet-mesh-train/issues/1) and [milestones](https://github.com/mohripan/capsulet-mesh-train/milestones) track live progress; this document explains the scope, dependencies, and evidence needed to finish each milestone. The CPU specification is accepted for implementation. Its native foundation is implemented; see [build instructions and evidence](DEVELOPMENT.md). Later milestones require their own design before implementation.
+Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap tracker](https://github.com/mohripan/capsulet-mesh-train/issues/1) and [milestones](https://github.com/mohripan/capsulet-mesh-train/milestones) track live progress; this document explains the scope, dependencies, and evidence needed to finish each milestone. M1 is complete for Linux CPU local processes and containers; see [full acceptance evidence](openspecs/m1-validation/verification.md) and [build instructions](DEVELOPMENT.md). Continue with M2/#10’s focused host-staged CUDA design. Later milestones require their own design before implementation.
 
 ## Milestone map
 
@@ -20,6 +20,8 @@ Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap 
 Suggested first sequence: **M1 -> M2 -> M3 -> M4**. Recovery foundations can start after M1. Other branches should follow their actual dependencies rather than waiting for every earlier milestone number.
 
 ## M1: Correct CPU engine and trainer
+
+Completed on 2026-10-17: issues #3–#8, tracker #2 and milestone 1 are closed. [Full manual CI](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39030243246) and [regular CI](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39030238414) passed the final implementation revision. Both 100-step deployment profiles pass 3,090 comparisons each with lower evaluation loss; 28 controlled failure groups and all Docker ownership/cleanup checks pass. [Commands, raw results and limits](openspecs/m1-validation/verification.md).
 
 The first end-to-end result is four independent CPU processes training a deterministic MLP on different minibatches. Our C++ engine performs centralized FP32 SUM all-reduce. The Python training adapter explicitly divides by worker count before applying SGD. Losses, averaged gradients, and updated parameters match a single-process reference using the same combined batches.
 

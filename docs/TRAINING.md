@@ -39,7 +39,7 @@ python -I -m meshtrain.training worker --config build/manual-run/config.json --r
 python -I -m meshtrain.training verify --output build/manual-run
 ```
 
-Use the installed runtime's `python` for all commands. `prepare` also accepts `--endpoints '[{"host":"worker-0","port":29500},{"host":"worker-1","port":29500}]'`, `--listen-address 0.0.0.0` and `--run-id ATTEMPT`. Copy the same complete prepared bundle to workers or mount it at a common run root; each rank writes only `ranks/<rank>`. Explicit endpoints support later container/host launching; four-container trainer validation belongs to #8. This local convenience supervisor is not a cluster scheduler.
+Use the installed runtime's `python` for all commands. `prepare` also accepts `--endpoints '[{"host":"worker-0","port":29500},{"host":"worker-1","port":29500}]'`, `--listen-address 0.0.0.0` and `--run-id ATTEMPT`. Copy the same complete prepared bundle to workers or mount it at a common run root; each rank writes only `ranks/<rank>`. The [verified four-container controller](VALIDATION.md) uses explicit endpoints, prelaunch input copies and independent rank filesystems. Physical multi-host validation remains a later milestone. This local convenience supervisor is not a cluster scheduler.
 
 ## Evidence and numerical acceptance
 
