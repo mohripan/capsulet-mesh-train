@@ -14,7 +14,7 @@ build/toolchain-venv/bin/python tools/check_python_bindings.py
 
 The check builds an sdist and then its wheel, creates a fresh runtime environment outside the checkout, installs the wheel and hash-locked NumPy, and executes the actual package. It checks configuration, strict array borrowing, storage aliasing/lifetime, Python thread progress, two-process TCP sums, close and bounded failures. The disposable runtime is removed afterwards. Build dependencies are pinned in `requirements/toolchain.lock`; `requirements/python-runtime.lock` pins the NumPy release used for these checks.
 
-For the reproducible container path, run `docker build --target python-bindings-test -t meshtrain-python-bindings-test:dev .`. Docker first prepares the hash-checked NumPy wheel in a cached dependency layer, then installs it offline during verification. CI runs that stage alongside the existing no-Python native target. The earlier `python-toolchain-test` stage remains a manual packaging-toolchain probe. The workflow has no nightly schedule; broad trainer/end-to-end coverage and scheduling are separate work.
+For the reproducible container path, run `docker build --target python-bindings-test -t meshtrain-python-bindings-test:dev .`. Docker first prepares the hash-checked NumPy wheel in a cached dependency layer, then installs it offline during verification. CI runs that stage alongside the existing no-Python native target. The earlier `python-toolchain-test` stage remains a manual packaging-toolchain probe. Broad failure/trainer deployment checks use the separate [M1 nightly/manual validation lane](VALIDATION.md).
 
 To retain a wheel and install it into your own environment:
 

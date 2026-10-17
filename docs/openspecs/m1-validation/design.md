@@ -6,7 +6,7 @@ Read [proposal.md](proposal.md) for scope/authorization and [tasks.md](tasks.md)
 
 Extend validation around the implemented engine and installed trainer. The C++ core continues to own transport/reduction, optional bindings retain NumPy storage, and the existing Python worker performs explicit averaging/SGD. No public fault flags, protocol changes, DDP/MPI/NCCL delegation, recovery or remote scheduler are needed. Fix a demonstrated contract bug within scope if found; a materially different public contract requires revising the proposal and considering a new ADR before implementation.
 
-Planned areas:
+Implemented areas:
 
 | Area | Responsibility |
 | --- | --- |
@@ -18,7 +18,7 @@ Planned areas:
 | `.github/workflows/` | Explicit nightly/manual M1 lane; keep existing push/PR native/binding/trainer regressions. |
 | `docs/validation/`, development/training/navigation docs | Reproduction, raw results, limits and M1 closure when earned. |
 
-These are planned entry points, not existing commands. Reuse `check_python_bindings.py`, `check_trainer.py`, native numerical/protocol tests and installed-consumer checks. Share a small package-install helper with the trainer tool only if needed for the image; do not rewrite working binding or core code as incidental cleanup. New ordinary code comments/docstrings remain at most two physical lines; rationale belongs here.
+These entry points reuse `check_python_bindings.py`, `check_trainer.py`, native numerical/protocol tests and installed-consumer checks. The permanent installed runtime uses a separate packaging helper; existing binding, trainer and core implementations are unchanged. New ordinary code comments/docstrings remain at most two physical lines; rationale belongs here.
 
 ## Native fault matrix and phase evidence
 
@@ -88,7 +88,15 @@ The standard-library host runner builds/runs the native TCP-on target, a new TCP
 
 Add a separate GitHub workflow for nightly (proposed `23 18 * * *`, UTC) and `workflow_dispatch`, running the full command on Ubuntu 24.04 with explicit job timeout, read-only repository permissions and verified full-commit action pins. Always attempt bounded cleanup/evidence collection and upload artifacts even when a check fails. Scheduled runs use the default branch and may be delayed by GitHub; a manually dispatched exact-revision pass is required before closure. New broad CTest cases carry `m1_integration`; the push/PR native Docker invocation excludes that new label while retaining all seven existing native entries and its existing container scripts. Current binding and short trainer push/PR jobs remain. Moving existing broad tests or adding unrelated CI policy is excluded.
 
-At implementation acceptance, run one complete fresh-directory/no-layer-cache pass locally and one exact-revision manual CI validation, including the four-container full workload. Do not wait for a future nightly run or close from configuration alone. Read back #3–#8 evidence/status before closing #8/#2 and M1; retain unrelated local files, commit/push to main without co-authors and update navigation to M2's first unmet issue. This planning task closes none of those gates.
+At implementation acceptance, run one complete fresh-directory/no-layer-cache pass locally and one exact-revision manual CI validation, including the four-container full workload. Do not wait for a future nightly run or close from configuration alone. Read back #3–#8 evidence/status before closing #8/#2 and M1; retain unrelated local files, commit/push to main without co-authors and update navigation to M2's first unmet issue. Actual results are recorded in [verification.md](verification.md).
+
+## Implementation details and review
+
+`failure_control.hpp` owns fixture descriptors and the persistent watchdog; `failure_tests.cpp` owns child processes, staging, bounded collection and resource assertions; `failure_worker.cpp` isolates executable-local socket wrappers and the real transport decorator. Child ownership is assigned only after successful `posix_spawn`, so a failed spawn cannot expose an unspecified PID to cleanup. Surviving workers remain alive for a controller acknowledgment after their post-destruction descriptor report. `/proc` observation separately proves that a stopped target retains its actual sockets.
+
+`validation_support.py` owns bounded Docker commands and UUID-scoped resources. Cleanup uses one 15-second budget, reserves time for removal, appends command/history evidence during recovery and retains the original failed result. The controller resolves its image once and uses that immutable ID. Legacy native shell checks accept the same owner label, allowing the orchestrator to verify their cleanup even after a failed shell trap. No daemon-wide deletion is used.
+
+`check_m1.py` records behavioral source hashes before work and verifies them afterwards. Documentation edits do not invalidate a running check; changes to implementation, tests, build inputs or workflows do. The validation image intentionally retains source/toolchain files, while worker imports use the isolated installed interpreter. Docker build-layer reuse is disabled for acceptance; hash-checked download cache reuse is explicit.
 
 ## Alternatives, risks and ADR disposition
 

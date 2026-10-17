@@ -10,12 +10,12 @@ Run in a Linux shell, including Ubuntu under WSL2. This checkout is available th
 cmake -S . -B build/native -G Ninja \
   -DCMAKE_BUILD_TYPE=Debug -DMESHTRAIN_WARNINGS_AS_ERRORS=ON
 cmake --build build/native
-ctest --test-dir build/native --output-on-failure
+ctest --test-dir build/native --output-on-failure -LE m1_integration
 ```
 
 Requirements: C++20 compiler, CMake 3.24 or newer, and Ninja or another CMake generator. The core links CMake's platform Threads target for lifecycle synchronization. TCP defaults on for Linux and uses POSIX sockets/resolver workers; the current validated libc is glibc. The core does not discover/download Python, PyTorch, CUDA, MPI, or Kubernetes. Native checks use CTest, with real subprocesses and Linux socket/signal APIs for integration tests.
 
-The seven CTest entries are:
+The seven existing push/PR CTest entries are:
 
 - `core_contracts`: eight groups of configuration, payload-overflow, and diagnostic checks.
 - `wire_protocol`: golden network-order bytes, corrupt headers, count overflow, HELLO bounds/identifiers/representation, and empty data frames.
@@ -26,6 +26,8 @@ The seven CTest entries are:
 - `installed_consumer`: installs and relocates the package, then builds/runs an independent consumer, including the public communicator header, a one-rank collective when TCP is enabled, and native dependencies.
 
 For the core without Linux networking, configure with `-DMESHTRAIN_ENABLE_TCP=OFF`; its four portable/package tests still run. The communicator remains available for an explicitly supplied transport. See [TCP protocol and lifetime contracts](TCP_PROTOCOL.md) and [ADR 0001](adr/0001-blocking-centralized-fp32-communicator.md).
+
+The separate `m1_integration` label adds eight externally controlled native fault cases and a 20-group failed-cleanup repeat test. Each healthy worker checks its own descriptors while alive after native destruction; each group has a five-second watchdog with one-second native deadlines. See [full clean/deployment validation](VALIDATION.md) for nightly/manual execution, Docker controller checks and the four-container trainer.
 
 ## Consuming the C++ library
 
@@ -90,7 +92,7 @@ The TCP script starts two containers and exchanges 524,295 bytes each way. The c
 
 The native target asserts that neither `python` nor `python3` is installed before building/testing. The separate packaging target uses Python 3.12.15. Base-image digests, direct apt tool versions, and Python package hashes are pinned; apt transitive dependencies follow the Debian repositories.
 
-The GitHub workflow builds the native, real Python-binding and short CPU trainer targets and runs both native container scripts. The manual `python-toolchain-test` stage remains available. This workflow still runs on push/PR; no nightly schedule is implemented.
+The push/PR workflow builds the native, real Python-binding and short CPU trainer targets and runs both native container scripts. The manual `python-toolchain-test` stage remains available. The separate `M1 full CPU validation` workflow adds nightly/manual clean, failure and four-container training checks; see [commands and evidence](VALIDATION.md).
 
 ## CPU trainer
 
@@ -123,7 +125,7 @@ cmake -S . -B build/sanitized -G Ninja -DCMAKE_CXX_COMPILER=clang++ \
   '-DCMAKE_CXX_FLAGS=-fsanitize=address,undefined -fno-omit-frame-pointer' \
   '-DCMAKE_EXE_LINKER_FLAGS=-fsanitize=address,undefined'
 cmake --build build/sanitized
-ctest --test-dir build/sanitized -E installed_consumer --output-on-failure
+ctest --test-dir build/sanitized -E installed_consumer -LE m1_integration --output-on-failure
 ```
 
 The installed consumer is a separately configured project and does not inherit these ad hoc sanitizer flags. Its relocation/link checks run in the ordinary builds.

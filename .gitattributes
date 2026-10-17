@@ -1,3 +1,5 @@
 *.sh text eol=lf
 docs/openspecs/cpu-mlp-trainer/results/*.json text eol=lf
 docs/openspecs/cpu-mlp-trainer/results/*.csv text eol=lf
+docs/openspecs/m1-validation/results/*.json text eol=lf
+docs/openspecs/m1-validation/results/*.csv text eol=lf

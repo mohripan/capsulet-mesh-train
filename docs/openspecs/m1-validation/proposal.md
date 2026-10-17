@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: independent review complete and findings addressed; ready for the owner's implementation decision. Implementation has not started.
+Status: implementation and complete local acceptance passed; exact-revision manual CI/delivery pending.
 
 Source: [issue #8](https://github.com/mohripan/capsulet-mesh-train/issues/8), after completion of #7. The owner's current request is: “Okay. Lets go next! Please make the OpenSpec and use sub-agent to review.”
 
@@ -17,7 +17,7 @@ The [accepted M1 specification](../../superpowers/specs/2026-10-16-cpu-mvp-desig
 - Add Linux-only native fault fixtures and controlled root/nonroot kill/stall cases for startup and an admitted collective, with structured evidence and repeated resource cleanup checks.
 - Add a validation image that installs the real sdist-derived Python wheel and locked CPU dependencies, plus a host-side Docker controller that runs the existing worker in four isolated containers and verifies collected artifacts afterwards.
 - Automate native TCP-on/TCP-off installed-consumer checks, Torch-free bindings, local trainer parity and container training from fresh build/runtime directories. Record commands, environments, timing, digests, logs and failure evidence.
-- Add a nightly/manual M1 validation workflow and artifact retention. Keep the current push/PR regressions; exclude only the newly added broad fault label from their default native invocation. This task explicitly proposes that new scheduling lane; none exists today.
+- Add a nightly/manual M1 validation workflow and artifact retention. Keep the current push/PR regressions; exclude only the newly added broad fault label from their default native invocation. This task adds that scheduling lane; existing regressions remain.
 - Update validation documentation and GitHub navigation after actual acceptance. Review existing ADRs; no new production interface/ownership decision is proposed, so no new ADR is initially needed.
 
 Excluded: new algorithms, performance baselines, CUDA, native Windows, physical multi-host/distinct-GPU claims, Kubernetes, scheduling/admission policy, heartbeat detection, automatic retries, checkpoints, elastic membership, public fault-injection APIs, dependency upgrades and production image size optimization. Existing native shell checks are reused; unrelated refactors and wholesale CI reshuffling are excluded.
@@ -37,9 +37,9 @@ Excluded: new algorithms, performance baselines, CUDA, native Windows, physical 
 
 - Review route: the owner's requested fresh independent review completed on 2026-10-17 (`review_m1_validation_spec`, no inherited conversation). See [review.md](review.md) for coverage, findings and follow-up.
 - Findings/disposition: corrected the required worker descriptor-evidence gap and clarified host/container prerequisites; also separated repeat-batch watchdogs and Docker cleanup budgets. The reviewer re-read all three revised artifacts and found no remaining blockers or new material inconsistencies.
-- User go-ahead: authorized to draft/review/publish these planning artifacts. The current request does not ask to implement the presented #8 scope. Present the reviewed result for implementation go-ahead; do not infer it from the review verdict.
-- Commit/push: standing owner instruction applies to completed planning, to `main` without co-author trailers. #8 and M1 remain open during this planning task.
+- User go-ahead: on 2026-10-17 the owner explicitly said “Okay. Please implement!” after the reviewed #8 plan was presented. This authorizes the presented scope, including its manual/nightly validation lane. Independent review and corrections were already complete; no further approval gate is needed.
+- Commit/push: standing owner instruction applies to completed authorized work, to `main` without co-author trailers. #8 and M1 remain open until all required acceptance evidence is verified.
 
 ## Delivery
 
-Reviewed planning deliverable only. No #8 fixture, container controller, build target or workflow is implemented or executed by this task. Existing #7 numerical results and prior native checks are context, not #8 acceptance. See [review and planning verification](review.md). Planning delivery follows the standing commit/push instruction; #8/#2/M1 stay open and every implementation task stays unchecked.
+The reviewed scope is implemented under the owner's explicit go-ahead. Native fixtures, controller/runtime/clean-run tools and the nightly/manual workflow are written. Focused checks and complete local clean acceptance passed; exact-revision manual CI and artifact inspection remain required before #8/M1 closure. See [actual implementation evidence](verification.md); prior #7 results are context rather than substitutes for #8 acceptance.

@@ -16,6 +16,7 @@ This is an open-ended side project. Milestones describe outcomes and dependencie
 - [Build instructions and verified environments](docs/DEVELOPMENT.md)
 - [Python package, API and focused verification](docs/PYTHON.md)
 - [Run the CPU trainer and inspect numerical evidence](docs/TRAINING.md)
+- [Reproduce native failures and four-container M1 validation](docs/VALIDATION.md)
 - [CPU MVP design](docs/superpowers/specs/2026-10-16-cpu-mvp-design.md)
 - [Decisions and their rationale](docs/DECISIONS.md)
 - [Architecture decision records](docs/adr/README.md)

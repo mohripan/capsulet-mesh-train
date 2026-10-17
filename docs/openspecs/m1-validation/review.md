@@ -21,7 +21,7 @@ The same independent reviewer re-read all three revised artifacts and reported: 
 
 Coverage included the eight fault scenarios, original absolute deadlines, native failure before fallback termination, terminal collective state, installed-wheel isolation, independent post-run reference, bounded resource ownership, fixed numerical tolerances, nightly/manual scope and preservation of existing push/PR coverage.
 
-Limits: this verifies the written plan, not runtime feasibility or #8 acceptance. All implementation/verification tasks remain unchecked, and #8/#2/M1 remain open. The owner requested preparation and review; implementation go-ahead for the presented scope is still pending in [proposal.md](proposal.md).
+Limits: this verified the written plan, not runtime feasibility or #8 acceptance. At review delivery the implementation tasks were unchecked and implementation go-ahead was pending. The owner subsequently authorized implementation; see [proposal.md](proposal.md) for the actual authorization and [verification.md](verification.md) for runtime evidence. This review does not become an implementation review or acceptance proof.
 
 ## Planning verification
 

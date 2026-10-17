@@ -73,6 +73,6 @@ build/toolchain-venv/bin/python tools/check_trainer.py --mode full --output buil
 docker build --target trainer-smoke-test -t meshtrain-trainer-smoke-test:dev .
 ```
 
-The tool builds an sdist-derived wheel, installs it in a fresh isolated CPU environment, runs the selected profile and focused boundary/failure checks, and retains logs, dependency/tool versions and `run/` artifacts. Dependencies are hash-checked, then installed offline from the prepared wheelhouse. Docker caches the official CPU wheel and transitive dependencies before source compilation. CI runs the short trainer target alongside native and binding jobs on push/PR. No nightly schedule is implemented. The full four-worker run is required task acceptance; broad fault/count matrices and four-container training remain #8.
+The tool builds an sdist-derived wheel, installs it in a fresh isolated CPU environment, runs the selected profile and focused boundary/failure checks, and retains logs, dependency/tool versions and `run/` artifacts. Dependencies are hash-checked, then installed offline from the prepared wheelhouse. Docker caches the official CPU wheel and transitive dependencies before source compilation. CI runs the short trainer target alongside native and binding jobs on push/PR. See [M1 validation](VALIDATION.md) for the separate nightly/manual broad fault and four-container training lane, actual execution evidence and completion state.
 
 Recorded commands, actual results and platform limits are in the [verification report](openspecs/cpu-mlp-trainer/verification.md).

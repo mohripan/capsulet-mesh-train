@@ -14,7 +14,15 @@ RUN ! command -v python && ! command -v python3 \
     && cmake -S . -B build/native -G Ninja \
         -DCMAKE_BUILD_TYPE=Release -DMESHTRAIN_WARNINGS_AS_ERRORS=ON \
     && cmake --build build/native \
-    && ctest --test-dir build/native --output-on-failure
+    && ctest --test-dir build/native --output-on-failure -LE m1_integration
+
+FROM native-toolchain AS native-portable-test
+COPY . .
+RUN ! command -v python && ! command -v python3 \
+    && cmake -S . -B build/portable -G Ninja \
+        -DCMAKE_BUILD_TYPE=Release -DMESHTRAIN_WARNINGS_AS_ERRORS=ON -DMESHTRAIN_ENABLE_TCP=OFF \
+    && cmake --build build/portable \
+    && ctest --test-dir build/portable --output-on-failure
 
 FROM ${PYTHON_BASE} AS python-toolchain
 RUN apt-get update \
@@ -49,3 +57,7 @@ ENV MESHTRAIN_TRAINING_WHEELHOUSE=/opt/meshtrain-training-wheels
 FROM trainer-runtime AS trainer-smoke-test
 COPY . .
 RUN python tools/check_trainer.py --mode smoke --output build/trainer-smoke
+
+FROM trainer-runtime AS trainer-container
+COPY . .
+RUN python tools/install_training_runtime.py --output /opt/meshtrain

@@ -3,6 +3,7 @@ set -eu
 
 image=${1:-meshtrain-native-test:dev}
 prefix="meshtrain-collective-$(date +%s)-$$"
+owner=${MESHTRAIN_VALIDATION_OWNER:-$prefix}
 worker=/workspace/build/native/tests/meshtrain_collective_tests
 cleanup() {
     docker rm -f "$prefix-0" "$prefix-1" "$prefix-2" "$prefix-3" >/dev/null 2>&1 || true
@@ -10,9 +11,10 @@ cleanup() {
 }
 trap cleanup EXIT HUP INT TERM
 
-docker network create "$prefix" >/dev/null
+docker network create --label "org.meshtrain.validation.run=$owner" "$prefix" >/dev/null
 for rank in 0 1 2 3; do
     docker run --detach --name "$prefix-$rank" --network "$prefix" \
+        --label "org.meshtrain.validation.run=$owner" \
         --network-alias "meshtrain-worker-$rank" --entrypoint "$worker" "$image" \
         --worker container "$rank" 4 45000 meshtrain-worker-0 >/dev/null
 done
