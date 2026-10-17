@@ -1,6 +1,6 @@
 # Tasks: Explicit host-staged CUDA tensor adapter
 
-Implementation status: authorized after independent review/disposition by the owner's 2026-10-17 instruction recorded in [proposal.md](proposal.md). Implementation and verification are in progress; commands are delivered as their tasks complete.
+Implementation status: authorized after independent review/disposition by the owner's 2026-10-17 instruction recorded in [proposal.md](proposal.md). Implementation and required verification are complete; commands and actual results are recorded below and in the verification report.
 
 - [x] **Review the concrete OpenSpec and record authorization.** Follow the owner's selected personal or fresh independent review route, address findings, and record the actual implementation instruction/conditions. Keep ADR 0004 Proposed until accepted.
   - Verification: inspect the issue requirements and three artifacts against ADRs 0001–0003. A fresh reviewer must have no inherited conversation and may independently inspect the repository/primary sources. Review alone is not implementation authorization.
@@ -23,15 +23,15 @@ Implementation status: authorized after independent review/disposition by the ow
   - Live verification: explicitly labeled injected copy-failure policy check preserves the primary exception, poisons the adapter and reports secondary close/settling failures. Actual hardware fault/recovery is not claimed. Unknown CUDA cleanup remains unknown and fails acceptance.
   - Evidence: actual two-worker TCP matrix, owner/GIL/concurrency, peer-close/stall and injected-copy policy cases passed. Forty-eight numerical records had max absolute error 1.4901161193847656e-8 at unchanged tolerances. All cases finished in 1.231–2.511 seconds with every child reaped. [Evidence and scope](verification.md).
 
-- [ ] **Record separate staging/native costs and compatibility regressions.** Implement the synchronized timing fields and evidence summaries without a performance pass threshold.
+- [x] **Record separate staging/native costs and compatibility regressions.** Implement the synchronized timing fields and evidence summaries without a performance pass threshold.
   - Live verification: five warmups then ten measured calls per 1025/1048576 count, pinned/pageable mode and one/two-worker configuration. Keep raw per-rank samples, byte counts, device/mode and stage medians/ranges. Check finite nonnegative times and containment of phase intervals in total; do not relabel binding/native wall time as wire latency or require pinning to win.
   - Live verification: run relevant existing native-only TCP-on/TCP-off consumers, Torch-free installed binding and short CPU trainer checks. CPU CI remains CPU CI; preserve the M1 nightly/manual workflow, and do not claim a GPU nightly runner exists. No #11 full trainer or benchmark baseline is delivered here.
-  - Evidence: 120 measured rank/iteration samples plus warmups and labeled summaries are retained. Four local CPU build/regression targets passed; exact-revision CPU CI remains required. [Timing/regression evidence](verification.md).
+  - Evidence: 120 measured rank/iteration samples plus warmups and labeled summaries are retained. Four local CPU build/regression targets passed; exact-revision CPU CI run 39043835961 passed all three jobs. [Timing/regression evidence](verification.md).
 
-- [ ] **Deliver the adapter contract, evidence and dependency handoff.** Reconcile the OpenSpec, accept ADR 0004 only under actual owner authorization, add `docs/CUDA.md`, and link the issue/ADR/verification records.
+- [x] **Deliver the adapter contract, evidence and dependency handoff.** Reconcile the OpenSpec, accept ADR 0004 only under actual owner authorization, add `docs/CUDA.md`, and link the issue/ADR/verification records.
   - Verification: formatter/comment/docstring limits, local links, exact commands, numerical/timing/raw-error evidence, tested runtime identities and honest hardware limits. Commit/push to main without co-author trailers, confirm remote/exact-revision CPU checks and read back actual GPU proof before closing #10. Update #9/#11 dependency navigation while leaving M2 and trainer parity open.
-  - Evidence: implementation is authorized; required runtime checks and delivery remain pending. Planning commits do not imply those gates passed.
+  - Evidence: implementation e557542 pushed to main without co-authors, remote confirmed, exact CPU CI passed and local installed GPU proof inspected. All 94 behavioral file bytes and corresponding committed Git blobs match the tested source. #10 closed; #1/#9/#11 navigation/dependency read back; M2 remains open for #11. Final evidence/navigation is delivered separately, preserving unrelated local configuration.
 
 ## Completion
 
-Review/disposition and owner authorization are complete. Implementation and GPU acceptance are in progress; other required tasks remain unchecked until their actual checks pass. #10 and #9 remain open; #11 still owns GPU training/reference parity. Read [verification.md](verification.md) for runtime progress and [preflight.md](preflight.md) for historical planning observations.
+The reviewed/authorized implementation is complete. Every required task and local GPU/exact-revision CPU check passed. #10 is closed; #9 and milestone 2 remain open for #11’s focused GPU trainer/reference OpenSpec and implementation. Read [verification.md](verification.md) for runtime progress and [preflight.md](preflight.md) for historical planning observations.

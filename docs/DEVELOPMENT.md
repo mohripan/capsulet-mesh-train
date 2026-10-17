@@ -143,7 +143,7 @@ The installed consumer is a separately configured project and does not inherit t
 - Prefer RAII and explicit value ownership. Add abstractions at real ownership/platform/integration boundaries; keep framework dependencies and global state out of the core.
 - Apply `.clang-format`; initial formatting used clang-format 22.1.7.
 
-Next: [#10 — explicit host-staged CUDA adapter](https://github.com/mohripan/capsulet-mesh-train/issues/10), beginning with its focused OpenSpec/review/go-ahead under M2.
+Next: [#11 — GPU trainer/reference parity](https://github.com/mohripan/capsulet-mesh-train/issues/11), beginning with its focused OpenSpec/review/go-ahead under M2.
 
 ## Optional CUDA tensor staging
 

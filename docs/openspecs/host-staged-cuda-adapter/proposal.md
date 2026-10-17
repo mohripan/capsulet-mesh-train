@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: implemented; installed GPU acceptance and local CPU regressions passed, exact-revision CI/delivery pending.
+Status: complete; implemented, verified and pushed. #10 is closed; #9/M2 remain open for #11.
 
 Source: [issue #10](https://github.com/mohripan/capsulet-mesh-train/issues/10), under [M2 tracker #9](https://github.com/mohripan/capsulet-mesh-train/issues/9). After M1 completion and the next OpenSpec being identified, the owner said “Okay. Please continue!”. This authorizes preparing the next task's artifacts; it is not approval of an unseen CUDA contract.
 
@@ -43,4 +43,4 @@ Excluded: changes to the C++ host-byte API, LibTorch/CUDA build dependencies in 
 
 ## Delivery
 
-Implementation and installed GPU acceptance passed after the independently reviewed corrections and owner go-ahead. Read [design.md](design.md), [tasks.md](tasks.md), [preflight.md](preflight.md), [review.md](review.md) and Accepted ADR 0004. [Actual runtime evidence](verification.md) includes seven GPU cases, 48 numerical records, 120 measured samples and CPU regressions. Exact-revision CI/delivery remain pending; #10/#9 remain open.
+Implementation and installed GPU acceptance passed after the independently reviewed corrections and owner go-ahead. Read [design.md](design.md), [tasks.md](tasks.md), [preflight.md](preflight.md), [review.md](review.md) and Accepted ADR 0004. [Actual runtime evidence](verification.md) includes seven GPU cases, 48 numerical records, 120 measured samples and CPU regressions. Implementation e557542 is pushed without co-author trailers, exact-revision CPU CI passed, and tested-source correspondence was verified. #10 is closed; #9/M2 and GPU trainer parity remain #11.

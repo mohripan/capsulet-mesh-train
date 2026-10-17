@@ -25,7 +25,9 @@ These are repository-local skills. Read their files directly if automatic discov
 
 M1 is complete for Linux CPU processes and local containers. Issues #3–#8, tracker #2 and milestone 1 are closed after exact-revision full/manual and regular CI passed at `80903ea`. The standalone C++ TCP engine, centralized FP32 SUM, installed bindings and four-worker CPU trainer pass numerical, bounded-failure, resource and deployment acceptance. Read `docs/VALIDATION.md` and `docs/openspecs/m1-validation/verification.md` for commands, raw local/CI results and limits. Read `docs/DEVELOPMENT.md`, `docs/TCP_PROTOCOL.md`, `docs/PYTHON.md`, `docs/TRAINING.md` and ADRs 0001–0003 for current contracts.
 
-The active task is M2 tracker #9 / issue #10, the explicit host-staged CUDA adapter. Its OpenSpec is `docs/openspecs/host-staged-cuda-adapter/`, with Accepted ADR 0004. Fresh independent review resolved inference/forward-AD blockers; the owner explicitly authorized implementation after review on 2026-10-17. Implementation and hardware verification are in progress; consult actual task evidence before claiming GPU acceptance. #11 retains GPU training/reference parity, and native Windows/physical multi-host/distinct-GPU claims remain separate work.
+Issue #10’s host-staged CUDA adapter is complete: `e557542` passed installed local GPU acceptance and exact-revision CPU CI. Read `docs/CUDA.md`, `docs/openspecs/host-staged-cuda-adapter/verification.md` and Accepted ADR 0004 for the tensor/stream/ownership/failure contract, original results and limits. Two workers shared the laptop GPU; this is functional integration. The C++ core and CPU trainer retain their contracts.
+
+The next dependency is issue #11 under M2 tracker #9: GPU trainer/reference parity. Create its focused OpenSpec, complete the selected review and obtain owner go-ahead before implementation. #9 and milestone 2 remain open. Native Windows, GPU-container, physical multi-host/distinct-GPU and GPU-nightly execution need their own actual evidence.
 
 ## Project boundaries
 

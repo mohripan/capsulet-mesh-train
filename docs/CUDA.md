@@ -2,7 +2,7 @@
 
 The optional `meshtrain.cuda_adapter` module stages an ordinary CUDA FP32 tensor through host storage and calls our C++ TCP SUM engine. PyTorch handles copies and streams; the native library still builds without CUDA, PyTorch or Python. The CPU trainer remains unchanged. GPU trainer/reference parity belongs to #11.
 
-Installed GPU acceptance and local CPU regressions passed for [#10](https://github.com/mohripan/capsulet-mesh-train/issues/10). Read the [OpenSpec](openspecs/host-staged-cuda-adapter/proposal.md), [review/disposition](openspecs/host-staged-cuda-adapter/review.md) and [ADR 0004](adr/0004-blocking-host-staged-cuda-adapter.md) for authorization and contracts. The [verification report](openspecs/host-staged-cuda-adapter/verification.md) records actual hardware results, raw samples and current delivery state.
+Installed GPU acceptance and exact-revision CPU CI passed for completed [#10](https://github.com/mohripan/capsulet-mesh-train/issues/10). Read the [OpenSpec](openspecs/host-staged-cuda-adapter/proposal.md), [review/disposition](openspecs/host-staged-cuda-adapter/review.md) and [ADR 0004](adr/0004-blocking-host-staged-cuda-adapter.md) for authorization and contracts. The [verification report](openspecs/host-staged-cuda-adapter/verification.md) records actual hardware results, raw samples and current delivery state.
 
 ## Using the adapter
 
