@@ -65,4 +65,8 @@ The first development run failed two assertions: native errors include operation
 
 The first container built its wheel but exceeded a 240-second setup timeout downloading NumPy. A separate cached dependency layer now prepares the hash-checked wheel, with indexes disabled during runtime installation. Dependency preparation completed and offline verification passed. Communication deadlines/watchdogs were not relaxed.
 
-Evidence establishes local Linux/WSL CPU processes and one Linux container, not PyTorch training parity, four-container Python training, CUDA, native Windows networking, physical multi-host, distinct GPUs, every NumPy 2.x release, or other Python ABIs. #7/#8 and later milestones retain those gates. Existing broader native push/PR checks remain; no nightly schedule was added. Remote delivery/CI references are recorded in [tasks.md](tasks.md) after push.
+Evidence establishes local Linux/WSL CPU processes and one Linux container, not PyTorch training parity, four-container Python training, CUDA, native Windows networking, physical multi-host, distinct GPUs, every NumPy 2.x release, or other Python ABIs. #7/#8 and later milestones retain those gates. Existing broader native push/PR checks remain; no nightly schedule was added.
+
+## Remote delivery
+
+Implementation [da3dbcd](https://github.com/mohripan/capsulet-mesh-train/commit/da3dbcd4b872fa13152f71aa6a6a75ab71e6b450) was pushed to `main`, without a co-author trailer, and confirmed against the remote ref. [CI run 39011699130](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39011699130) passed both native and Python-binding jobs. Its native job also passed the existing two-container byte exchange and four-container native SUM; these remain native collective evidence. #6 is closed with evidence, #2 marks it complete, #7 marks the dependency satisfied, and root navigation points to #7. M1 stays open.

@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: implemented and locally verified under the owner's conditional go-ahead; remote delivery in progress.
+Status: complete — independently reviewed, implemented, verified and pushed under the owner's conditional go-ahead.
 
 Source: [issue #6](https://github.com/mohripan/capsulet-mesh-train/issues/6), following the owner's request to continue after the repository workflow skills.
 
@@ -37,6 +37,6 @@ The standalone build remains the default and does not discover Python or NumPy. 
 
 ## Delivery
 
-The optional package, strict buffer boundary, contextual errors and focused verifier are implemented. [Verification](verification.md) records passing package checks in WSL and the pinned Python container, real two-process exact sums, lifetime/GIL/failure evidence, native independence and limits. [Tasks](tasks.md) tracks remote delivery; #6 remains open until that work is completed. ADR 0002 is accepted under the owner's actual conditional go-ahead.
+The optional package, strict buffer boundary, contextual errors and focused verifier shipped in [da3dbcd](https://github.com/mohripan/capsulet-mesh-train/commit/da3dbcd4b872fa13152f71aa6a6a75ab71e6b450), pushed to `main` without a co-author trailer and confirmed with `git ls-remote`. [CI passed](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39011699130). [Verification](verification.md) records package checks, real two-process exact sums, lifetime/GIL/failure evidence, native independence and limits. #6 is closed; #2/#7/root navigation reflect #7 as the next dependency. ADR 0002 is accepted under the owner's actual conditional go-ahead. M1 remains open for training parity and four-container training.
 
 Planning checks on 2026-10-17: local Markdown targets resolved across the three task documents, ADR 0002 and ADR index; no unresolved template fields or TODO/TBD markers remained; the diff passed whitespace checks. Author self-review reconciled pre-admission rejection, admitted failure and concurrent-call rejection with M1/ADR 0001. These are document checks, not live binding/package evidence.
