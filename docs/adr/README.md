@@ -8,3 +8,4 @@ The existing [decision record](../DECISIONS.md) retains the initial project agre
 | --- | --- | --- |
 | [0001 — Blocking centralized FP32 communicator](0001-blocking-centralized-fp32-communicator.md) | Accepted | Issue #5: ownership, reduction order, sequence, deadlines, and terminal failures. |
 | [0002 — Strict NumPy borrowing at the Python boundary](0002-python-buffer-ownership.md) | Accepted | Issue #6: optional package, storage ownership, GIL scopes, and Python/native admission. |
+| [0003 — Replicated SGD adapter and independent training evidence](0003-replicated-sgd-training-contract.md) | Proposed | Issue #7: explicit gradient averaging, reference/artifact parity, and local group supervision. |
