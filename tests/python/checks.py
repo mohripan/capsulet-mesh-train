@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import gc
 import importlib.metadata
+import importlib.util
 import multiprocessing
 from pathlib import Path
 import socket
@@ -53,6 +54,8 @@ class LocalContracts(unittest.TestCase):
         module = Path(meshtrain._native.__file__).resolve()
         self.assertTrue(module.is_relative_to(Path(sys.prefix).resolve()), module)
         self.assertEqual(meshtrain.__version__, importlib.metadata.version("meshtrain"))
+        self.assertNotIn("torch", sys.modules)
+        self.assertIsNone(importlib.util.find_spec("torch"))
         print(f"Installed extension: {module}\nPython: {sys.version.split()[0]}; NumPy: {np.__version__}", flush=True)
 
     def test_configuration(self):

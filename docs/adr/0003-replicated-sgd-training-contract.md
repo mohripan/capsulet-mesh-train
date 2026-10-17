@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: Proposed — awaiting review/go-ahead for the [issue #7 OpenSpec](../openspecs/cpu-mlp-trainer/proposal.md). The accepted M1 specification already fixes the numerical workload; this record proposes its concrete adapter/evidence and supervision boundaries.
+Status: Accepted — owner authorized the presented #7 scope on 2026-10-17; independent review completed without blockers. See the [authorization and disposition](../openspecs/cpu-mlp-trainer/proposal.md).
 
 ## Context
 
@@ -10,9 +10,9 @@ The native engine implements blocking SUM; its Python binding borrows strict Num
 
 Read the [task design](../openspecs/cpu-mlp-trainer/design.md), [M1 contract](../superpowers/specs/2026-10-16-cpu-mvp-design.md), [ADR 0001](0001-blocking-centralized-fp32-communicator.md) and [ADR 0002](0002-python-buffer-ownership.md).
 
-## Proposed decision
+## Decision
 
-Keep PyTorch optional and its adapter/example in Python, depending on the existing core/binding. Pack dense CPU FP32 gradients in stable named-parameter order into retained contiguous staging storage, expose its detached sharing NumPy view, call our native SUM, explicitly divide by configured worker count, and copy the averages back. Validate the fixed layout/gradient contract before communication. The adapter is synchronous and one per worker; it does not promise DDP hook/buffer semantics.
+Keep PyTorch optional and its adapter/example in Python, depending on the existing core/binding. Pack dense CPU FP32 gradients in stable named-parameter order into retained contiguous staging storage, expose its detached sharing NumPy view, call our native SUM, explicitly divide by configured worker count, and copy the averages back. Validate the fixed layout/gradient contract before communication and reject nonfinite reduced values before copy-back/SGD. The adapter is synchronous and one per worker; it does not promise DDP hook/buffer semantics.
 
 Each MLP step completes native gradient SUM and loss SUM, with explicit averaging, before SGD. Equal local batches make the mean of local means match the global objective. The independent reference starts from the same saved initialization and computes its own ordinary rank-ordered combined-batch forward/backward/SGD trajectory. It never consumes worker gradients or parameters to generate its expected result.
 

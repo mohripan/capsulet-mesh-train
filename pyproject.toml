@@ -11,6 +11,9 @@ requires-python = ">=3.12,<3.13"
 license = "Apache-2.0"
 dependencies = ["numpy>=2,<3"]
 
+[project.optional-dependencies]
+training = ["torch>=2.14,<2.15"]
+
 [tool.scikit-build]
 cmake.version = ">=3.24"
 wheel.packages = ["python/meshtrain"]

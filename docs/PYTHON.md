@@ -1,6 +1,6 @@
 # Python CPU bindings
 
-The optional `meshtrain` package exposes our C++ centralized FP32 SUM engine over Linux TCP. The initial packaging target is Linux CPython 3.12 with NumPy 2.x. It does not depend on PyTorch. The PyTorch trainer/launcher is the next issue, #7.
+The optional `meshtrain` package exposes our C++ centralized FP32 SUM engine over Linux TCP. The initial packaging target is Linux CPython 3.12 with NumPy 2.x. Its base installation does not depend on PyTorch. See [CPU training](TRAINING.md) for the optional gradient adapter, worker/launcher and independent reference verifier.
 
 ## Build and verify
 

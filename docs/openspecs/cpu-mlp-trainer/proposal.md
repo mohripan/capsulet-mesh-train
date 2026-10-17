@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: draft for review; implementation has not started.
+Status: implementation and local verification complete; delivery pending.
 
 Source: [issue #7](https://github.com/mohripan/capsulet-mesh-train/issues/7), following the owner's request to continue after #6.
 
@@ -33,13 +33,13 @@ No transport/collective algorithm change, DDP/FSDP/custom backend, CUDA, transfo
 
 ## Review and authorization
 
-- Review route: awaiting personal review or the owner's selection of a fresh independent sub-agent review.
-- Findings/disposition: author self-review only; no independent review has run for #7.
-- User go-ahead: pending for these presented #7 artifacts. The previous independent-review-then-implementation instruction applied to #6; the request to continue authorizes preparing this task's specs.
+- Review route: fresh context-independent sub-agent review completed on 2026-10-17 (`review_cpu_trainer_spec`, no conversation inheritance).
+- Findings/disposition: no blocking findings. Accepted the low-severity suggestion to reject nonfinite reduced gradients/loss before copy-back or SGD; add an overflow fixture.
+- User go-ahead: on 2026-10-17 the owner replied “Okay. You can continue!” to the presented #7 specs and review choice. Proceed using the same independent-review-then-implementation route, as announced; review is now complete. Scope remains the presented #7 contract.
 - Commit/push: follows the owner's standing instruction for completed planning/authorized implementation, to `main` without a co-author trailer.
 
 ## Delivery
 
-Draft planning artifacts and proposed ADR only. #7 remains open, implementation tasks are unchecked, and no PyTorch package has been installed or trainer executed for this task. Documentation/API research establishes a proposed approach, not numerical compatibility evidence.
+Implementation and required local verification are complete. The full four-worker/100-step run passed 3,090 comparisons, zero tolerance failures and decreased finite evaluation loss. See [verification/raw metrics](verification.md). #7 remains open pending remote CI and delivery; #8/M1 retain the remaining validation gates.
 
 Planning verification on 2026-10-17: local links resolve across the three task artifacts, proposed ADR and ADR index; no unresolved template fields or TODO/TBD markers remain. Author self-review reconciled gradient/loss step boundaries, independent reference computation, rank output ownership, cleanup/watchdog limits and smoke/full acceptance labeling against M1. Git whitespace checks apply before the planning commit. This is document validation, not trainer execution or independent review.

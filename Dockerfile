@@ -38,3 +38,14 @@ ENV PIP_NO_INDEX=1 PIP_FIND_LINKS=/opt/meshtrain-runtime-wheels
 FROM python-bindings-runtime AS python-bindings-test
 COPY . .
 RUN python tools/check_python_bindings.py
+
+FROM python-toolchain AS trainer-runtime
+COPY requirements/training-cpu.lock /tmp/training-cpu.lock
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip download --require-hashes --only-binary=:all: --no-deps \
+        -r /tmp/training-cpu.lock -d /opt/meshtrain-training-wheels
+ENV MESHTRAIN_TRAINING_WHEELHOUSE=/opt/meshtrain-training-wheels
+
+FROM trainer-runtime AS trainer-smoke-test
+COPY . .
+RUN python tools/check_trainer.py --mode smoke --output build/trainer-smoke

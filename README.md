@@ -6,7 +6,7 @@ The core project implements its own transport and collective algorithms. GPU tra
 
 ## Current state
 
-M1 implementation is underway. The standalone C++ core implements blocking centralized FP32 SUM all-reduce over its own Linux TCP transport, with bounded failures and safe cleanup. Native validation covers 1–5 worker processes, exact/random numerical checks, failure scenarios, and four independent containers. The optional Python package exposes strict in-place NumPy buffers with retained ownership and GIL release. PyTorch trainer parity is next.
+M1 implementation is underway. The standalone C++ core implements blocking centralized FP32 SUM all-reduce over its own Linux TCP transport, with bounded failures and safe cleanup. Native validation covers 1–5 worker processes, exact/random numerical checks, failure scenarios, and four independent containers. The optional Python package exposes strict in-place NumPy buffers with retained ownership and GIL release. The optional PyTorch MLP trainer passes four-worker/100-step parity against an independent combined-batch reference, with explicit gradient averaging and rank diagnostics. Four-container trainer validation remains #8.
 
 This is an open-ended side project. Milestones describe outcomes and dependencies, with no dates or time estimates.
 
@@ -15,6 +15,7 @@ This is an open-ended side project. Milestones describe outcomes and dependencie
 - [Roadmap and milestone completion criteria](docs/ROADMAP.md)
 - [Build instructions and verified environments](docs/DEVELOPMENT.md)
 - [Python package, API and focused verification](docs/PYTHON.md)
+- [Run the CPU trainer and inspect numerical evidence](docs/TRAINING.md)
 - [CPU MVP design](docs/superpowers/specs/2026-10-16-cpu-mvp-design.md)
 - [Decisions and their rationale](docs/DECISIONS.md)
 - [Architecture decision records](docs/adr/README.md)

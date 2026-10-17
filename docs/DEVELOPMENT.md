@@ -90,7 +90,11 @@ The TCP script starts two containers and exchanges 524,295 bytes each way. The c
 
 The native target asserts that neither `python` nor `python3` is installed before building/testing. The separate packaging target uses Python 3.12.15. Base-image digests, direct apt tool versions, and Python package hashes are pinned; apt transitive dependencies follow the Debian repositories.
 
-The GitHub workflow builds the native and real Python-binding targets and runs both native container scripts. The manual `python-toolchain-test` stage remains available. This workflow still runs on push/PR; no nightly schedule is implemented.
+The GitHub workflow builds the native, real Python-binding and short CPU trainer targets and runs both native container scripts. The manual `python-toolchain-test` stage remains available. This workflow still runs on push/PR; no nightly schedule is implemented.
+
+## CPU trainer
+
+See [training installation/commands](TRAINING.md) and [recorded verification](openspecs/cpu-mlp-trainer/verification.md). The installed CPU wheel passed four-worker/100-step parity with zero tolerance failures and lower evaluation loss. The focused container and WSL checks passed, including bounded supervisor cleanup. Four-container trainer validation remains #8.
 
 ## Verified environments
 
@@ -135,4 +139,4 @@ The installed consumer is a separately configured project and does not inherit t
 - Prefer RAII and explicit value ownership. Add abstractions at real ownership/platform/integration boundaries; keep framework dependencies and global state out of the core.
 - Apply `.clang-format`; initial formatting used clang-format 22.1.7.
 
-Next: [#6 — safe CPU buffers through an optional pybind11 package](https://github.com/mohripan/capsulet-mesh-train/issues/6).
+Next: [#8 — failure/clean-build and four-container trainer validation](https://github.com/mohripan/capsulet-mesh-train/issues/8).
