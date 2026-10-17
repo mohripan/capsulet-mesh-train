@@ -31,6 +31,8 @@ Build, transport, collective, bindings, trainer, and integration issues implemen
 
 ## M2: CUDA functionality before advanced CPU optimization
 
+The first task, #10, has a [draft host-staged adapter OpenSpec](openspecs/host-staged-cuda-adapter/proposal.md) and [Proposed ADR 0004](adr/0004-blocking-host-staged-cuda-adapter.md). Review/authorization and implementation remain pending. #11 retains GPU training/reference parity; the draft does not complete M2.
+
 Expose a separate CUDA adapter. Initially copy gradients to host buffers, run our C++ collective, and copy the result back. Make all copy costs, buffer ownership, and synchronization explicit. The CPU core remains buildable without CUDA.
 
 The laptop can validate CUDA computations and host-staged integration, including tiny custom-engine runs with multiple processes sharing its GPU if memory permits. Such tests are explicitly functional tests. NCCL multi-rank baselines require distinct GPUs and belong to M10.

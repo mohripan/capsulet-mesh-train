@@ -25,7 +25,7 @@ These are repository-local skills. Read their files directly if automatic discov
 
 M1 is complete for Linux CPU processes and local containers. Issues #3–#8, tracker #2 and milestone 1 are closed after exact-revision full/manual and regular CI passed at `80903ea`. The standalone C++ TCP engine, centralized FP32 SUM, installed bindings and four-worker CPU trainer pass numerical, bounded-failure, resource and deployment acceptance. Read `docs/VALIDATION.md` and `docs/openspecs/m1-validation/verification.md` for commands, raw local/CI results and limits. Read `docs/DEVELOPMENT.md`, `docs/TCP_PROTOCOL.md`, `docs/PYTHON.md`, `docs/TRAINING.md` and ADRs 0001–0003 for current contracts.
 
-The next dependency is M2 tracker #9 / issue #10, the explicit host-staged CUDA adapter. Create its focused OpenSpec and complete review/owner go-ahead before implementation. M1 completion does not authorize unreviewed later subsystems. GPU, native Windows and physical multi-host/distinct-GPU claims still require their own implementation and evidence.
+The next dependency is M2 tracker #9 / issue #10, the explicit host-staged CUDA adapter. Its draft is `docs/openspecs/host-staged-cuda-adapter/`, with Proposed ADR 0004. Review selection and owner go-ahead remain pending; no CUDA runtime/adapter is implemented by that plan. M1 completion does not authorize unreviewed later subsystems. GPU, native Windows and physical multi-host/distinct-GPU claims still require their own implementation and evidence.
 
 ## Project boundaries
 
