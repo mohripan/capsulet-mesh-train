@@ -1,6 +1,6 @@
 # Tasks: Four-process CPU MLP and reference parity
 
-Implementation status: authorized and in progress; see [proposal.md](proposal.md). Required verification remains unchecked until actual execution passes.
+Implementation status: complete and verified; see [proposal.md](proposal.md) and [verification.md](verification.md).
 
 - [x] **Resolve review and implementation authorization.** Present the three specs and proposed ADR; address personal or fresh independent review and record the owner's actual go-ahead/conditions.
   - Verification: reconcile the review/disposition and presented scope with the actual user instruction. A reviewer verdict alone is not implementation authorization.
@@ -26,10 +26,10 @@ Implementation status: authorized and in progress; see [proposal.md](proposal.md
   - Verification: local links, short ordinary comments/docstrings, relevant formatting, final diff and accurate dependency/platform/CI claims. Record focused vs full acceptance vs deferred coverage; no nightly schedule is claimed.
   - Evidence: container smoke passed 63 records; full four-worker/100-step tool passed 3,090 records with zero failures and evaluation 1.41192746 -> 0.97489858. Seven focused checks pass (16.463 s container; 138.887 s WSL). CI target added; ADR accepted from owner authorization. See [verification.md](verification.md).
 
-- [ ] **Deliver and update issue navigation.** Commit/push authorized implementation to `main` without co-author trailers; confirm remote/CI, close #7 with reproducible evidence and update #2/#8/root navigation.
+- [x] **Deliver and update issue navigation.** Commit/push authorized implementation to `main` without co-author trailers; confirm remote/CI, close #7 with reproducible evidence and update #2/#8/root navigation.
   - Verification: read back GitHub state and remote revision, confirm relevant CI and preserve unrelated local files. Keep #8/M1 open for remaining validation/deployment.
-  - Evidence: pending implementation, checks and delivery.
+  - Evidence: implementation `bd155c1` pushed/read back on main without co-author trailer; [all three CI jobs passed](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39018189654). #7 closed; #2/#8 dependency checks and #1 next step updated/read back. #2/#8 remain open; unrelated local files preserved. Final WSL full run and seven focused checks also passed; see [verification.md](verification.md).
 
 ## Completion
 
-Implementation and required local checks are complete; delivery/remote CI remains pending. See [verification.md](verification.md) for exact commands, numerical/timing evidence, the initial failure and correction, raw artifacts and limits. #8 and M1 remain open.
+Implementation, required verification and delivery are complete. See [verification.md](verification.md) for exact commands, numerical/timing evidence, the initial failure and correction, raw artifacts, CI and limits. #7 is closed; #8 and M1 remain open.

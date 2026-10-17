@@ -13,7 +13,7 @@ docker start -a meshtrain-trainer-full-20261017
 docker cp meshtrain-trainer-full-20261017:/workspace/build/trainer-full/run build/trainer-container-full/run
 ```
 
-Create the local parent directory before copying. The stopped container retains tool/build/install logs, wheel/sdist, runtime versions and all run artifacts until removed. Local copies of the full run, logs, runtime/toolchain versions and distributions are in ignored `build/trainer-container-full/`; smoke artifacts remain in the image at `/workspace/build/trainer-smoke/`.
+Create the local parent directory before copying. The stopped container retains tool/build/install logs, wheel/sdist, runtime versions and all run artifacts until removed. Local copies of the full run, logs, runtime/toolchain versions and distributions are in ignored `build/trainer-container-full/`; smoke artifacts remain in the image at `/workspace/build/trainer-smoke/`. The recorded full-run container was removed after copying its evidence.
 
 The pinned Python/Debian image uses CPython 3.12.15, glibc 2.36 and GCC 12.2.0; Docker Desktop 29.6.2 runs Linux kernel `6.18.33.2-microsoft-standard-WSL2`. Build tools: build 1.6.1, CMake 4.4.4, Ninja 1.13.2, pybind11 3.1.0, scikit-build-core 1.1.1. Runtime: Torch 2.14.1+cpu (no CUDA runtime), NumPy 2.5.4, one intra/inter-op thread, deterministic algorithms. Torch reports MKL/AVX2 CPU execution. Exact transitive dependencies are hash-locked in `requirements/training-cpu.lock`.
 
@@ -61,10 +61,20 @@ build/training-dev/bin/python -I -X faulthandler tests/training/checks.py build/
 
 That runtime installed the built wheel; the initial two-worker/three-step run passed before the focused checks. WSL/NTFS framework imports and dependency installation are substantially slower than the container path. An initial failure fixture hit its two-second group timeout before eager Torch imports exposed the bad path. A parallel full-tool attempt had already built that older wheel: its training passed, but its overall check failed on the same fixture (117.351 s suite); it is not counted as final verification. Moving path validation ahead of optional framework imports fixed the actionable diagnostic and bounded cleanup; no numerical tolerance or external watchdog was widened.
 
+The final wheel was then installed into that isolated WSL full runtime, and both the complete numerical run and focused suite passed: **3,090** comparisons, zero failures, identical evaluation decrease, seven checks in **116.404 seconds**. Retained evidence: `build/trainer-full/run-final/`, `final-training.log`, `final-checks.log`, `final-install.log`.
+
+```sh
+uv pip install --python build/trainer-full/runtime/bin/python --no-deps --reinstall build/trainer-final-dist/*.whl
+build/trainer-full/runtime/bin/python -I -m meshtrain.training run --output build/trainer-full/run-final
+build/trainer-full/runtime/bin/python -I -X faulthandler tests/training/checks.py build/trainer-full/run-final
+```
+
 Base-boundary regression: `docker build --target python-bindings-test -t meshtrain-python-bindings-test:dev .` passed all **10** installed binding checks in **2.036 seconds**, including explicit absence of Torch and Torch-free base import. No C++/protocol changes were made. Native regression remains a required existing CI job.
 
 ## Limits and delivery
 
 This proves four CPU processes inside one Linux container plus focused WSL process checks. Four separate trainer containers, broad startup/collective kill/stall/count matrices and clean-build consolidation remain #8. Native Windows networking, CUDA, distinct GPUs and physical multi-host performance are untested here. Push/PR CI adds only the short trainer target and retains native/binding checks; there is no nightly schedule.
 
-Commit, exact-revision CI and issue closure references are recorded after delivery. M1 remains open until #8 is complete.
+Implementation [bd155c1](https://github.com/mohripan/capsulet-mesh-train/commit/bd155c1c37cbac023e5773d98600d9ed7e7d75d5) was pushed to `main` without a co-author trailer; remote revision was read back. [Exact-revision CI 39018189654](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39018189654) passed all three jobs: native/container collective checks (45 s), Torch-free bindings (51 s), CPU trainer smoke (118 s). These are CI job elapsed times, not communication benchmarks.
+
+Issue #7 is closed; #2 records it complete, #8's dependency is checked, and #1 points to #8. Readback confirmed #2/M1, #8 and #1 remain open. Unrelated `.agents/skills/find-skills/`, `.claude/` and `skills-lock.json` were preserved. Final source/metadata, short-comment/docstring, local-link, raw JSON/CSV consistency, committed report digest and Git whitespace checks passed. M1 remains open until #8 is complete.

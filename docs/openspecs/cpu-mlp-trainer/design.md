@@ -100,3 +100,5 @@ Run one actual four-worker/100-step comparison before closing #7, capturing all 
 
 
 Implementation refinement: the installed CLI validates a worker configuration path before importing the optional Torch stack. A real WSL failure fixture showed that eager framework imports could mask the actionable missing-path error behind a short supervisor timeout. The external five-second cleanup watchdog is retained. Runtime dependency installation rewrites only the exact Torch URL reference to its pinned local wheel name after hash-checked download, so offline installation cannot silently fetch that direct URL again.
+
+Committed raw JSON/CSV evidence uses LF through Git attributes, keeping report digests stable across checkouts. Numerical arrays/inputs/states and runtime environments stay in the ignored local evidence bundle; committed comparison metrics retain all per-step/rank records.

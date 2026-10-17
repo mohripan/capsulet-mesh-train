@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: implementation and local verification complete; delivery pending.
+Status: complete; implemented, verified and delivered to main. Issue #7 closed.
 
 Source: [issue #7](https://github.com/mohripan/capsulet-mesh-train/issues/7), following the owner's request to continue after #6.
 
@@ -40,6 +40,6 @@ No transport/collective algorithm change, DDP/FSDP/custom backend, CUDA, transfo
 
 ## Delivery
 
-Implementation and required local verification are complete. The full four-worker/100-step run passed 3,090 comparisons, zero tolerance failures and decreased finite evaluation loss. See [verification/raw metrics](verification.md). #7 remains open pending remote CI and delivery; #8/M1 retain the remaining validation gates.
+Implementation and required verification are complete. The full four-worker/100-step run passed 3,090 comparisons, zero tolerance failures and decreased finite evaluation loss in the container and WSL. Implementation `bd155c1` is pushed to main without a co-author trailer; [all three exact-revision CI jobs passed](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39018189654). See [verification/raw metrics](verification.md). #7 is closed and parent/dependency/root navigation updated; #8/M1 remain open for the remaining validation gates.
 
 Planning verification on 2026-10-17: local links resolve across the three task artifacts, proposed ADR and ADR index; no unresolved template fields or TODO/TBD markers remain. Author self-review reconciled gradient/loss step boundaries, independent reference computation, rank output ownership, cleanup/watchdog limits and smoke/full acceptance labeling against M1. Git whitespace checks apply before the planning commit. This is document validation, not trainer execution or independent review.
