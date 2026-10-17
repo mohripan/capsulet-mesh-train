@@ -1,6 +1,6 @@
 # Tasks: Repository workflow skills
 
-Implementation status: in progress. The owner explicitly directed implementation on 2026-10-17 after these specs were presented; see [proposal.md](proposal.md). No independent review is being claimed.
+Implementation status: complete. The owner explicitly directed implementation on 2026-10-17 after these specs were presented; see [proposal.md](proposal.md). No independent review is being claimed.
 
 For each task, record actual verification evidence beneath its checkbox before marking it complete. A required check that is blocked or not run leaves the task unverified. Broad integration/end-to-end execution is outside this skill-authoring task.
 
@@ -34,7 +34,7 @@ For each task, record actual verification evidence beneath its checkbox before m
   - Live verification: validate all four packages and their references; use a realistic issue request to inspect the complete draft → review → authorized work → focused verification flow. Check the staged diff for unrelated files and confirm that runtime code/CI cadence were not changed.
   - Evidence: `AGENTS.md` routes new work through the four skills; README links the workflow. All four skill packages/metadata and their local references validate. Scope review confirms no runtime or CI configuration changes and excludes pre-existing local skills/configuration. See [verification](verification.md#package-checks).
 
-- [ ] **7. Complete documentation and deliver the authorized change.**
+- [x] **7. Complete documentation and deliver the authorized change.**
   - Outcome: this OpenSpec records the real review route, authorization, completed work, and verification evidence; commit/push follows the standing main-branch instruction with no co-author trailer.
   - Live verification: inspect the commit contents/message and remote revision. Report whether skill discovery requires the next session/turn and disclose any validation not performed.
-  - Evidence: record the commit and actual check outcomes before calling this task complete.
+  - Evidence: implementation commit `35d2c860c569f114e3955d1da965304a72084cfb` contains only the 21 intended skill/navigation/OpenSpec files and was pushed to `main`. `git ls-remote origin refs/heads/main` confirmed that revision; the commit message has no co-author trailer. All four package validators and artifact/link/metadata checks passed. Skill discovery may refresh next turn/session; files are readable now through `AGENTS.md`. This documentation closure records already verified delivery.

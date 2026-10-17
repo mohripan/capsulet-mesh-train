@@ -2,13 +2,13 @@
 
 Date: 2026-10-17
 
-Status: implementing — explicit user go-ahead received on 2026-10-17.
+Status: complete — implemented, verified, and pushed under the user's 2026-10-17 go-ahead.
 
 ## Why
 
 The owner wants every repository change task or GitHub issue to start with reviewable specifications, give the owner a choice of personal or independent agent review, and receive explicit implementation authorization. Future agents need this workflow in the repository. Short code comments should describe essential local contracts; explanations of design choices belong in OpenSpec documents.
 
-This proposal applied the new workflow to its own creation. After the three planning documents were presented, the owner explicitly instructed implementation. The skills and navigation are now being implemented; runtime code and CI cadence remain outside scope.
+This proposal applied the new workflow to its own creation. After the three planning documents were presented, the owner explicitly instructed implementation. The four skills and navigation are implemented and verified; runtime code and CI cadence remain unchanged.
 
 ## Proposed changes
 
@@ -46,6 +46,10 @@ The latest owner instruction introduces a per-task review/go-ahead gate. Earlier
 - Reviewer findings: no independent review was requested or performed. Validation will distinguish manual walkthroughs from independent agent evaluation.
 - Implementation authorization: on 2026-10-17, the owner said, "Just implement it." This authorizes the presented workflow-skills scope; no repeated review question is required.
 - Commit/push: follows the owner's standing instruction after authorized work and verification are complete, without a co-author trailer.
+
+## Delivery
+
+Implementation commit [35d2c86](https://github.com/mohripan/capsulet-mesh-train/commit/35d2c860c569f114e3955d1da965304a72084cfb) was pushed to `main`; the remote branch was independently checked with `git ls-remote`. It contains the four skills, navigation, and this OpenSpec, with no co-author trailer. [Verification](verification.md) records package checks, actual scratch artifacts, manual workflow cases, and their limits. No independent agent evaluation, runtime change, or nightly scheduling is claimed.
 
 ## Research
 

@@ -1,6 +1,6 @@
 # Design: Repository workflow skills
 
-Status: implementing under the user's 2026-10-17 go-ahead. The [proposal](proposal.md) records scope and authorization; [tasks](tasks.md) tracks implementation and verification.
+Status: complete under the user's 2026-10-17 go-ahead. The [proposal](proposal.md) records scope, authorization, and delivery; [tasks](tasks.md) records completed work and verification.
 
 ## Storage and discovery
 

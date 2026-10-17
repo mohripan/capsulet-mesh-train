@@ -62,4 +62,4 @@ The existing `find-skills/SKILL.md` and `skills-lock.json` remained unchanged du
 
 Broad integration/end-to-end coverage is a skill policy, not a newly scheduled job. Existing CI still runs its native/container checks on push/PR. No nightly schedule, Python bindings, runtime change, or global skill installation is claimed here.
 
-The files can be read directly now through `AGENTS.md`; automatic skill discovery may refresh on the next turn/session. Delivery evidence is recorded under task 7 after the implementation commit is pushed.
+The files can be read directly now through `AGENTS.md`; automatic skill discovery may refresh on the next turn/session. Implementation commit `35d2c860c569f114e3955d1da965304a72084cfb` was pushed to `main`; `git ls-remote` confirmed the remote revision, and its contents/message were inspected for scope and the absence of co-author trailers. Task 7 records that completed delivery. This final documentation update does not alter the validated skills or CI configuration.
