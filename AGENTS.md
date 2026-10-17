@@ -6,8 +6,20 @@
 2. Read `docs/DECISIONS.md` for accepted direction and proposed defaults.
 3. Follow `docs/ISSUES.md` to the active GitHub issue and its dependencies.
 4. Read the focused design for the milestone being changed. The first is `docs/superpowers/specs/2026-10-16-cpu-mvp-design.md`.
+5. Follow the OpenSpec workflow below for the specific task. Existing milestone designs remain contracts; new task artifacts live in `docs/openspecs/`.
 
 GitHub issues are the source of truth for live work status. Repository documents describe architecture, contracts, and evidence. Keep both consistent when a decision or completion criterion changes.
+
+## Task workflow and local skills
+
+- Use [OpenSpec](.agents/skills/openspec/SKILL.md) before implementing a repository change task or GitHub issue. Create or resume `docs/openspecs/<task-name>/proposal.md`, `design.md`, and `tasks.md`.
+- Present the completed specs and offer personal review or a fresh, context-independent sub-agent review. Launch that reviewer only when selected/requested; it may inspect the project and research facts, but must not inherit the author's conversation or implement changes.
+- Wait for the user's implementation go-ahead for the presented scope. Review alone and silence are not approval. Preserve an explicit conditional go-ahead; if the user already says to proceed or just implement the presented specs, record it and continue without another gate. Do not introduce duplicate approval flows from other planning skills.
+- Apply [coding standards](.agents/skills/coding-standards/SKILL.md) during implementation. Ordinary comment blocks/docstrings in new or changed code are at most two physical lines; rationale belongs in the task's OpenSpec design. Preserve legal/tool-required content and essential contracts without unrelated comment rewrites.
+- Use [live verification](.agents/skills/live-verification/SKILL.md) for each task's changed behavior, recording actual checks before checking off the task. Reserve broad integration/end-to-end suites for nightly coverage, while retaining small real-boundary checks when relevant. The current CI still runs broader checks on push/PR; scheduling changes require their own task and must not be claimed as implemented by these skills.
+- Use [architecture decision records](.agents/skills/architecture-decision-records/SKILL.md) for lasting decisions, cross-linked with OpenSpec. Routine changes do not need a new ADR.
+
+These are repository-local skills. Read their files directly if automatic discovery is unavailable. The owner requested commit/push to `main` after authorized work and verification; do not add co-author trailers. Preserve unrelated local skills and configuration.
 
 ## Current phase
 

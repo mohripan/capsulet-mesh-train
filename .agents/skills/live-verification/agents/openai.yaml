@@ -1,0 +1,4 @@
+interface:
+  display_name: "Live Verification"
+  short_description: "Verify changed behavior with focused live checks"
+  default_prompt: "Use $live-verification to verify this task and record actual evidence in its OpenSpec."

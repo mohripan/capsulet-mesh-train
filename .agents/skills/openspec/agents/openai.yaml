@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenSpec"
+  short_description: "Plan, review, and execute repository tasks"
+  default_prompt: "Use $openspec to plan and execute this repository task with the required artifacts and authorization."

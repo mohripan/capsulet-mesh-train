@@ -19,6 +19,7 @@ This is an open-ended side project. Milestones describe outcomes and dependencie
 - [Architecture decision records](docs/adr/README.md)
 - [GitHub work index](docs/ISSUES.md)
 - [Contributor and agent navigation](AGENTS.md)
+- [Repository OpenSpec workflow and skills](AGENTS.md#task-workflow-and-local-skills)
 - [Primary references](docs/REFERENCES.md)
 
 ## First working example

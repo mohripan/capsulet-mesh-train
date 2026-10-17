@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Decision Records"
+  short_description: "Record durable decisions linked to OpenSpec"
+  default_prompt: "Use $architecture-decision-records to document this durable decision and link it to the task OpenSpec."
