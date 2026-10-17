@@ -1,0 +1,2 @@
+numpy==2.5.4
+torch @ https://download-r2.pytorch.org/whl/cu132/torch-2.14.1%2Bcu132-cp312-cp312-manylinux_2_28_x86_64.whl#sha256=1a04331546dcd9d30c7d6ac10fd3e6d2be9ca2ed31de488a1d079af846488865

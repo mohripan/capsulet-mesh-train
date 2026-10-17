@@ -116,6 +116,14 @@ class Checks(unittest.TestCase):
     def tearDownClass(cls):
         cls.scratch.cleanup()
 
+    def test_optional_cuda_adapter_rejects_cpu_only_runtime(self):
+        from meshtrain.cuda_adapter import CudaStagingAdapter
+        self.assertIsNone(torch.version.cuda)
+        with self.assertRaisesRegex(RuntimeError, "CUDA is unavailable"):
+            CudaStagingAdapter(1, device="cuda:0")
+        with self.assertRaises(ValueError):
+            CudaStagingAdapter(1, device="cuda:256")
+
     def test_installed_runtime(self):
         self.assertTrue(Path(meshtrain.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()))
         self.assertEqual(torch.__version__, "2.14.1+cpu")

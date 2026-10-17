@@ -144,3 +144,7 @@ The installed consumer is a separately configured project and does not inherit t
 - Apply `.clang-format`; initial formatting used clang-format 22.1.7.
 
 Next: [#10 — explicit host-staged CUDA adapter](https://github.com/mohripan/capsulet-mesh-train/issues/10), beginning with its focused OpenSpec/review/go-ahead under M2.
+
+## Optional CUDA tensor staging
+
+The [host-staged CUDA adapter](CUDA.md) uses the existing native CPU communicator with explicit GPU/host copies and completed stream boundaries. It has a separate CUDA runtime lock and installed-hardware verification command; the native build and CPU locks remain independent. See [#10 evidence](openspecs/host-staged-cuda-adapter/verification.md) for actual shared-single-GPU results and limits. GPU training/reference parity remains #11.

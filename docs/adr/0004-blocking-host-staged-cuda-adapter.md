@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: Proposed
+Status: Accepted — owner authorized implementation after independent review on 2026-10-17; both P2 findings were resolved before runtime acceptance.
 
 OpenSpec: [host-staged CUDA adapter design](../openspecs/host-staged-cuda-adapter/design.md)
 
@@ -14,9 +14,9 @@ The engine accepts host spans; the installed binding retains strict NumPy storag
 
 The owner wants GPU functionality before advanced CPU optimization, with only one laptop GPU currently available. The initial task needs honest functional evidence and measured copy costs; it does not require efficient direct GPU networking or a custom framework backend. ADRs [0001](0001-blocking-centralized-fp32-communicator.md), [0002](0002-python-buffer-ownership.md) and [0003](0003-replicated-sgd-training-contract.md) remain accepted history.
 
-## Proposed decision and rationale
+## Decision and rationale
 
-Add an explicitly imported Python PyTorch adapter with a fixed-count CPU FP32 workspace and sharing NumPy view. Require an explicit indexed CUDA device and ordinary contiguous one-dimensional FP32 tensor without autograd tracking. The caller selects pinned or pageable host storage. Our existing C++ communicator performs SUM exactly once; averaging remains a training-layer operation.
+Add an explicitly imported Python PyTorch adapter with a fixed-count CPU FP32 workspace and sharing NumPy view. Require an explicit indexed CUDA device and ordinary contiguous one-dimensional FP32 tensor without reverse/forward autograd state or inference-tensor restrictions. Allocate an ordinary mutable workspace even when the caller is in inference mode. The caller selects pinned or pageable host storage. Our existing C++ communicator performs SUM exactly once; averaging remains a training-layer operation.
 
 Capture the configured device's current stream. The caller orders producers and aliases onto it. Wait for readiness, finish D2H before native host access, then finish H2D before reporting success or reusing the workspace. Retain owners through completion and reject concurrent workspace use. Do not add asynchronous work handles, graph capture or hidden device selection.
 
@@ -43,4 +43,4 @@ Measured binding/staging overhead, asynchronous work, backward overlap, native C
 
 ## Decision record
 
-Proposed during #10 planning. The owner requested continuation to the next OpenSpec; review route and implementation acceptance are pending in [proposal.md](../openspecs/host-staged-cuda-adapter/proposal.md). No review verdict or older M1 authorization is recorded as acceptance of this new contract.
+Proposed during #10 planning. On 2026-10-17 the owner selected independent review and said “And then you can go on and implement it.” [Review/disposition](../openspecs/host-staged-cuda-adapter/review.md) addresses inference/forward-AD rejection, including disabling inference mode for tangent inspection. The explicit owner instruction authorizes implementation after those corrections; the review verdict itself is not approval. The final review confirmed the corrections resolved both findings; implementation/runtime verification remains separate.

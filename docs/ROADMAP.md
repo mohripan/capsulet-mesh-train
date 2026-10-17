@@ -31,7 +31,7 @@ Build, transport, collective, bindings, trainer, and integration issues implemen
 
 ## M2: CUDA functionality before advanced CPU optimization
 
-The first task, #10, has a [draft host-staged adapter OpenSpec](openspecs/host-staged-cuda-adapter/proposal.md) and [Proposed ADR 0004](adr/0004-blocking-host-staged-cuda-adapter.md). Review/authorization and implementation remain pending. #11 retains GPU training/reference parity; the draft does not complete M2.
+The first task, #10, has an [implemented host-staged adapter OpenSpec](openspecs/host-staged-cuda-adapter/proposal.md) and [Accepted ADR 0004](adr/0004-blocking-host-staged-cuda-adapter.md). Independent review/corrections and owner go-ahead are complete; installed GPU acceptance and local CPU regressions passed. [Actual evidence](openspecs/host-staged-cuda-adapter/verification.md) tracks exact-revision CI/delivery. #11 retains GPU training/reference parity, so M2 remains open.
 
 Expose a separate CUDA adapter. Initially copy gradients to host buffers, run our C++ collective, and copy the result back. Make all copy costs, buffer ownership, and synchronization explicit. The CPU core remains buildable without CUDA.
 

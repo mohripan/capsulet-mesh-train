@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: draft for review; implementation is not authorized.
+Status: implemented; installed GPU acceptance and local CPU regressions passed, exact-revision CI/delivery pending.
 
 Source: [issue #10](https://github.com/mohripan/capsulet-mesh-train/issues/10), under [M2 tracker #9](https://github.com/mohripan/capsulet-mesh-train/issues/9). After M1 completion and the next OpenSpec being identified, the owner said “Okay. Please continue!”. This authorizes preparing the next task's artifacts; it is not approval of an unseen CUDA contract.
 
@@ -28,7 +28,7 @@ Excluded: changes to the C++ host-byte API, LibTorch/CUDA build dependencies in 
 1. An installed `meshtrain.cuda_adapter.CudaStagingAdapter` stages a fixed-count CUDA FP32 tensor through retained CPU FP32/NumPy storage and calls the existing `Communicator.all_reduce_sum` exactly once. The original GPU allocation contains SUM on success; no other library performs the collective.
 2. Pinned and pageable modes are explicit and observable. Both preserve correct completion; requested pinning failure raises rather than silently falling back. The input, host tensor, NumPy owner chain and communicator stay alive for their actual use. Host staging is not read before D2H completion or reused before H2D completion.
 3. The call uses the current stream of its configured device, including a nondefault stream. The caller orders every producer/alias onto that stream. On successful return the result copy has completed, permitting use from another stream without an extra dependency on the adapter. This blocking promise does not provide backward overlap.
-4. Reject wrong argument kind, device, dtype, shape/count, layout, autograd or capture mode before native admission; no implicit cast, flatten, device selection or CPU fallback. Rejection preserves local native sequence. Native admitted failures preserve existing terminal/error-context behavior; CUDA execution failures fail the adapter/job with honest cleanup limits.
+4. Reject wrong argument kind, device, dtype, shape/count, layout, reverse/forward autograd state, inference input or capture mode before native admission; no implicit cast, flatten, device selection or CPU fallback. Rejection preserves input/primal/tangent and local native sequence. A workspace constructed under inference mode remains ordinary mutable storage. Native admitted failures preserve existing terminal/error-context behavior; CUDA execution failures fail the adapter/job with honest cleanup limits.
 5. Real one- and two-process GPU checks exercise both staging modes, counts 0/1/1025/1048576, default/nondefault stream ordering, repeated reuse, retained owners and native error propagation. Two workers may share logical device 0 on this laptop; evidence must say single-GPU functional integration. Zero count still advances the collective sequence. Exact fixtures pass exactly; bounded-random fixtures use unchanged `atol=1e-6, rtol=1e-5` against an independent CPU reference.
 6. Publish per-call raw `ready_wait_ms`, `d2h_ms`, `native_ms`, `h2d_ms` and `total_ms`, with counts, byte size, rank, device and memory mode. Times include real completion and are not labeled network-only latency or distinct-GPU speedup. No requirement claims pinned storage is always faster.
 7. Build the actual sdist-derived wheel and test it in a fresh isolated GPU runtime. Record source/wheel/lock identities, imported paths, PyTorch/CUDA/driver versions, GPU model/UUID/capability and available architectures. GPU absence or unsupported execution fails the GPU command; a skip cannot close #10.
@@ -36,11 +36,11 @@ Excluded: changes to the C++ host-byte API, LibTorch/CUDA build dependencies in 
 
 ## Review and authorization
 
-- Review route: choice requested; awaiting the owner's selection between personal review and a fresh independent sub-agent review.
-- Findings/disposition: not yet reviewed. The design includes explicit alternatives and verification; planning checks are not implementation evidence.
-- User go-ahead: pending for these presented artifacts. Record the actual instruction, date, scope and conditions before code, dependent test/config changes or installations.
+- Review route: the owner selected a fresh independent sub-agent on 2026-10-17. `review_cuda_adapter_spec` has no inherited conversation and performs read-only review of the raw issue requirements, artifacts and project material.
+- Findings/disposition: the fresh reviewer found two P2 blockers: inference input/workspace behavior and forward-mode AD dual tensors. The design/acceptance/tasks now require early inference/dual rejection and ordinary workspace construction independent of inference mode. The final follow-up confirmed both findings resolved with no remaining material technical inconsistency. See [review.md](review.md); planning/review is not GPU runtime evidence.
+- User go-ahead: on 2026-10-17 the owner said “Sub-agent. And then you can go on and implement it.” This authorizes implementation of the presented scope after the selected review and disposition; no second approval gate is required unless scope materially changes.
 - Standing delivery instruction: commit/push authorized completed work to main without co-author trailers; preserve unrelated local skills/configuration.
 
 ## Delivery
 
-Planning only. Read [design.md](design.md), [tasks.md](tasks.md), [preflight.md](preflight.md) and Proposed ADR 0004. No CUDA adapter, lock file, GPU runtime, test runner or trainer change is implemented by this proposal. #10/#9 remain open.
+Implementation and installed GPU acceptance passed after the independently reviewed corrections and owner go-ahead. Read [design.md](design.md), [tasks.md](tasks.md), [preflight.md](preflight.md), [review.md](review.md) and Accepted ADR 0004. [Actual runtime evidence](verification.md) includes seven GPU cases, 48 numerical records, 120 measured samples and CPU regressions. Exact-revision CI/delivery remain pending; #10/#9 remain open.

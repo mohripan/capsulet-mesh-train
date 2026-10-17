@@ -1,0 +1,7 @@
+PASS unit-1: 2.141s; exits=[0]
+PASS matrix-1: 1.538s; exits=[0]
+PASS matrix-2: 1.947s; exits=[0, 0]
+PASS lifetime-2: 1.677s; exits=[0, 0]
+PASS closed-2: 1.439s; exits=[0, 0]
+PASS stall-2: 2.511s; exits=[0, 0]
+PASS policy-1: 1.231s; exits=[0]
