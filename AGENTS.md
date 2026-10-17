@@ -23,7 +23,7 @@ These are repository-local skills. Read their files directly if automatic discov
 
 ## Current phase
 
-M1 implementation is authorized by the user's 2026-10-16 request to start implementation. The CPU MVP specification is the accepted implementation contract. The standalone foundation, Linux TCP transport, and centralized FP32 SUM all-reduce are implemented. Read `docs/DEVELOPMENT.md` for commands/evidence, `docs/TCP_PROTOCOL.md` for framing, and `docs/adr/0001-blocking-centralized-fp32-communicator.md` for collective ownership/failure decisions. Safe Python bindings are next in issue #6. Later subsystems still need their own focused design before implementation.
+M1 implementation is authorized by the user's 2026-10-16 request to start implementation. The CPU MVP specification is the accepted implementation contract. The standalone foundation, Linux TCP transport, centralized FP32 SUM and optional Python bindings are implemented. Read `docs/DEVELOPMENT.md` for commands/evidence, `docs/TCP_PROTOCOL.md` for framing, `docs/PYTHON.md` for the Python API, and ADRs 0001/0002 for collective and borrowed-storage decisions. The four-process MLP/reference trainer is next in issue #7 and needs its task OpenSpec. Later subsystems still need their own focused design before implementation.
 
 ## Project boundaries
 

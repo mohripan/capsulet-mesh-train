@@ -1,0 +1,93 @@
+build==1.6.1
+cmake==4.4.4
+ninja==1.13.2
+pybind11==3.1.0
+scikit-build-core==1.1.1
+* Getting build dependencies for sdist...
+* Building sdist...
+*** scikit-build-core 1.1.1 (sdist)
+* Building wheel from sdist
+* Getting build dependencies for wheel...
+* Building wheel...
+*** scikit-build-core 1.1.1 using CMake 4.4.4 (wheel)
+*** Configuring CMake...
+loading initial cache file /tmp/tmpb8ycxmb_/build/CMakeInit.txt
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python: /mnt/c/Projects/capsulet-mesh-train/build/toolchain-venv/bin/python (found suitable exact version "3.12.13") found components: Interpreter Development.Module
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- Found pybind11: /mnt/c/Projects/capsulet-mesh-train/build/toolchain-venv/lib/python3.12/site-packages/pybind11/include (found version "3.1.0")
+-- Configuring done (2.8s)
+-- Generating done (0.2s)
+-- Build files have been written to: /tmp/tmpb8ycxmb_/build
+*** Building project with Ninja...
+[1/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/buffer.cpp.o
+[2/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/error.cpp.o
+[3/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/deadline.cpp.o
+[4/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/protocol.cpp.o
+[5/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/linux/socket.cpp.o
+[6/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/config.cpp.o
+[7/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/linux/resolver.cpp.o
+[8/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/tcp.cpp.o
+[9/15] Building CXX object CMakeFiles/meshtrain_core.dir/src/communicator.cpp.o
+[10/15] Linking CXX static library libmeshtrain_core.a
+[11/15] Building CXX object bindings/python/CMakeFiles/_native.dir/buffer.cpp.o
+[12/15] Building CXX object bindings/python/CMakeFiles/_native.dir/module.cpp.o
+[13/15] Building CXX object bindings/python/CMakeFiles/_native.dir/communicator.cpp.o
+[14/15] Building CXX object bindings/python/CMakeFiles/_native.dir/config.cpp.o
+[15/15] Linking CXX shared module bindings/python/_native.cpython-312-x86_64-linux-gnu.so
+*** Installing project into wheel...
+-- Install configuration: "Release"
+-- Installing: /tmp/tmpb8ycxmb_/wheel/platlib/meshtrain/_native.cpython-312-x86_64-linux-gnu.so
+*** Making wheel...
+*** Created meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+Successfully built meshtrain-0.1.0.tar.gz and meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+Wheel: meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+Contents: ['meshtrain/__init__.py', 'meshtrain/__init__.pyi', 'meshtrain/_native.cpython-312-x86_64-linux-gnu.so', 'meshtrain/py.typed', 'meshtrain-0.1.0.dist-info/METADATA', 'meshtrain-0.1.0.dist-info/WHEEL', 'meshtrain-0.1.0.dist-info/licenses/LICENSE', 'meshtrain-0.1.0.dist-info/RECORD']
+Collecting numpy==2.5.4 (from -r /mnt/c/Projects/capsulet-mesh-train/requirements/python-runtime.lock (line 3))
+  Using cached numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+Installing collected packages: numpy
+Successfully installed numpy-2.5.4
+Processing ./dist/meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+Installing collected packages: meshtrain
+Successfully installed meshtrain-0.1.0
+test_configuration (__main__.LocalContracts.test_configuration) ... ok
+test_finished_inputs_and_communicators_collect (__main__.LocalContracts.test_finished_inputs_and_communicators_collect) ... ok
+test_identity_bits_payload_failure_and_context_manager (__main__.LocalContracts.test_identity_bits_payload_failure_and_context_manager) ... ok
+test_installed_package (__main__.LocalContracts.test_installed_package) ... Installed extension: /tmp/meshtrain-bindings-_qxnx_le/runtime/lib/python3.12/site-packages/meshtrain/_native.cpython-312-x86_64-linux-gnu.so
+Python: 3.12.13; NumPy: 2.5.4
+ok
+test_rejected_inputs_and_valid_reuse (__main__.LocalContracts.test_rejected_inputs_and_valid_reuse) ... ok
+test_close_unblocks_and_releases_input (__main__.ProcessContracts.test_close_unblocks_and_releases_input) ... Process evidence: {'mode': 'close', 'elapsed_seconds': 0.05574007999530295}
+Process evidence: peer stopped
+Collective Python handshake (close): 0.055459s
+ok
+test_startup_releases_gil (__main__.ProcessContracts.test_startup_releases_gil) ... Process evidence: startup progress
+Process evidence: peer stopped
+Startup Python handshake: 0.052408s
+ok
+test_timeout_fields_terminal_state_and_released_input (__main__.ProcessContracts.test_timeout_fields_terminal_state_and_released_input) ... Process evidence: {'mode': 'timeout', 'elapsed_seconds': 1.0040396789991064}
+Process evidence: peer stopped
+Collective Python handshake (timeout): 0.056294s
+ok
+test_two_process_original_storage_sum (__main__.ProcessContracts.test_two_process_original_storage_sum) ... Process evidence: {'calls': 4, 'max_absolute_error': 0.0}
+Process evidence: {'calls': 4, 'max_absolute_error': 0.0}
+ok
+test_wait_lifetime_gil_and_overlapping_call (__main__.ProcessContracts.test_wait_lifetime_gil_and_overlapping_call) ... Process evidence: {'mode': 'success', 'elapsed_seconds': 0.05630058400129201}
+Process evidence: peer stopped
+Collective Python handshake (success): 0.055722s
+ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 2.009s
+
+OK
+PASS: sdist-derived wheel, isolated install/import, buffer contracts, real TCP SUM, lifetime/GIL/failure checks

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.24)
 project(meshtrain VERSION 0.1.0 LANGUAGES CXX)
 
 option(MESHTRAIN_BUILD_TESTS "Build the native core tests" ${PROJECT_IS_TOP_LEVEL})
+option(MESHTRAIN_BUILD_PYTHON "Build the optional Python extension" OFF)
 option(MESHTRAIN_WARNINGS_AS_ERRORS "Treat project warnings as errors" OFF)
 set(meshtrain_tcp_default OFF)
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -88,4 +89,8 @@ install(FILES
 if(MESHTRAIN_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+if(MESHTRAIN_BUILD_PYTHON)
+    add_subdirectory(bindings/python)
 endif()

@@ -1,0 +1,2 @@
+# Runtime used by the focused Python 3.12 binding checks.
+numpy==2.5.4

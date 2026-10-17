@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: Proposed — awaiting the owner's go-ahead for the [issue #6 OpenSpec](../openspecs/python-buffer-bindings/proposal.md). The accepted M1 design establishes NumPy/GIL requirements; this record proposes their concrete API and admission boundary.
+Status: Accepted — the owner authorized implementation after independent review on 2026-10-17; [review and disposition](../openspecs/python-buffer-bindings/review.md) satisfy that condition. This concretizes the accepted M1 NumPy/GIL requirements for the [issue #6 OpenSpec](../openspecs/python-buffer-bindings/proposal.md).
 
 ## Context
 
@@ -10,7 +10,7 @@ The native communicator owns collective state and transport but borrows a writab
 
 The [task design](../openspecs/python-buffer-bindings/design.md) specifies packaging, exact API/error behavior, and focused checks. The [M1 Python contract](../superpowers/specs/2026-10-16-cpu-mvp-design.md#35-python-boundary) and [ADR 0001](0001-blocking-centralized-fp32-communicator.md) remain in force.
 
-## Proposed decision
+## Decision
 
 Keep the optional pybind11/scikit-build package dependent on the standalone C++ core. Expose copied, read-only configuration and an owning communicator handle. The default native build never discovers Python/NumPy; the wheel installs only its Python package/component.
 

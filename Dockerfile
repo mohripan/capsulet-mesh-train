@@ -27,3 +27,14 @@ WORKDIR /workspace
 FROM python-toolchain AS python-toolchain-test
 COPY . .
 RUN python tools/check_python_toolchain.py
+
+FROM python-toolchain AS python-bindings-runtime
+COPY requirements/python-runtime.lock /tmp/python-runtime.lock
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip download --require-hashes --only-binary=:all: \
+        -r /tmp/python-runtime.lock -d /opt/meshtrain-runtime-wheels
+ENV PIP_NO_INDEX=1 PIP_FIND_LINKS=/opt/meshtrain-runtime-wheels
+
+FROM python-bindings-runtime AS python-bindings-test
+COPY . .
+RUN python tools/check_python_bindings.py

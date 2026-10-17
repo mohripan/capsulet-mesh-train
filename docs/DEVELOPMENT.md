@@ -1,6 +1,6 @@
 # Building the native engine
 
-The standalone core provides configuration validation, contextual errors, framed TCP startup, and blocking in-place centralized FP32 SUM all-reduce. Tensor bindings and training are subsequent issues. Native collective correctness is validated; training parity remains an M1 completion gate.
+The standalone core provides configuration validation, contextual errors, framed TCP startup, and blocking in-place centralized FP32 SUM all-reduce. The optional [Python package](PYTHON.md) exposes safe NumPy storage to this engine; PyTorch training parity remains an M1 completion gate.
 
 ## Native Linux build
 
@@ -59,7 +59,7 @@ The operation changes the caller's storage and performs SUM without averaging. E
 
 ## Optional Python 3.12 toolchain check
 
-Issue #6 owns the tensor bindings. The current check builds a disposable pybind11 wheel against the actual core and verifies a native result and exception in a fresh isolated Python process. It does not install a project package or implement collectives.
+The original toolchain check builds a disposable pybind11 wheel against the actual core and verifies a native result and exception in a fresh isolated Python process. It remains a manual probe. For the real package, run `build/toolchain-venv/bin/python tools/check_python_bindings.py`; see the [API and isolated-package checks](PYTHON.md).
 
 ```sh
 uv python install 3.12
@@ -76,7 +76,7 @@ From the project root in PowerShell or Linux:
 
 ```sh
 docker build --target native-test -t meshtrain-native-test:dev .
-docker build --target python-toolchain-test -t meshtrain-python-toolchain-test:dev .
+docker build --target python-bindings-test -t meshtrain-python-bindings-test:dev .
 ```
 
 Then run this in a Linux shell with Docker access (including WSL):
@@ -90,9 +90,11 @@ The TCP script starts two containers and exchanges 524,295 bytes each way. The c
 
 The native target asserts that neither `python` nor `python3` is installed before building/testing. The separate packaging target uses Python 3.12.15. Base-image digests, direct apt tool versions, and Python package hashes are pinned; apt transitive dependencies follow the Debian repositories.
 
-The GitHub workflow builds both targets and runs both container scripts.
+The GitHub workflow builds the native and real Python-binding targets and runs both native container scripts. The manual `python-toolchain-test` stage remains available. This workflow still runs on push/PR; no nightly schedule is implemented.
 
 ## Verified environments
+
+Python binding increment, 2026-10-17: the real sdist-derived package passed all ten focused checks in WSL CPython 3.12.13 and the pinned CPython 3.12.15 container with NumPy 2.5.4. Two-process exact SUM had maximum absolute error 0.0; GIL/lifetime, export cleanup and bounded close/timeout cases passed. Native default/TCP-disabled installed-consumer checks and the Python-free container also passed. See [binding commands/raw results and limits](openspecs/python-buffer-bindings/verification.md).
 
 Centralized collective increment evidence, 2026-10-16:
 

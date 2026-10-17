@@ -2,7 +2,7 @@
 
 Date: 2026-10-17
 
-Status: draft for review; implementation has not started.
+Status: implemented and locally verified under the owner's conditional go-ahead; remote delivery in progress.
 
 Source: [issue #6](https://github.com/mohripan/capsulet-mesh-train/issues/6), following the owner's request to continue after the repository workflow skills.
 
@@ -15,7 +15,7 @@ The standalone C++ engine can perform centralized FP32 SUM across real processes
 - Add a scikit-build-core/pybind11 package named `meshtrain`, importing the extension as `meshtrain._native` and linking the existing core.
 - Expose explicit immutable configuration, blocking communicator construction, in-place `all_reduce_sum`, close/context-manager support, state/sequence inspection, and contextual native errors.
 - Validate the actual NumPy array without conversion; retain the array/exported buffer and native communicator during calls; release the GIL only around Python-independent native work.
-- Add focused installed-package checks, a reproducible Python container target and CI coverage, documentation, and [proposed ADR 0002](../../adr/0002-python-buffer-ownership.md).
+- Add focused installed-package checks, a reproducible Python container target and CI coverage, documentation, and [ADR 0002](../../adr/0002-python-buffer-ownership.md).
 
 The standalone build remains the default and does not discover Python or NumPy. This task excludes a trainer/launcher, PyTorch dependency, arbitrary buffer exporters or pointer arguments, CUDA, asynchronous work, new algorithms, native Windows networking, package publication, and CI nightly scheduling. The disposable toolchain probe remains available; the real package becomes the Python CI validation target.
 
@@ -30,13 +30,13 @@ The standalone build remains the default and does not discover Python or NumPy. 
 
 ## Review and authorization
 
-- Review route: awaiting the owner's choice of personal review or a fresh, context-independent sub-agent review.
-- Findings and disposition: author self-review only; no independent review has run.
-- User go-ahead: pending for these presented #6 specifications. The request to continue authorizes preparing them; the prior instruction to implement applied to the workflow-skills scope.
+- Review route: fresh, context-independent sub-agent review, selected on 2026-10-17. The reviewer starts without inherited conversation and may inspect the repository and primary references; its work is read-only.
+- Findings and disposition: [independent review](review.md) found no blockers and one low-priority coverage suggestion. Include valid ndarray-subclass and buffer-acquisition-failure cases in the focused checks.
+- User go-ahead: on 2026-10-17, the owner said, "Independent sub-agent review, and then you can go and implement." This authorizes the presented #6 scope after review and disposition, without a second approval question.
 - Commit/push: the owner's standing instruction applies to completed planning documents and, after go-ahead and verification, implementation; no co-author trailers.
 
 ## Delivery
 
-Planning artifacts are [design.md](design.md), [tasks.md](tasks.md), and proposed ADR 0002. Implementation tasks remain unchecked. Record implementation evidence and delivery references here after authorization and execution; #6 remains open.
+The optional package, strict buffer boundary, contextual errors and focused verifier are implemented. [Verification](verification.md) records passing package checks in WSL and the pinned Python container, real two-process exact sums, lifetime/GIL/failure evidence, native independence and limits. [Tasks](tasks.md) tracks remote delivery; #6 remains open until that work is completed. ADR 0002 is accepted under the owner's actual conditional go-ahead.
 
 Planning checks on 2026-10-17: local Markdown targets resolved across the three task documents, ADR 0002 and ADR index; no unresolved template fields or TODO/TBD markers remained; the diff passed whitespace checks. Author self-review reconciled pre-admission rejection, admitted failure and concurrent-call rejection with M1/ADR 0001. These are document checks, not live binding/package evidence.

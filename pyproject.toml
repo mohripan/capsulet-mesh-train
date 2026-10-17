@@ -1,0 +1,24 @@
+[build-system]
+requires = ["scikit-build-core==1.1.1", "pybind11==3.1.0"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "meshtrain"
+version = "0.1.0"
+description = "Native distributed training communication engine"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+dependencies = ["numpy>=2,<3"]
+
+[tool.scikit-build]
+cmake.version = ">=3.24"
+wheel.packages = ["python/meshtrain"]
+install.components = ["python"]
+sdist.include = ["bindings/**", "python/meshtrain/**", "include/**", "src/**", "cmake/**"]
+sdist.exclude = [".agents/**", ".claude/**", "skills-lock.json", "build/**", "dist/**"]
+
+[tool.scikit-build.cmake.define]
+MESHTRAIN_BUILD_PYTHON = "ON"
+MESHTRAIN_BUILD_TESTS = "OFF"
+MESHTRAIN_WARNINGS_AS_ERRORS = "ON"

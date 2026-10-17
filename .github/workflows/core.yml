@@ -1,4 +1,4 @@
-name: Native core and toolchain
+name: Native core and Python bindings
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [native-test, python-toolchain-test]
+        target: [native-test, python-bindings-test]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Build and validate ${{ matrix.target }}
