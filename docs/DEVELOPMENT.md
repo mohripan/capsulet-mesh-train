@@ -143,7 +143,7 @@ The installed consumer is a separately configured project and does not inherit t
 - Prefer RAII and explicit value ownership. Add abstractions at real ownership/platform/integration boundaries; keep framework dependencies and global state out of the core.
 - Apply `.clang-format`; initial formatting used clang-format 22.1.7.
 
-Active: [#11 — GPU trainer/reference parity](https://github.com/mohripan/capsulet-mesh-train/issues/11). Its [reviewed/authorized CUDA training mode](CUDA_TRAINING.md) passed installed full hardware acceptance; exact-revision CPU CI/delivery remain pending in the [report](openspecs/cuda-mlp-trainer/verification.md).
+Next: [#13 — ring all-reduce](https://github.com/mohripan/capsulet-mesh-train/issues/13), under M3/#12, beginning with its focused algorithm/measurement OpenSpec and selected review/owner go-ahead. M2's [CUDA training mode](CUDA_TRAINING.md) is complete with [installed hardware and exact-revision CPU CI evidence](openspecs/cuda-mlp-trainer/verification.md).
 
 ## Optional CUDA tensor staging
 

@@ -27,7 +27,9 @@ M1 is complete for Linux CPU processes and local containers. Issues #3–#8, tra
 
 Issue #10’s host-staged CUDA adapter is complete: `e557542` passed installed local GPU acceptance and exact-revision CPU CI. Read `docs/CUDA.md`, `docs/openspecs/host-staged-cuda-adapter/verification.md` and Accepted ADR 0004 for the tensor/stream/ownership/failure contract, original results and limits. Two workers shared the laptop GPU; this is functional integration. The C++ core and CPU trainer retain their contracts.
 
-The active task is issue #11 under M2 tracker #9: GPU trainer/reference parity. Its reviewed/authorized OpenSpec is `docs/openspecs/cuda-mlp-trainer/`, with Accepted ADR 0005. Fresh independent review completed without findings and the owner authorized implementation afterwards. Installed full GPU acceptance in both 100-step memory modes and local CPU regressions passed; exact-revision CPU CI/delivery remain pending. Read `docs/CUDA_TRAINING.md` and the actual verification report. #9 and milestone 2 remain open. Native Windows, GPU-container, physical multi-host/distinct-GPU and GPU-nightly execution need their own actual evidence.
+M2 is complete: #11, tracker #9 and milestone 2 are closed after independent review/owner authorization, installed full GPU acceptance and exact-revision CPU CI at `b603284`. Both two-worker/100-step memory modes match an independent GPU reference at fixed tolerances, with raw cost/memory/failure/cleanup evidence. Read `docs/CUDA_TRAINING.md`, `docs/openspecs/cuda-mlp-trainer/verification.md` and Accepted ADR 0005. CPU/schema-1 and the native core retain their contracts; two workers shared one physical laptop GPU.
+
+Next is M3 tracker #12, starting with #13's focused ring algorithm/measurement OpenSpec, selected review and owner go-ahead before implementation. M2 completion does not approve unseen M3 details. Native Windows, GPU-container, physical multi-host/distinct-GPU and GPU-nightly execution need their own actual evidence.
 
 ## Project boundaries
 

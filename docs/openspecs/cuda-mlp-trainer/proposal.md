@@ -2,7 +2,7 @@
 
 Date: 2026-10-18
 
-Status: implemented; installed full GPU acceptance and local CPU regressions passed. Exact-revision CPU CI/delivery pending.
+Status: complete; implemented, verified and pushed. #11, tracker #9 and milestone 2 are closed.
 
 Source: [issue #11](https://github.com/mohripan/capsulet-mesh-train/issues/11), under [M2 tracker #9](https://github.com/mohripan/capsulet-mesh-train/issues/9). The owner said “All right. Please continue!” after #10 was delivered and the next GPU trainer OpenSpec identified. This instruction starts the next planning task; the earlier conditional review/implementation instruction applied to #10.
 
@@ -38,8 +38,8 @@ Excluded: new C++ algorithms or CUDA linkage, CPU numerical-contract changes, AM
 - Review route: fresh independent sub-agent `review_cuda_trainer_spec`, started with `fork_turns="none"` and raw issue requirements/artifact paths, without the author's conversation or desired verdict.
 - Findings and disposition: [independent review](review.md) completed without findings; no spec corrections required. Planning self-checks are recorded in [verification.md](verification.md).
 - User go-ahead: on 2026-10-18 the owner said “All right. Please continue! I prefer the sub-agent, and then you can go implement it.” This explicitly authorizes implementation of this presented #11 scope after the independent review and resolution of findings. Do not introduce another approval gate for corrections within that scope.
-- ADR 0005 is Accepted under the owner's actual conditional instruction after review completed. ADRs 0001–0004 remain accepted history. Required runtime evidence remains pending.
+- ADR 0005 is Accepted under the owner's actual conditional instruction after review completed. ADRs 0001–0004 remain accepted history. Actual runtime/CI evidence is recorded in [verification.md](verification.md).
 
 ## Delivery
 
-The reviewed/authorized CUDA gradient/training layer, schema-2 GPU reference/integrity checks and installed verification runner are implemented. Both 100-step memory modes and focused checks passed on the shared laptop GPU. [Actual evidence](verification.md) and raw records accompany the [tasks](tasks.md), [review](review.md) and Accepted ADR 0005. Exact implementation-revision CPU CI/delivery remain pending; #11, #9 and milestone 2 remain open.
+The reviewed/authorized CUDA gradient/training layer, schema-2 GPU reference/integrity checks and installed verification runner are delivered. Both 100-step memory modes and focused checks passed on the shared laptop GPU. [Actual evidence](verification.md) and raw records accompany the [tasks](tasks.md), [review](review.md) and Accepted ADR 0005. Implementation b603284 is pushed without co-author trailers, all 106 tested files match its committed blobs, and exact-revision CPU CI passed. #11, #9 and milestone 2 are closed; next work is M3/#13's focused OpenSpec.

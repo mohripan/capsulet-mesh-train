@@ -1,6 +1,6 @@
 # GPU trainer implementation evidence — 2026-10-18
 
-Status: installed full GPU acceptance and local CPU regressions passed. Exact implementation-revision CPU CI and delivery remain pending; #11/#9/M2 remain open.
+Status: complete. Installed full GPU acceptance, local CPU regressions and exact implementation-revision CPU CI passed. #11, tracker #9 and milestone 2 are closed.
 
 The owner selected a fresh independent review and said “I prefer the sub-agent, and then you can go implement it.” [Review/disposition](review.md) records no findings; actual owner authorization accepts ADR 0005 after that review. The implementation preserves native SUM and CPU/schema-1 defaults while adding explicit CUDA execution/schema 2.
 
@@ -66,7 +66,15 @@ Seven additional actual installed CLI negative cases passed for unindexed/wrappe
 
 Selected original evidence is committed as [source/build/wheel acceptance](results/validation.json), [all profile reports/raw comparisons/worker metrics](results/checks.json), [controller lifecycle negatives](results/controller-checks.json), [rank/step/staged-call samples](results/timing-samples.json), [CSV](results/timing-samples.csv), [per-rank summaries and maximum-rank steps](results/timing-summary.json), [reference metrics](results/reference-metrics.json), [peer failure/update logs](results/peer-failure.json), [installed CLI negatives](results/cli-negatives.json), [runtime freeze](results/runtime.txt), [controller log](results/checks.txt) and [SHA-256 manifest](results/sha256.json). The empty controller log is retained as actually produced; detailed rank logs live in the external bundle.
 
-All 106 behavioral working-tree file hashes still match the full run. Raw CSV retains its original CRLF bytes through a binary text attribute, and raw driver output retains its generated whitespace; their SHA-256 values are preserved rather than normalizing forensic evidence. Source/other report text uses normal repository rules. Exact final Git/source correspondence, commit/push and implementation-revision CPU CI remain required delivery evidence. #11/#9/M2 remain open until that passes. This is two-process functional training on one physical laptop GPU; no GPU-container, native Windows, physical-host, distinct-GPU scaling/NCCL or GPU-nightly execution is claimed.
+All 106 behavioral working-tree file hashes still match the full run. Raw CSV retains its original CRLF bytes through a binary text attribute, and raw driver output retains its generated whitespace; their SHA-256 values are preserved rather than normalizing forensic evidence. Source/other report text uses normal repository rules. This is two-process functional training on one physical laptop GPU; no GPU-container, native Windows, physical-host, distinct-GPU scaling/NCCL or GPU-nightly execution is claimed.
+
+## Exact revision and GitHub closure
+
+Implementation [b603284360682d9defae46a2474f25ab80ca92e6](https://github.com/mohripan/capsulet-mesh-train/commit/b603284360682d9defae46a2474f25ab80ca92e6) is committed/pushed to main without co-author trailers, with the remote SHA confirmed. All 106 tested raw file hashes and their Git-filtered committed blobs match that revision; [source/commit correspondence](results/source-commit.json) accounts for repository line-ending normalization. All committed evidence bytes match their recorded SHA-256 values. No production/test/runtime/workflow source changed during closure/evidence reconciliation.
+
+[CPU CI run 39115392693](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39115392693) passed all three native, Torch-free binding and short CPU-trainer jobs at that exact implementation revision, including two/four-container native exchanges and the latest unavailable-CUDA CLI check. [Original CI provenance](results/ci.json) records job/step details. Hosted CPU CI is compatibility evidence; local installed execution above proves GPU training. The existing M1 nightly/manual lane was preserved and not redundantly rerun for this task.
+
+After reading back that proof, #11 and M2 tracker #9 were closed with acceptance/child criteria checked, and milestone 2 was closed with three closed and zero open issues. #1 remains open and points to M3/#13's focused algorithm/measurement OpenSpec; #12/#13 remain open and #13's completed #5 dependency is checked. Relevant navigation was read back, including normalizing damaged punctuation in the root roadmap body. No future design or implementation is approved merely by closing M2.
 
 ## Installed development smoke
 
@@ -74,11 +82,11 @@ The first fresh installed `--mode smoke` run passed all 10 cases, 13 corruption 
 
 Command: `build/toolchain-venv/bin/python tools/check_cuda_trainer.py --mode smoke --output /home/mohri/.cache/meshtrain-validation/cuda-trainer-smoke-01 --wheelhouse /home/mohri/.cache/meshtrain-validation/cuda-first/cuda-wheels`. The sdist-derived wheel was built/installed in a new isolated runtime; source fingerprint `3c3209166df88438eae3055131cccba2fe314c62079f7f259ff1b4124b25c98e` covered 106 behavioral files. Raw setup/run/process logs remain in that external directory; host console log is `build/cuda-trainer-smoke-01.log`.
 
-The real peer-close fixture produced `peer_closed` at rank 0 and `invalid_state` at rank 1, both at sequence 2. Each SGD log contained only completed step 0, with no second update or completion marker. Small follow-up refinements add runtime-component integrity, bit-preserving rejection snapshots, explicit cross-stream dependency averaging and CUDA-specific CLI acceptance output; the fresh full run will test those final bytes separately.
+The real peer-close fixture produced `peer_closed` at rank 0 and `invalid_state` at rank 1, both at sequence 2. Each SGD log contained only completed step 0, with no second update or completion marker. Small follow-up refinements added runtime-component integrity, bit-preserving rejection snapshots, explicit cross-stream dependency averaging and CUDA-specific CLI acceptance output; the final full run above verified those bytes separately.
 
 ## CPU compatibility
 
-`docker build --target trainer-smoke-test -t meshtrain-trainer-smoke-test:cuda-11-dev --progress plain .` passed 63 numerical comparisons and its focused checks, including CPU-only unavailable-CUDA rejection. `docker build --target python-bindings-test -t meshtrain-python-bindings-test:cuda-11-dev --progress plain .` passed all 10 Torch-free binding checks. Logs: `build/cuda-trainer-cpu-regression.log` and `build/cuda-trainer-binding-regression.log`. Exact final implementation-revision CPU CI remains required; hosted CPU CI does not prove GPU behavior.
+`docker build --target trainer-smoke-test -t meshtrain-trainer-smoke-test:cuda-11-dev --progress plain .` passed 63 numerical comparisons and its focused checks, including CPU-only unavailable-CUDA rejection. `docker build --target python-bindings-test -t meshtrain-python-bindings-test:cuda-11-dev --progress plain .` passed all 10 Torch-free binding checks. Logs: `build/cuda-trainer-cpu-regression.log` and `build/cuda-trainer-binding-regression.log`. Exact implementation-revision CPU CI subsequently passed as recorded above; hosted CPU CI does not prove GPU behavior.
 
 ## Historical planning record
 
@@ -104,4 +112,4 @@ Checked nine changed/new Markdown documents: all 52 local file links resolve, th
 
 The contract self-review walked through CPU schema-1 preservation, successful GPU normalization/order/reference, rejected metadata/nonfinite data, loss failure after gradient synchronization, a real failed peer before SGD, reference initialization stalls, stale success and shared-GPU memory/timing claims. It clarified early precision/environment setup, poisoning for failures outside the inner staging primitive, capture rejection before validation kernels, and direct-child ownership for the complete reference/worker controller. A killed nested supervisor cannot be described as reaping its children.
 
-After these planning checks, the owner selected independent review and conditionally authorized implementation. [Review/disposition](review.md) records that completed route. Remaining implementation/GPU/CI tasks stay unchecked until their actual evidence passes; #11/#9/M2 remain open.
+After these planning checks, the owner selected independent review and conditionally authorized implementation. [Review/disposition](review.md) records that completed route. The implementation/GPU/CI tasks were subsequently completed with the evidence above; #11/#9/M2 are closed.

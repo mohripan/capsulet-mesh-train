@@ -1,6 +1,6 @@
 # Roadmap
 
-Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap tracker](https://github.com/mohripan/capsulet-mesh-train/issues/1) and [milestones](https://github.com/mohripan/capsulet-mesh-train/milestones) track live progress; this document explains the scope, dependencies, and evidence needed to finish each milestone. M1 is complete for Linux CPU local processes and containers; see [full acceptance evidence](openspecs/m1-validation/verification.md) and [build instructions](DEVELOPMENT.md). The staged CUDA tensor adapter #10 is also complete; continue with M2/#11’s focused GPU trainer/reference design. Later milestones require their own design before implementation.
+Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap tracker](https://github.com/mohripan/capsulet-mesh-train/issues/1) and [milestones](https://github.com/mohripan/capsulet-mesh-train/milestones) track live progress; this document explains scope, dependencies and completion evidence. M1 and M2 are complete: see [CPU acceptance](openspecs/m1-validation/verification.md), [GPU training/CI evidence](openspecs/cuda-mlp-trainer/verification.md) and [build instructions](DEVELOPMENT.md). Continue with M3/#13's focused ring algorithm/measurement OpenSpec. Later work requires its own design/review/go-ahead.
 
 ## Milestone map
 
@@ -31,7 +31,7 @@ Build, transport, collective, bindings, trainer, and integration issues implemen
 
 ## M2: CUDA functionality before advanced CPU optimization
 
-The tensor adapter #10 is complete and closed, with its [implemented OpenSpec](openspecs/host-staged-cuda-adapter/proposal.md), [Accepted ADR 0004](adr/0004-blocking-host-staged-cuda-adapter.md), [CUDA API](CUDA.md) and [GPU/CI evidence](openspecs/host-staged-cuda-adapter/verification.md). Seven installed hardware cases and exact-revision CPU CI passed; two workers used one physical GPU. #11’s [GPU trainer/reference OpenSpec](openspecs/cuda-mlp-trainer/proposal.md) and [Accepted ADR 0005](adr/0005-cuda-training-reference-contract.md) are independently reviewed and owner-authorized. [CUDA training](CUDA_TRAINING.md) passed installed full GPU acceptance; exact-revision CPU CI/delivery remain pending in its [report](openspecs/cuda-mlp-trainer/verification.md). M2 remains open until that evidence is complete.
+Completed on 2026-10-18: #10/#11, tracker #9 and milestone 2 are closed. The [tensor primitive](CUDA.md) and [CUDA trainer](CUDA_TRAINING.md) have independently reviewed/owner-authorized OpenSpecs and Accepted ADRs [0004](adr/0004-blocking-host-staged-cuda-adapter.md)/[0005](adr/0005-cuda-training-reference-contract.md). Both two-worker/100-step memory modes passed 936 independent GPU reference comparisons each, with decreased evaluation loss, 760 measured staged-call samples, resource/failure/reaping evidence and [exact implementation-revision CPU CI](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39115392693). [Raw evidence and limits](openspecs/cuda-mlp-trainer/verification.md): two workers shared one physical GPU. Continue with M3/#13's focused OpenSpec.
 
 Expose a separate CUDA adapter. Initially copy gradients to host buffers, run our C++ collective, and copy the result back. Make all copy costs, buffer ownership, and synchronization explicit. The CPU core remains buildable without CUDA.
 

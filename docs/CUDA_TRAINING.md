@@ -1,6 +1,6 @@
 # GPU training through the C++ engine
 
-Issue [#11](https://github.com/mohripan/capsulet-mesh-train/issues/11) adds an explicit CUDA mode to the existing MLP trainer. The reviewed/authorized [OpenSpec](openspecs/cuda-mlp-trainer/proposal.md), [independent review](openspecs/cuda-mlp-trainer/review.md) and [ADR 0005](adr/0005-cuda-training-reference-contract.md) define its contract. Installed full GPU acceptance passed in both memory modes, with independent 100-step reference parity; exact-revision CPU CI/delivery remain pending in the [evidence report](openspecs/cuda-mlp-trainer/verification.md).
+Completed issue [#11](https://github.com/mohripan/capsulet-mesh-train/issues/11) adds an explicit CUDA mode to the existing MLP trainer. The reviewed/authorized [OpenSpec](openspecs/cuda-mlp-trainer/proposal.md), [independent review](openspecs/cuda-mlp-trainer/review.md) and [ADR 0005](adr/0005-cuda-training-reference-contract.md) define its contract. Installed full GPU acceptance passed in both memory modes, with independent 100-step reference parity and exact-revision CPU CI. Read the [evidence report](openspecs/cuda-mlp-trainer/verification.md) for raw results and limits. #11/#9 and milestone 2 are closed.
 
 The model, features, labels, forward/backward and SGD run on the selected GPU. Our [staging primitive](CUDA.md) copies gradients and loss through pinned or pageable host buffers to the existing C++ TCP SUM. Python explicitly divides both SUMs by worker count. No third-party collective carries training data.
 

@@ -1,6 +1,7 @@
 {
   "checks.json": "c4ada3671d5ce36b9b89be21dd5cea86a5f6ad91c1957a6f091be2e4908097ab",
   "checks.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "ci.json": "cd727ab3fe491de226b7401283ced937fd30feb6c286d83f5882facc6f1b8219",
   "cli-negatives.json": "4f38a591a746123fbc3118a2f04cf330eae706fc7698b92047962bd6427f8a99",
   "controller-checks.json": "c7efd3054e39f782334b5fa5ac4626b426a88aedff092c3c66866cfd4c68cfd1",
   "driver.txt": "1d4b198ff4e73a105828e12f53d8d43a25486749e6c7e1573f4dc9cabc3b895f",
@@ -8,6 +9,7 @@
   "reference-metrics.json": "678e4375a02aead4f371634fdacd9883d3f019f0baecd3d625fb682c6f493d4d",
   "runtime.txt": "9b6f4575d7ea0ce38fe26a3316405e0e446faf092f397458fa92a232ae94ba48",
   "setup-rejections.json": "87ed8940328c68b307fc43b87c0277bca6d5f80ff5c4047fc56cb6f044e92b2c",
+  "source-commit.json": "d4443e7df90ea2665f5c352aa0cb7aeb837eff47858f09ec14be957052e075f7",
   "timing-samples.csv": "062186d079ace6f0cf37710a4f61819a746c0ae2ee4d11bb1d4686aca3b2d822",
   "timing-samples.json": "1a8fee3591f03371d40efed39612d0a4d395e0b0022b213630496506f0b93aaf",
   "timing-summary.json": "7000ddb4226e503f794d33c7ea16279eb941f1c13d9928d5b625ba18ebd33897",
