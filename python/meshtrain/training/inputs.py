@@ -11,6 +11,7 @@ from meshtrain import Endpoint, RunConfig
 from meshtrain.torch_adapter import parameter_layout
 from .artifacts import digest, fingerprint, read_json, write_json, write_npz, write_state
 from .workload import contract, execution_contract, load_model, model, schedule, validate_layout
+from .selection import from_config, selection
 
 
 def local_endpoints(count):
@@ -37,7 +38,10 @@ def native_config(config, rank):
 
 
 def prepare(output, world_size=4, steps=100, local_batch_size=8, endpoints=None, run_id=None,
-            listen_address="0.0.0.0", startup_timeout_ms=30000, collective_timeout_ms=30000):
+            listen_address="0.0.0.0", startup_timeout_ms=30000, collective_timeout_ms=30000,
+            *, device="cpu", host_memory=None):
+    device, host_memory = selection(device, host_memory)
+    execution = execution_contract(device, host_memory)
     settings = contract(world_size, steps, local_batch_size)
     root = Path(output).resolve()
     if root.exists() and (not root.is_dir() or any(root.iterdir())):
@@ -51,8 +55,8 @@ def prepare(output, world_size=4, steps=100, local_batch_size=8, endpoints=None,
     write_npz(root / "inputs/data.npz", features=features.numpy(), teacher=teacher.numpy(), labels=labels.numpy())
     write_npz(root / "inputs/schedule.npz", indices=schedule(settings))
     inputs = {name: digest(root / name) for name in ("inputs/initial.pt", "inputs/data.npz", "inputs/schedule.npz")}
-    context = dict(workload=settings, layout=parameter_layout(network), inputs=inputs, execution=execution_contract())
-    config = dict(schema=1, run_id=run_id or uuid.uuid4().hex, context=context,
+    context = dict(workload=settings, layout=parameter_layout(network), inputs=inputs, execution=execution)
+    config = dict(schema=1 if device == "cpu" else 2, run_id=run_id or uuid.uuid4().hex, context=context,
                   context_fingerprint=fingerprint(context), workload=settings,
                   endpoints=endpoints if endpoints is not None else local_endpoints(world_size),
                   listen_address=listen_address, startup_timeout_ms=startup_timeout_ms,
@@ -63,14 +67,13 @@ def prepare(output, world_size=4, steps=100, local_batch_size=8, endpoints=None,
 
 
 def validate_config(config):
-    if config["schema"] != 1:
-        raise ValueError("unsupported configuration schema")
+    device, host_memory = from_config(config)
     settings = config["workload"]
     expected = contract(settings["world_size"], settings["steps"], settings["local_batch_size"])
     context = config["context"]
     if settings != expected or context["workload"] != expected:
         raise ValueError("unsupported workload contract")
-    if context["execution"] != execution_contract():
+    if context["execution"] != execution_contract(device, host_memory):
         raise ValueError("execution environment differs from prepared contract")
     if fingerprint(context) != config["context_fingerprint"]:
         raise ValueError("context fingerprint mismatch")

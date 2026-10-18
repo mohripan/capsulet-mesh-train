@@ -26,11 +26,16 @@ def load_result(root, config, rank):
     if any(metadata["environment"][key] != execution[key]
            for key in ("torch", "numpy", "intra_threads", "inter_threads", "deterministic")):
         raise ValueError(f"{rank}: execution metadata differs from prepared contract")
-    if set(metadata["files"]) != {"trace.npz", "final.pt"}:
+    expected_files = {"trace.npz", "final.pt"} | ({"cuda.json"} if config["schema"] == 2 else set())
+    if set(metadata["files"]) != expected_files:
         raise ValueError(f"{rank}: incomplete artifact manifest")
     hashes = {name: digest(directory / name) for name in metadata["files"]}
     if hashes != metadata["files"]:
         raise ValueError(f"{rank}: artifact digest mismatch")
+    cuda_metrics = None
+    if config["schema"] == 2:
+        from .cuda_evidence import validate
+        cuda_metrics = validate(config, read_json(directory / "cuda.json"), rank)
     with np.load(directory / "trace.npz", allow_pickle=False) as archive:
         if set(archive.files) != {"losses", "gradients", "parameters"}:
             raise ValueError(f"{rank}: unexpected trace keys")
@@ -53,7 +58,7 @@ def load_result(root, config, rank):
         if not np.isfinite(metadata[key]):
             raise ValueError(f"{rank}: nonfinite evaluation")
     hashes["complete.json"] = digest(directory / "complete.json")
-    return dict(metadata=metadata, trace=trace, state=state, hashes=hashes)
+    return dict(metadata=metadata, trace=trace, state=state, hashes=hashes, cuda_metrics=cuda_metrics)
 
 
 def compare(actual, expected, label, quantity, step=None, layout=None):
@@ -81,6 +86,13 @@ def verify(output):
     write_json(root / "verification.json", report)
     try:
         root, config, initial, features, labels, _ = load_inputs(root)
+        cuda = config["schema"] == 2
+        if cuda:
+            report.update(schema=2, cuda_training_acceptance=False, evidence_scope="single-GPU functional training")
+            if (root / "group.json").exists() and read_json(root / "group.json")["status"] != "passed":
+                raise ValueError("failed worker group cannot be verified")
+            from .cuda_execution import activate
+            initial, features, labels = activate(config, initial, features, labels)
         report.update(identity(config))
         ranks = list(range(config["workload"]["world_size"]))
         results = {rank: load_result(root, config, rank) for rank in ranks}
@@ -101,11 +113,15 @@ def verify(output):
                                       label, f"final_state/{name}"))
             for key in ("evaluation_before", "evaluation_after"):
                 checks.append(compare(actual["metadata"][key], expected["metadata"][key], label, key))
-        full = tuple(config["workload"][key] for key in ("world_size", "steps", "local_batch_size")) == (4, 100, 8)
+        profile = tuple(config["workload"][key] for key in ("world_size", "steps", "local_batch_size"))
+        full = not cuda and profile == (4, 100, 8)
+        cuda_full = cuda and profile == (2, 100, 8)
         evaluation = {}
         for rank, result in results.items():
             final = load_model(root)
             final.load_state_dict(result["state"], strict=True)
+            if cuda:
+                final = final.to(features.device)
             before, after = evaluate(initial, features, labels), evaluate(final, features, labels)
             checks.append(compare(result["metadata"]["evaluation_before"], before, str(rank), "recorded_evaluation_before"))
             checks.append(compare(result["metadata"]["evaluation_after"], after, str(rank), "recorded_evaluation_after"))
@@ -115,18 +131,26 @@ def verify(output):
                 checks.append(compare(traced, saved, str(rank), f"trace_final_state/{item['name']}"))
             evaluation[str(rank)] = dict(before=before, after=after, decreased=after < before)
         passed = not any(check["failure_count"] for check in checks)
-        if full:
+        if full or cuda_full:
             passed = passed and all(item["decreased"] for item in evaluation.values())
         report.update(status="passed" if passed else "failed", profile="full" if full else "smoke_or_custom",
                       full_acceptance=full and passed, checks=checks, evaluation=evaluation,
                       failure_count=sum(check["failure_count"] for check in checks),
                       artifacts={str(rank): result["hashes"] for rank, result in results.items()},
                       config_sha256=digest(root / "config.json"), inputs=config["context"]["inputs"])
+        if cuda:
+            uuids = {result["cuda_metrics"]["preflight"]["gpu_uuid"] for result in results.values()}
+            if len(uuids) != 1:
+                raise ValueError("shared-GPU functional profile requires one actual GPU UUID")
+            report.update(profile="cuda_full" if cuda_full else "cuda_smoke_or_custom",
+                          cuda_training_acceptance=cuda_full and passed, gpu_uuids=sorted(uuids))
         write_json(root / "verification.json", report)
         if not passed:
             raise ValueError("numerical parity or evaluation decrease check failed; see verification.json")
         return report
     except BaseException as error:
         report.update(status="failed", full_acceptance=False, error=f"{type(error).__name__}: {error}")
+        if report.get("schema") == 2:
+            report["cuda_training_acceptance"] = False
         write_json(root / "verification.json", report)
         raise

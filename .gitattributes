@@ -6,3 +6,7 @@ docs/openspecs/m1-validation/results/*.csv text eol=lf
 docs/openspecs/host-staged-cuda-adapter/results/*.json text eol=lf
 docs/openspecs/host-staged-cuda-adapter/results/*.csv text eol=lf
 docs/openspecs/host-staged-cuda-adapter/results/*.txt text eol=lf
+docs/openspecs/cuda-mlp-trainer/results/*.json text eol=lf
+docs/openspecs/cuda-mlp-trainer/results/*.csv -text whitespace=cr-at-eol
+docs/openspecs/cuda-mlp-trainer/results/*.txt text eol=lf
+docs/openspecs/cuda-mlp-trainer/results/driver.txt whitespace=-blank-at-eol,-blank-at-eof

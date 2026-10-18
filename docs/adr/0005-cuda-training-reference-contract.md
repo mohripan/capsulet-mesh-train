@@ -2,7 +2,7 @@
 
 Date: 2026-10-18
 
-Status: Proposed
+Status: Accepted — owner authorized implementation after independent review on 2026-10-18; review completed without findings.
 
 OpenSpec: [GPU MLP trainer design](../openspecs/cuda-mlp-trainer/design.md)
 
@@ -37,4 +37,4 @@ Uneven batches, AMP/other dtypes, tied/stateful models, asynchronous buckets, mu
 
 ## Decision record
 
-Drafted during #11 planning after the owner's 2026-10-18 request to continue. Review route and implementation go-ahead for this presented scope are pending in the [proposal](../openspecs/cuda-mlp-trainer/proposal.md). No reviewer verdict or earlier #10 authorization accepts this new record.
+Drafted during #11 planning. On 2026-10-18 the owner said “I prefer the sub-agent, and then you can go implement it.” The [fresh independent review](../openspecs/cuda-mlp-trainer/review.md) completed without findings; the actual owner instruction authorizes implementation after that review. The reviewer verdict itself is not approval. Read the [proposal](../openspecs/cuda-mlp-trainer/proposal.md) for scope and the task report for required runtime evidence.

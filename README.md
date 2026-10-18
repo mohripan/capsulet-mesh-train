@@ -6,7 +6,7 @@ The core project implements its own transport and collective algorithms. GPU tra
 
 ## Current state
 
-M1 is complete for Linux CPU processes and local containers. The standalone C++ core implements blocking centralized FP32 SUM all-reduce over its own Linux TCP transport, with bounded failures and safe cleanup. Native validation covers 1–5 worker processes, exact/random numerical checks, failure scenarios, and four independent containers. The optional Python package exposes strict in-place NumPy buffers with retained ownership and GIL release. The optional PyTorch MLP trainer passes four-worker/100-step parity against an independent combined-batch reference, with explicit gradient averaging and rank diagnostics. The same 100-step workload passes in four independent Linux containers. Clean builds, controlled native failure groups and scoped cleanup pass locally and in [full CI](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39030243246). The optional [host-staged CUDA adapter](docs/CUDA.md) also passes installed one/two-worker functional checks on the laptop GPU. GPU training/reference parity remains #11.
+M1 is complete for Linux CPU processes and local containers. The standalone C++ core implements blocking centralized FP32 SUM all-reduce over its own Linux TCP transport, with bounded failures and safe cleanup. Native validation covers 1–5 worker processes, exact/random numerical checks, failure scenarios, and four independent containers. The optional Python package exposes strict in-place NumPy buffers with retained ownership and GIL release. The optional PyTorch MLP trainer passes four-worker/100-step parity against an independent combined-batch reference, with explicit gradient averaging and rank diagnostics. The same 100-step workload passes in four independent Linux containers. Clean builds, controlled native failure groups and scoped cleanup pass locally and in [full CI](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39030243246). The optional [host-staged CUDA adapter](docs/CUDA.md) also passes installed one/two-worker functional checks on the laptop GPU. The optional [CUDA MLP trainer](docs/CUDA_TRAINING.md) passes two-worker/100-step independent GPU reference parity in pinned and pageable modes. Both workers share the laptop GPU; [#11 delivery evidence](docs/openspecs/cuda-mlp-trainer/verification.md) tracks exact-revision CPU CI and remaining limits.
 
 This is an open-ended side project. Milestones describe outcomes and dependencies, with no dates or time estimates.
 
@@ -16,6 +16,7 @@ This is an open-ended side project. Milestones describe outcomes and dependencie
 - [Build instructions and verified environments](docs/DEVELOPMENT.md)
 - [Python package, API and focused verification](docs/PYTHON.md)
 - [Host-staged CUDA tensor SUM and hardware evidence](docs/CUDA.md)
+- [CUDA model training and independent GPU reference](docs/CUDA_TRAINING.md)
 - [Run the CPU trainer and inspect numerical evidence](docs/TRAINING.md)
 - [Reproduce native failures and four-container M1 validation](docs/VALIDATION.md)
 - [CPU MVP design](docs/superpowers/specs/2026-10-16-cpu-mvp-design.md)

@@ -37,7 +37,10 @@ def contract(world_size, steps, local_batch_size):
                 gradient_normalization="native_SUM_divide_world_size")
 
 
-def execution_contract():
+def execution_contract(device="cpu", host_memory=None):
+    if device != "cpu":
+        from .cuda_execution import execution_contract as cuda_contract
+        return cuda_contract(device, host_memory)
     return dict(torch=torch.__version__, numpy=np.__version__, intra_threads=1, inter_threads=1,
                 deterministic=True, device="cpu")
 
@@ -49,11 +52,11 @@ def schedule(settings):
 
 
 def flat_parameters(network):
-    return torch.cat([parameter.detach().reshape(-1) for _, parameter in sorted(network.named_parameters())]).numpy().copy()
+    return torch.cat([parameter.detach().reshape(-1) for _, parameter in sorted(network.named_parameters())]).cpu().numpy().copy()
 
 
 def flat_gradients(network):
-    return torch.cat([parameter.grad.detach().reshape(-1) for _, parameter in sorted(network.named_parameters())]).numpy().copy()
+    return torch.cat([parameter.grad.detach().reshape(-1) for _, parameter in sorted(network.named_parameters())]).cpu().numpy().copy()
 
 
 def evaluate(network, features, labels):

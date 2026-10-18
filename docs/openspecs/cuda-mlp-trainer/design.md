@@ -1,6 +1,6 @@
 # Design: GPU MLP training and independent reference parity
 
-Read [proposal.md](proposal.md) for scope and authorization, and [tasks.md](tasks.md) for execution progress. This is a proposed #11 contract, extending accepted [ADR 0003](../../adr/0003-replicated-sgd-training-contract.md) through [Proposed ADR 0005](../../adr/0005-cuda-training-reference-contract.md). The blocking tensor boundary remains [ADR 0004](../../adr/0004-blocking-host-staged-cuda-adapter.md).
+Read [proposal.md](proposal.md) for scope and authorization, [review.md](review.md) for the independent review and [tasks.md](tasks.md) for execution progress. This is the reviewed/authorized #11 contract, extending accepted [ADR 0003](../../adr/0003-replicated-sgd-training-contract.md) through [Accepted ADR 0005](../../adr/0005-cuda-training-reference-contract.md). The blocking tensor boundary remains [ADR 0004](../../adr/0004-blocking-host-staged-cuda-adapter.md).
 
 ## Approach and boundaries
 
@@ -98,11 +98,11 @@ Regular CPU push/PR jobs and M1 nightly/manual coverage remain unchanged. Run af
 2. **Create a separate CUDA trainer package.** Isolates M1 source but duplicates preparation, schedule, supervision and corruption checks, inviting numerical/evidence drift as the project grows.
 3. **Generalize into a backend/plugin training framework now.** Could serve future devices, hooks and optimizers, but adds unneeded interfaces before the second concrete path is verified. Keep small real seams and revisit with actual requirements.
 
-The new schema, precision policy and acceptance labels warrant Proposed ADR 0005; they add a GPU training contract without superseding the CPU history. Keep rationale here and ordinary implementation comments/docstrings at two physical lines or fewer.
+The new schema, precision policy and acceptance labels warrant ADR 0005, accepted under the owner's conditional instruction after independent review; they add a GPU training contract without superseding the CPU history. Keep rationale here and ordinary implementation comments/docstrings at two physical lines or fewer.
 
 ## Risks and open choices
 
-The technical defaults above are proposed, not unresolved implementation options. Material risks are GPU batch-shape numerical drift, accidental CPU/schema regression, unaccounted framework/context memory and driver waits beyond native timeouts. Fixed tolerances, explicit schema dispatch, resource observations and independent process containment are the planned controls. Review choice and actual owner go-ahead remain pending; use the project's OpenSpec route without an additional approval ceremony.
+The technical defaults above were independently reviewed without findings and authorized by the owner's conditional go-ahead. Material risks are GPU batch-shape numerical drift, accidental CPU/schema regression, unaccounted framework/context memory and driver waits beyond native timeouts. Fixed tolerances, explicit schema dispatch, resource observations and independent process containment are the planned controls. Live evidence remains required.
 
 ## Primary references inspected on 2026-10-18
 

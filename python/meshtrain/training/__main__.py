@@ -7,7 +7,7 @@ import sys
 import traceback
 
 def main():
-    parser = argparse.ArgumentParser(description="Native-engine CPU MLP/reference demonstration")
+    parser = argparse.ArgumentParser(description="Native-engine MLP/reference demonstration")
     commands = parser.add_subparsers(dest="command", required=True)
     for name in ("prepare", "run", "worker", "verify"):
         command = commands.add_parser(name)
@@ -16,6 +16,8 @@ def main():
             command.add_argument("--world-size", type=int, default=4)
             command.add_argument("--steps", type=int, default=100)
             command.add_argument("--local-batch-size", type=int, default=8)
+            command.add_argument("--device", default="cpu")
+            command.add_argument("--host-memory", choices=("pinned", "pageable"))
             command.add_argument("--endpoints", type=json.loads, help='JSON list of {"host": ..., "port": ...}')
             command.add_argument("--run-id")
             command.add_argument("--listen-address", default="0.0.0.0")
@@ -30,6 +32,16 @@ def main():
     args = parser.parse_args()
     if args.command == "worker" and not args.config.is_file():
         raise FileNotFoundError(f"worker configuration does not exist: {args.config}")
+    from .selection import configure_environment, deferred_signals, from_config, invalidate_verification, selection
+    if args.command == "verify":
+        invalidate_verification(args.output)
+    if args.command in ("prepare", "run"):
+        device, host_memory = selection(args.device, args.host_memory)
+    else:
+        config_path = args.config if args.command == "worker" else args.output / "config.json"
+        with config_path.open(encoding="utf-8") as stream:
+            device, host_memory = from_config(json.load(stream))
+    configure_environment(device)
     from .artifacts import write_json
     from .inputs import prepare
     from .launcher import supervise, worker_commands
@@ -38,15 +50,24 @@ def main():
     from .workload import configure_execution
 
     configure_execution()
+    if device != "cpu":
+        from .cuda_execution import configure
+        configure()
     if args.command in ("prepare", "run"):
         config = prepare(args.output, args.world_size, args.steps, args.local_batch_size,
                          args.endpoints, args.run_id, args.listen_address,
-                         args.startup_timeout_ms, args.collective_timeout_ms)
+                         args.startup_timeout_ms, args.collective_timeout_ms, device=device, host_memory=host_memory)
         if args.command == "prepare":
             print(f"prepared {args.output / 'config.json'} run_id={config['run_id']}")
             return
-        group = supervise(worker_commands(args.output, config), args.output,
-                          args.worker_timeout, args.termination_grace)
+        if device == "cpu":
+            group = supervise(worker_commands(args.output, config), args.output,
+                              args.worker_timeout, args.termination_grace)
+        else:
+            with deferred_signals() as check:
+                group = supervise(worker_commands(args.output, config), args.output,
+                                  args.worker_timeout, args.termination_grace, check_interrupted=check)
+            write_json(args.output / "group.json", group)
         report = verify(args.output)
         write_json(args.output / "group.json", group)
     elif args.command == "worker":
@@ -54,7 +75,10 @@ def main():
         return
     else:
         report = verify(args.output)
-    print(f"verification={report['status']} full_acceptance={report['full_acceptance']} output={args.output}")
+    if report["schema"] == 2:
+        print(f"verification={report['status']} cuda_training_acceptance={report['cuda_training_acceptance']} output={args.output}")
+    else:
+        print(f"verification={report['status']} full_acceptance={report['full_acceptance']} output={args.output}")
 
 
 if __name__ == "__main__":

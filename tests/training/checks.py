@@ -123,6 +123,11 @@ class Checks(unittest.TestCase):
             CudaStagingAdapter(1, device="cuda:0")
         with self.assertRaises(ValueError):
             CudaStagingAdapter(1, device="cuda:256")
+        result = subprocess.run([sys.executable, "-I", "-m", "meshtrain.training", "prepare",
+                                 "--device", "cuda:0", "--output", str(self.root / "unavailable-cuda")],
+                                capture_output=True, text=True, timeout=15)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("CUDA is unavailable", result.stderr)
 
     def test_installed_runtime(self):
         self.assertTrue(Path(meshtrain.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()))

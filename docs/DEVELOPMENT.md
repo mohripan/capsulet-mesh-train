@@ -143,8 +143,8 @@ The installed consumer is a separately configured project and does not inherit t
 - Prefer RAII and explicit value ownership. Add abstractions at real ownership/platform/integration boundaries; keep framework dependencies and global state out of the core.
 - Apply `.clang-format`; initial formatting used clang-format 22.1.7.
 
-Next: [#11 — GPU trainer/reference parity](https://github.com/mohripan/capsulet-mesh-train/issues/11), beginning with its focused OpenSpec/review/go-ahead under M2.
+Active: [#11 — GPU trainer/reference parity](https://github.com/mohripan/capsulet-mesh-train/issues/11). Its [reviewed/authorized CUDA training mode](CUDA_TRAINING.md) passed installed full hardware acceptance; exact-revision CPU CI/delivery remain pending in the [report](openspecs/cuda-mlp-trainer/verification.md).
 
 ## Optional CUDA tensor staging
 
-The [host-staged CUDA adapter](CUDA.md) uses the existing native CPU communicator with explicit GPU/host copies and completed stream boundaries. It has a separate CUDA runtime lock and installed-hardware verification command; the native build and CPU locks remain independent. See [#10 evidence](openspecs/host-staged-cuda-adapter/verification.md) for actual shared-single-GPU results and limits. GPU training/reference parity remains #11.
+The [host-staged CUDA adapter](CUDA.md) uses the existing native CPU communicator with explicit GPU/host copies and completed stream boundaries. It has a separate CUDA runtime lock and installed-hardware verification command; the native build and CPU locks remain independent. See [#10 evidence](openspecs/host-staged-cuda-adapter/verification.md) for actual tensor results and [CUDA training](CUDA_TRAINING.md) for #11's independent GPU reference, 100-step profiles and evidence limits.

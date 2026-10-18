@@ -77,4 +77,4 @@ The tool builds an sdist-derived wheel, installs it in a fresh isolated CPU envi
 
 Recorded commands, actual results and platform limits are in the [verification report](openspecs/cpu-mlp-trainer/verification.md).
 
-The [CUDA staging primitive](CUDA.md) is available separately. This M1 trainer remains CPU-only; GPU model/reference parity and trainer integration belong to #11.
+These schema-1 defaults remain the M1 CPU contract. The optional [CUDA training mode](CUDA_TRAINING.md) under #11 uses a separate device/precision/evidence contract; consult its verification report for actual acceptance state.

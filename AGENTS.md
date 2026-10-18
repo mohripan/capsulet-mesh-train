@@ -27,7 +27,7 @@ M1 is complete for Linux CPU processes and local containers. Issues #3–#8, tra
 
 Issue #10’s host-staged CUDA adapter is complete: `e557542` passed installed local GPU acceptance and exact-revision CPU CI. Read `docs/CUDA.md`, `docs/openspecs/host-staged-cuda-adapter/verification.md` and Accepted ADR 0004 for the tensor/stream/ownership/failure contract, original results and limits. Two workers shared the laptop GPU; this is functional integration. The C++ core and CPU trainer retain their contracts.
 
-The active planning task is issue #11 under M2 tracker #9: GPU trainer/reference parity. Its focused draft is `docs/openspecs/cuda-mlp-trainer/`, with Proposed ADR 0005. Review route and owner go-ahead for that presented scope are pending; no GPU trainer implementation is claimed. #9 and milestone 2 remain open. Native Windows, GPU-container, physical multi-host/distinct-GPU and GPU-nightly execution need their own actual evidence.
+The active task is issue #11 under M2 tracker #9: GPU trainer/reference parity. Its reviewed/authorized OpenSpec is `docs/openspecs/cuda-mlp-trainer/`, with Accepted ADR 0005. Fresh independent review completed without findings and the owner authorized implementation afterwards. Installed full GPU acceptance in both 100-step memory modes and local CPU regressions passed; exact-revision CPU CI/delivery remain pending. Read `docs/CUDA_TRAINING.md` and the actual verification report. #9 and milestone 2 remain open. Native Windows, GPU-container, physical multi-host/distinct-GPU and GPU-nightly execution need their own actual evidence.
 
 ## Project boundaries
 

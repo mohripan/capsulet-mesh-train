@@ -32,7 +32,7 @@ def stop_workers(processes, grace):
         process.wait(timeout=2)
 
 
-def supervise(commands, output, timeout=120, grace=5, spawn=subprocess.Popen):
+def supervise(commands, output, timeout=120, grace=5, spawn=subprocess.Popen, *, check_interrupted=None):
     if not commands or timeout <= 0 or grace < 0:
         raise ValueError("expected commands, positive timeout and nonnegative termination grace")
     root = Path(output)
@@ -61,14 +61,19 @@ def supervise(commands, output, timeout=120, grace=5, spawn=subprocess.Popen):
             directory.mkdir(parents=True, exist_ok=True)
             process = spawn(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=0)
             processes.append(process)
+            streams.extend((process.stdout, process.stderr))
+            if check_interrupted is not None:
+                write_json(root / "processes.json", dict(pids=[p.pid for p in processes]))
+                check_interrupted()
             for name in ("stdout", "stderr"):
                 pipe = getattr(process, name)
-                streams.append(pipe)
                 log = (directory / f"{name}.log").open("wb")
                 streams.append(log)
                 selector.register(pipe, selectors.EVENT_READ, (rank, name, log))
         write_json(root / "processes.json", dict(pids=[process.pid for process in processes]))
         while len(exits) < len(processes) or selector.get_map():
+            if check_interrupted is not None:
+                check_interrupted()
             drain(0.02)
             for rank, process in enumerate(processes):
                 code = process.poll()
@@ -81,7 +86,11 @@ def supervise(commands, output, timeout=120, grace=5, spawn=subprocess.Popen):
                 raise WorkerGroupError(primary)
             if time.monotonic() - started > timeout:
                 raise WorkerGroupError(f"worker group exceeded {timeout:g}s wall timeout")
-        return dict(status="passed", exits=exits, pids=[process.pid for process in processes])
+        result = dict(status="passed", exits=exits, pids=[process.pid for process in processes])
+        if check_interrupted is not None:
+            check_interrupted()
+            result["reaped"] = [process.wait(timeout=0) == 0 for process in processes]
+        return result
     except BaseException as error:
         primary = primary or f"{type(error).__name__}: {error}"
         stop_workers(processes, grace)

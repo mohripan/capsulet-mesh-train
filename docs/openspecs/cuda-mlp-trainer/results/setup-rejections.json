@@ -1,0 +1,1 @@
+{"rejections": {"low-space": "RuntimeError: CUDA setup needs 12 GiB free on its output filesystem; select a disk-backed Linux path", "nonempty": "ValueError: use a fresh empty output directory: /home/mohri/.cache/meshtrain-validation/cuda-trainer-smoke-01"}, "status": "passed"}

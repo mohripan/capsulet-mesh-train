@@ -5,21 +5,9 @@ import torch
 
 from meshtrain import Communicator
 from meshtrain.torch_adapter import GradientSynchronizer
-from .artifacts import digest, environment, identity, write_json, write_npz, write_state
 from .inputs import load_inputs, native_config
+from .results import finish
 from .workload import evaluate, flat_gradients, flat_parameters, optimizer
-
-
-def finish(directory, config, network, losses, gradients, parameters, before, after, rank, next_sequence):
-    write_npz(directory / "trace.npz", losses=np.asarray(losses, dtype=np.float32),
-              gradients=np.stack(gradients), parameters=np.stack(parameters))
-    write_state(directory / "final.pt", network)
-    metadata = dict(**identity(config), rank=rank, steps=config["workload"]["steps"],
-                    next_sequence=next_sequence, evaluation_before=before, evaluation_after=after,
-                    environment=environment(),
-                    files={name: digest(directory / name) for name in ("trace.npz", "final.pt")})
-    write_json(directory / "complete.json", metadata)
-    return metadata
 
 
 def train_worker(output, config_path, rank):
@@ -29,6 +17,9 @@ def train_worker(output, config_path, rank):
     directory.mkdir(parents=True, exist_ok=True)
     if any((directory / name).exists() for name in ("complete.json", "trace.npz", "final.pt")):
         raise ValueError(f"rank {rank} already has training artifacts; prepare a fresh run")
+    if config["schema"] == 2:
+        from .cuda_worker import train_cuda_worker
+        return train_cuda_worker(root, config, native, network, features, labels, indices, rank)
     before = evaluate(network, features, labels)
     optim = optimizer(network)
     synchronizer = GradientSynchronizer(network, config["workload"]["world_size"])
