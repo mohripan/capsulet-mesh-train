@@ -51,10 +51,12 @@ RunConfig config(std::uint32_t world = 1) {
     return result;
 }
 
-void identity_and_ownership() {
+void identity_and_ownership(AllReduceAlgorithm algorithm) {
     const auto lifetime = std::make_shared<Lifetime>();
     {
-        Communicator communicator(config(), std::make_unique<TestTransport>(lifetime));
+        auto settings = config();
+        settings.all_reduce_algorithm = algorithm;
+        Communicator communicator(settings, std::make_unique<TestTransport>(lifetime));
         const std::array<std::uint32_t, 6> bits{0,           0x80000000U, 0x7f800000U,
                                                 0xff800000U, 0x7fc01234U, 0x00800000U};
         std::vector<float> values;
@@ -125,13 +127,36 @@ void error_context_and_exception_cleanup() {
     test::require(caught && allocation->closed && another.state() == CommunicatorState::failed,
                   "non-engine exception skipped terminal cleanup");
 }
+
+void ring_adoption() {
+    for (const auto world : {1U, 2U}) {
+        auto settings = config(world);
+        settings.all_reduce_algorithm = AllReduceAlgorithm::ring;
+        const auto lifetime = std::make_shared<Lifetime>();
+        Communicator communicator(settings, std::make_unique<TestTransport>(lifetime));
+        std::array<float, 1> value{3};
+        if (world == 1U) {
+            communicator.all_reduce_sum(value);
+            test::require(value[0] == 3 && communicator.next_sequence() == 1,
+                          "ring identity failed");
+        } else {
+            test::expect_error([&] { communicator.all_reduce_sum(value); },
+                               ErrorCode::invalid_configuration);
+            test::require(communicator.state() == CommunicatorState::failed && lifetime->closed &&
+                              communicator.next_sequence() == 0 && lifetime->calls == 0,
+                          "unsupported duplex adapter did not fail terminally");
+        }
+    }
+}
 } // namespace
 
 int main() {
     try {
-        identity_and_ownership();
+        identity_and_ownership(AllReduceAlgorithm::centralized);
+        identity_and_ownership(AllReduceAlgorithm::ring);
         local_failure_and_close();
         error_context_and_exception_cleanup();
+        ring_adoption();
         std::cout << "PASS communicator identity, ownership, lifecycle, and contextual failures\n";
         return 0;
     } catch (const std::exception& error) {

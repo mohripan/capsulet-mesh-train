@@ -2,7 +2,7 @@
 
 Date: 2026-10-18
 
-Status: Proposed
+Status: Accepted under the owner's conditional implementation instruction after independent review completed on 2026-10-18.
 
 OpenSpec: [ring all-reduce design](../openspecs/ring-all-reduce/design.md)
 
@@ -45,4 +45,4 @@ Measured rendezvous/descriptor costs, new arbitrary-peer algorithms/transports, 
 
 ## Decision record
 
-Drafted with #13's OpenSpec on 2026-10-18. Review route and owner implementation go-ahead for this scope are pending. This proposal supplements ADR 0001 for explicit ring selection; it does not supersede the accepted centralized default. No ring implementation or validation is claimed.
+Drafted with #13's OpenSpec on 2026-10-18. The owner selected independent review and said “You can use sub-agent and then implement after the review.” The [fresh review](../openspecs/ring-all-reduce/review.md) completed without blockers or required changes, satisfying that condition. This decision supplements ADR 0001 for explicit ring selection; it does not supersede the accepted centralized default. Actual implementation/validation evidence belongs in the OpenSpec report.

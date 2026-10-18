@@ -75,7 +75,7 @@ void raw_peer(std::string_view scenario, RunConfig config) {
     if (scenario == "bad_magic") {
         header[0] = std::byte{};
     } else if (scenario == "bad_version") {
-        header[5] = std::byte{2};
+        header[5] = std::byte{1};
     } else if (scenario == "oversize") {
         header[32] = std::byte{1}; // Rejected before allocating the claimed payload.
     }
@@ -146,7 +146,7 @@ void bad_ready(const RunConfig& config) {
     ready.operation = wire::Operation::ready;
     ready.destination = 1;
     bytes = wire::encode_header(ready, config.max_payload_bytes);
-    bytes[5] = std::byte{2};
+    bytes[5] = std::byte{1};
     net::send_exact(socket, bytes, after(), {});
 }
 

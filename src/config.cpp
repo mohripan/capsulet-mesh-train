@@ -99,6 +99,10 @@ void validate(const RunConfig& config) {
     if (config.max_payload_bytes == 0U) {
         reject("max_payload_bytes must be positive");
     }
+    if (config.all_reduce_algorithm != AllReduceAlgorithm::centralized &&
+        config.all_reduce_algorithm != AllReduceAlgorithm::ring) {
+        reject("unsupported all_reduce_algorithm");
+    }
     if (!host_syntax(config.listen_address)) {
         reject("listen_address must be an IPv4 address or hostname");
     }

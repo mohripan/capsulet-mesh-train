@@ -15,8 +15,10 @@ using namespace meshtrain;
 
 wire::Header data_header(wire::Operation operation, std::uint32_t source, std::uint32_t destination,
                          std::uint64_t sequence = 0, std::uint64_t count = 3) {
-    return {operation, source,    destination,          sequence,
-            count,     count * 4, wire::Dtype::float32, wire::Reduction::sum};
+    wire::Header result{operation, source,    destination,          sequence,
+                        count,     count * 4, wire::Dtype::float32, wire::Reduction::sum};
+    result.total_count = count;
+    return result;
 }
 
 void send_header(ByteTransport& transport, const RunConfig& config, const wire::Header& header) {
@@ -127,6 +129,7 @@ void malicious_root(std::string_view scenario, const RunConfig& config) {
         header.sequence = 1;
     } else if (scenario == "result_count") {
         header.count = 1;
+        header.total_count = 1;
         header.payload_bytes = 4;
     } else if (scenario == "result_source") {
         header.source = config.world_size;

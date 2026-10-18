@@ -1,6 +1,6 @@
 # Building the native engine
 
-The standalone core provides configuration validation, contextual errors, framed TCP startup, and blocking in-place centralized FP32 SUM all-reduce. The optional [Python package](PYTHON.md) exposes safe NumPy storage to this engine; PyTorch training parity and M1 clean/failure/four-container acceptance have passed; see [evidence](openspecs/m1-validation/verification.md).
+The standalone core provides configuration validation, contextual errors, framed TCP startup, and blocking in-place FP32 SUM with default centralized and explicit native ring selection; see [ring API/commands](RING.md). The optional [Python package](PYTHON.md) exposes safe NumPy storage to this engine; PyTorch training parity and M1 clean/failure/four-container acceptance have passed; see [evidence](openspecs/m1-validation/verification.md).
 
 ## Native Linux build
 
@@ -15,7 +15,7 @@ ctest --test-dir build/native --output-on-failure -LE m1_integration
 
 Requirements: C++20 compiler, CMake 3.24 or newer, and Ninja or another CMake generator. The core links CMake's platform Threads target for lifecycle synchronization. TCP defaults on for Linux and uses POSIX sockets/resolver workers; the current validated libc is glibc. The core does not discover/download Python, PyTorch, CUDA, MPI, or Kubernetes. Native checks use CTest, with real subprocesses and Linux socket/signal APIs for integration tests.
 
-The seven existing push/PR CTest entries are:
+The seven original push/PR CTest entries remain:
 
 - `core_contracts`: eight groups of configuration, payload-overflow, and diagnostic checks.
 - `wire_protocol`: golden network-order bytes, corrupt headers, count overflow, HELLO bounds/identifiers/representation, and empty data frames.
@@ -24,6 +24,8 @@ The seven existing push/PR CTest entries are:
 - `tcp_processes`: 29 subprocess scenarios covering 1–5 workers, fragmented 524,295-byte transfers with a 4,096-byte requested send buffer, late root, invalid/mismatched startup, duplicate ranks, incomplete membership, stalled reads/writes, slow-drip headers, EINTR, concurrent close/call rejection, and repeated construction. Includes 20 successful reconnects per rank with unchanged descriptor counts and 20 failed startup/rebind attempts.
 - `resolver_deadline`: a test-only linker wrapper holds DNS past a 50 ms deadline, then verifies retained inputs and exactly one output release after late completion. Process/container tests use the real resolver.
 - `installed_consumer`: installs and relocates the package, then builds/runs an independent consumer, including the public communicator header, a one-rank collective when TCP is enabled, and native dependencies.
+
+Issue #13 adds 17 focused regular entries, for 24 total: `ring_collectives` (both algorithms over the expanded 1–5-rank count matrix), `ring_transport`, `ring_startup`, `ring_failures`, twelve externally controlled ring startup/reduce/gather root/worker kill/stop cases and `ring_failed_cleanup` (20 failed groups). These exercise direct neighbor flow, unpadded chunks, tiny buffers, original deadlines, malformed metadata and live descriptor cleanup. The broad M1 label remains nine nightly/manual entries; the selection guard now permits additional regular entries while requiring all seven original checks.
 
 For the core without Linux networking, configure with `-DMESHTRAIN_ENABLE_TCP=OFF`; its four portable/package tests still run. The communicator remains available for an explicitly supplied transport. See [TCP protocol and lifetime contracts](TCP_PROTOCOL.md) and [ADR 0001](adr/0001-blocking-centralized-fp32-communicator.md).
 
@@ -92,7 +94,7 @@ The TCP script starts two containers and exchanges 524,295 bytes each way. The c
 
 The native target asserts that neither `python` nor `python3` is installed before building/testing. The separate packaging target uses Python 3.12.15. Base-image digests, direct apt tool versions, and Python package hashes are pinned; apt transitive dependencies follow the Debian repositories.
 
-The push/PR workflow builds the native, real Python-binding and short CPU trainer targets and runs both native container scripts. The manual `python-toolchain-test` stage remains available. The separate `M1 full CPU validation` workflow adds nightly/manual clean, failure and four-container training checks; see [commands and evidence](VALIDATION.md).
+The push/PR workflow builds the native, real Python-binding and short CPU trainer targets, runs both original native container scripts, and runs the bounded four-container ring controller in healthy and induced worker-exit modes. The manual `python-toolchain-test` stage remains available. The separate `M1 full CPU validation` workflow adds nightly/manual clean, failure and four-container training checks; see [commands and evidence](VALIDATION.md).
 
 ## CPU trainer
 

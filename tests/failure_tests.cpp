@@ -1,6 +1,7 @@
 #include "failure_control.hpp"
 
 #include "process_group.hpp"
+#include "ring_fixture.hpp"
 
 #include <spawn.h>
 
@@ -13,6 +14,12 @@ constexpr std::array cases{"startup-root-kill",      "startup-root-stop",
                            "startup-worker-kill",    "startup-worker-stop",
                            "collective-root-kill",   "collective-root-stop",
                            "collective-worker-kill", "collective-worker-stop"};
+
+constexpr std::array ring_cases{
+    "ring-startup-root-kill",   "ring-startup-root-stop",  "ring-startup-worker-kill",
+    "ring-startup-worker-stop", "ring-reduce-root-kill",   "ring-reduce-root-stop",
+    "ring-reduce-worker-kill",  "ring-reduce-worker-stop", "ring-gather-root-kill",
+    "ring-gather-root-stop",    "ring-gather-worker-kill", "ring-gather-worker-stop"};
 
 struct Child {
     pid_t pid{-1};
@@ -153,7 +160,7 @@ void run_case(const std::string& executable, Settings scenario, unsigned iterati
     const auto directory = output / (scenario.name + '-' + std::to_string(iteration));
     std::filesystem::create_directories(directory);
     const auto baseline = descriptors();
-    const auto port = test::unused_port();
+    const auto port = scenario.ring ? ringtest::ports(3) : test::unused_port();
     const auto run =
         scenario.name + '-' + std::to_string(::getpid()) + '-' + std::to_string(iteration);
     std::string reports;
@@ -252,8 +259,11 @@ void run_case(const std::string& executable, Settings scenario, unsigned iterati
             }
         }
         {
-            auto config = test::tcp_group(0, 3, port, "127.0.0.1", "rebind");
-            const auto listener = meshtrain::net::listen(config, {}, Clock::now() + 100ms, {});
+            for (std::uint32_t rank = 0; rank < (scenario.ring ? 3U : 1U); ++rank) {
+                auto config = scenario.ring ? ringtest::config(rank, 3, port, "127.0.0.1", "rebind")
+                                            : test::tcp_group(0, 3, port, "127.0.0.1", "rebind");
+                const auto listener = meshtrain::net::listen(config, {}, Clock::now() + 100ms, {});
+            }
         }
         require(descriptors() == baseline, "controller leaked descriptors");
         const auto elapsed =
@@ -296,22 +306,30 @@ int main(int argc, char** argv) {
         }
         fault::require(argc >= 2, "expected --case NAME or --repeat");
         const auto executable = std::filesystem::canonical("/proc/self/exe").string();
-        auto output = std::filesystem::current_path() / "fault-evidence";
-        if (const auto* environment = std::getenv("MESHTRAIN_FAULT_OUTPUT")) {
+        const auto mode = std::string_view(argv[1]);
+        const bool ring =
+            mode == "--ring-repeat" ||
+            (mode == "--case" && argc >= 3 && std::string_view(argv[2]).starts_with("ring-"));
+        auto output =
+            std::filesystem::current_path() / (ring ? "ring-fault-evidence" : "fault-evidence");
+        if (const auto* environment =
+                std::getenv(ring ? "MESHTRAIN_RING_FAULT_OUTPUT" : "MESHTRAIN_FAULT_OUTPUT")) {
             output = environment;
         }
-        const auto mode = std::string_view(argv[1]);
         fault::Watchdog watchdog;
         if (mode == "--watchdog-expiry") {
             watchdog.begin();
             std::this_thread::sleep_for(std::chrono::seconds(6));
             throw std::runtime_error("independent watchdog failed to fire");
         }
-        if (mode == "--repeat") {
+        if (mode == "--repeat" || mode == "--ring-repeat") {
             for (unsigned iteration = 0; iteration < 20; ++iteration) {
-                fault::run_case(executable,
-                                fault::settings(fault::cases[iteration % fault::cases.size()]),
-                                iteration + 1, output / "repeat", watchdog);
+                fault::run_case(
+                    executable,
+                    fault::settings(mode == "--ring-repeat"
+                                        ? fault::ring_cases[iteration % fault::ring_cases.size()]
+                                        : fault::cases[iteration % fault::cases.size()]),
+                    iteration + 1, output / "repeat", watchdog);
             }
         } else {
             fault::require(mode == "--case" && argc >= 3, "expected --case NAME");

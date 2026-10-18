@@ -7,6 +7,22 @@
 
 #include <cstddef>
 #include <iostream>
+#include <memory>
+
+namespace {
+class NoIo final : public meshtrain::ByteTransport {
+  public:
+    void send_bytes(std::uint32_t, std::span<const std::byte>, meshtrain::Deadline) override {
+        throw meshtrain::EngineError(meshtrain::ErrorCode::invalid_state,
+                                     "unexpected identity I/O");
+    }
+    void receive_bytes(std::uint32_t, std::span<std::byte>, meshtrain::Deadline) override {
+        throw meshtrain::EngineError(meshtrain::ErrorCode::invalid_state,
+                                     "unexpected identity I/O");
+    }
+    void close() noexcept override {}
+};
+} // namespace
 
 int main() {
     std::cout << "TCP enabled: " << meshtrain::tcp_enabled() << '\n';
@@ -18,8 +34,12 @@ int main() {
     meshtrain::validate(config);
     float storage[]{1.0F, 2.0F};
     const meshtrain::HostFloat32Buffer buffer(storage);
-    if (meshtrain::tcp_enabled()) {
-        meshtrain::Communicator communicator(config, meshtrain::connect_tcp(config));
+    for (const auto algorithm :
+         {meshtrain::AllReduceAlgorithm::centralized, meshtrain::AllReduceAlgorithm::ring}) {
+        config.all_reduce_algorithm = algorithm;
+        std::unique_ptr<meshtrain::ByteTransport> transport =
+            meshtrain::tcp_enabled() ? meshtrain::connect_tcp(config) : std::make_unique<NoIo>();
+        meshtrain::Communicator communicator(config, std::move(transport));
         communicator.all_reduce_sum(buffer);
         if (storage[0] != 1.0F || storage[1] != 2.0F || communicator.next_sequence() != 1) {
             return 4;

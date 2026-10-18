@@ -21,6 +21,8 @@ add_library(meshtrain_core STATIC
     src/deadline.cpp
     src/error.cpp
     src/protocol.cpp
+    src/ring.cpp
+    src/transport.cpp
 )
 add_library(meshtrain::core ALIAS meshtrain_core)
 set_target_properties(meshtrain_core PROPERTIES
@@ -57,7 +59,8 @@ if(MESHTRAIN_ENABLE_TCP)
     if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
         message(FATAL_ERROR "The current TCP adapter requires Linux; disable MESHTRAIN_ENABLE_TCP for the portable foundation")
     endif()
-    target_sources(meshtrain_core PRIVATE src/tcp.cpp src/linux/socket.cpp src/linux/resolver.cpp)
+    target_sources(meshtrain_core PRIVATE src/tcp.cpp src/tcp_startup.cpp
+        src/linux/socket.cpp src/linux/resolver.cpp)
     target_compile_definitions(meshtrain_core PRIVATE _GNU_SOURCE)
 else()
     target_sources(meshtrain_core PRIVATE src/tcp_disabled.cpp)

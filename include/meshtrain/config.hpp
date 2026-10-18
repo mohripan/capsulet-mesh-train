@@ -13,6 +13,8 @@ struct Endpoint {
     std::uint16_t port{};
 };
 
+enum class AllReduceAlgorithm : std::uint16_t { centralized = 1, ring = 2 };
+
 struct RunConfig {
     std::uint32_t rank{};
     std::uint32_t world_size{};
@@ -23,6 +25,7 @@ struct RunConfig {
     std::chrono::milliseconds startup_timeout{30'000};
     std::chrono::milliseconds collective_timeout{30'000};
     std::size_t max_payload_bytes{256U * 1024U * 1024U};
+    AllReduceAlgorithm all_reduce_algorithm{AllReduceAlgorithm::centralized};
 };
 
 // Validates values without resolving names, opening sockets, or changing config.

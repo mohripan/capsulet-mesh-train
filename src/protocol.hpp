@@ -12,8 +12,9 @@
 
 namespace meshtrain::wire {
 
-inline constexpr std::size_t header_bytes = 48;
-inline constexpr std::uint16_t version = 1;
+inline constexpr std::size_t prefix_bytes = 8;
+inline constexpr std::size_t header_bytes = 80;
+inline constexpr std::uint16_t version = 2;
 inline constexpr std::uint32_t representation = 0x00010020U; // little-endian IEEE binary32
 
 enum class Operation : std::uint16_t {
@@ -21,10 +22,16 @@ enum class Operation : std::uint16_t {
     ready = 2,
     all_reduce_request = 3,
     all_reduce_result = 4,
-    error = 5
+    error = 5,
+    ring_connect = 6,
+    edge_hello = 7,
+    edges_ready = 8,
+    ring_reduce = 9,
+    ring_gather = 10
 };
 enum class Dtype : std::uint16_t { none = 0, float32 = 1 };
 enum class Reduction : std::uint16_t { none = 0, sum = 1 };
+enum class Phase : std::uint16_t { none = 0, reduce_scatter = 1, all_gather = 2 };
 
 struct Header {
     Operation operation{Operation::hello};
@@ -35,6 +42,14 @@ struct Header {
     std::uint64_t payload_bytes{};
     Dtype dtype{Dtype::none};
     Reduction reduction{Reduction::none};
+    AllReduceAlgorithm algorithm{AllReduceAlgorithm::centralized};
+    Phase phase{Phase::none};
+    std::uint32_t step{};
+    std::uint32_t chunk{};
+    std::uint64_t total_count{};
+    std::uint64_t element_offset{};
+
+    bool operator==(const Header&) const = default;
 };
 
 struct Hello {
@@ -47,6 +62,7 @@ struct Hello {
 
 void validate_header(const Header& header, std::size_t max_payload,
                      const ErrorContext& context = {});
+void validate_prefix(std::span<const std::byte> bytes, const ErrorContext& context = {});
 [[nodiscard]] std::array<std::byte, header_bytes>
 encode_header(const Header& header, std::size_t max_payload, const ErrorContext& context = {});
 [[nodiscard]] Header decode_header(std::span<const std::byte> bytes, std::size_t max_payload,

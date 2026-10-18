@@ -1,0 +1,169 @@
+Start testing: Oct 18 19:22 WIB
+----------------------------------------------------------
+6/33 Testing: ring_failures
+6/33 Test: ring_failures
+Command: "/mnt/c/Projects/capsulet-mesh-train/build/ring-dev/tests/meshtrain_ring_tests" "--failures"
+Directory: /mnt/c/Projects/capsulet-mesh-train/build/ring-dev/tests
+"ring_failures" start time: Oct 18 19:22 WIB
+Output:
+----------------------------------------------------------
+ring fault=bad_phase rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_phase rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_phase rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_phase workers=3 elapsed_ms=8
+ring fault=gather_phase rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_phase rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_phase rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_phase workers=3 elapsed_ms=6
+ring fault=bad_step rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_step rank=1 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_step rank=0 category=peer_closed elapsed_ms=0 peer=2
+PASS ring bad_step workers=3 elapsed_ms=6
+ring fault=gather_step rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_step rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_step rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_step workers=3 elapsed_ms=6
+ring fault=bad_chunk rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_chunk rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_chunk rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_chunk workers=3 elapsed_ms=6
+ring fault=gather_chunk rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_chunk rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_chunk rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_chunk workers=3 elapsed_ms=6
+ring fault=bad_offset rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_offset rank=1 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_offset rank=0 category=peer_closed elapsed_ms=0 peer=2
+PASS ring bad_offset workers=3 elapsed_ms=5
+ring fault=gather_offset rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_offset rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_offset rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_offset workers=3 elapsed_ms=5
+ring fault=bad_total rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_total rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_total rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_total workers=3 elapsed_ms=5
+ring fault=gather_total rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_total rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_total rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_total workers=3 elapsed_ms=5
+ring fault=bad_count rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_count rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_count rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_count workers=3 elapsed_ms=6
+ring fault=gather_count rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_count rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_count rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_count workers=3 elapsed_ms=6
+ring fault=bad_algorithm rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_algorithm rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_algorithm rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_algorithm workers=3 elapsed_ms=6
+ring fault=gather_algorithm rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_algorithm rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_algorithm rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_algorithm workers=3 elapsed_ms=6
+ring fault=bad_dtype rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_dtype rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_dtype rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_dtype workers=3 elapsed_ms=6
+ring fault=gather_dtype rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_dtype rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_dtype rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_dtype workers=3 elapsed_ms=6
+ring fault=bad_reduction rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_reduction rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_reduction rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_reduction workers=3 elapsed_ms=5
+ring fault=gather_reduction rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_reduction rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_reduction rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_reduction workers=3 elapsed_ms=6
+ring fault=bad_source rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_source rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_source rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_source workers=3 elapsed_ms=6
+ring fault=gather_source rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_source rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_source rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_source workers=3 elapsed_ms=6
+ring fault=bad_destination rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_destination rank=1 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_destination rank=0 category=peer_closed elapsed_ms=0 peer=2
+PASS ring bad_destination workers=3 elapsed_ms=5
+ring fault=gather_destination rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_destination rank=1 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_destination rank=0 category=peer_closed elapsed_ms=0 peer=2
+PASS ring gather_destination workers=3 elapsed_ms=6
+ring fault=bad_sequence rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_sequence rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_sequence rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_sequence workers=3 elapsed_ms=5
+ring fault=gather_sequence rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_sequence rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_sequence rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_sequence workers=3 elapsed_ms=6
+ring fault=bad_oversize rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_oversize rank=1 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_oversize rank=0 category=peer_closed elapsed_ms=0 peer=2
+PASS ring bad_oversize workers=3 elapsed_ms=5
+ring fault=gather_oversize rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_oversize rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_oversize rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_oversize workers=3 elapsed_ms=5
+ring fault=bad_version rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_version rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_version rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_version workers=3 elapsed_ms=6
+ring fault=gather_version rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_version rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_version rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_version workers=3 elapsed_ms=6
+ring fault=bad_operation rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_operation rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_operation rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_operation workers=3 elapsed_ms=6
+ring fault=gather_operation rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_operation rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_operation rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_operation workers=3 elapsed_ms=6
+ring fault=bad_reserved rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_reserved rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_reserved rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_reserved workers=3 elapsed_ms=6
+ring fault=gather_reserved rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_reserved rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_reserved rank=1 category=peer_closed elapsed_ms=0 peer=2
+PASS ring gather_reserved workers=3 elapsed_ms=5
+PASS ring failure_delay workers=3 elapsed_ms=87
+ring fault=failure_cumulative rank=2 category=timeout elapsed_ms=1001 peer=1
+ring fault=failure_cumulative rank=0 category=timeout elapsed_ms=1001 peer=2
+ring fault=failure_cumulative rank=1 category=timeout elapsed_ms=1201 peer=0
+PASS ring failure_cumulative workers=3 elapsed_ms=1207
+ring fault=failure_drip rank=2 category=timeout elapsed_ms=1001 peer=1
+ring fault=failure_drip rank=0 category=timeout elapsed_ms=1001 peer=2
+ring fault=failure_drip rank=1 category=timeout elapsed_ms=1082 peer=2
+PASS ring failure_drip workers=3 elapsed_ms=1091
+ring fault=failure_eof rank=1 category=peer_closed elapsed_ms=0 peer=2
+ring fault=failure_eof rank=2 category=peer_closed elapsed_ms=0 peer=1
+ring fault=failure_eof rank=0 category=peer_closed elapsed_ms=0 peer=2
+PASS ring failure_eof workers=3 elapsed_ms=7
+ring fault=failure_cancel rank=1 category=peer_closed elapsed_ms=0 peer=0
+ring fault=failure_cancel rank=2 category=peer_closed elapsed_ms=300 peer=0
+PASS ring failure_cancel workers=3 elapsed_ms=308
+ring fault=failure_limit rank=0 category=invalid_buffer elapsed_ms=0 peer=99
+ring fault=failure_limit rank=1 category=invalid_buffer elapsed_ms=0 peer=99
+ring fault=failure_limit rank=2 category=invalid_buffer elapsed_ms=0 peer=99
+PASS ring failure_limit workers=3 elapsed_ms=8
+PASS ring failure_tiny workers=3 elapsed_ms=6
+PASS ring failure_order workers=3 elapsed_ms=6
+PASS ring failure_recreate workers=3 elapsed_ms=18
+<end of output>
+Test time =   2.94 sec
+----------------------------------------------------------
+Test Passed.
+"ring_failures" end time: Oct 18 19:22 WIB
+"ring_failures" time elapsed: 00:00:02
+----------------------------------------------------------
+
+End testing: Oct 18 19:22 WIB

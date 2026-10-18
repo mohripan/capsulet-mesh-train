@@ -182,16 +182,22 @@ struct Settings {
     bool stop;
     unsigned target;
     bool omit_phase{};
+    bool ring{};
+    bool gather{};
 };
 
 inline Settings settings(std::string name) {
-    require(name.starts_with("startup-") || name.starts_with("collective-"), "unknown phase");
+    const bool ring = name.starts_with("ring-");
+    const bool gather = name.starts_with("ring-gather-");
+    require(name.starts_with("startup-") || name.starts_with("collective-") ||
+                name.starts_with("ring-startup-") || name.starts_with("ring-reduce-") || gather,
+            "unknown phase");
     const bool root = name.find("-root-") != std::string::npos;
     const bool stop = name.ends_with("-stop");
     require(root || name.find("-worker-") != std::string::npos, "unknown target");
     require(stop || name.ends_with("-kill"), "unknown action");
-    const bool startup = name.starts_with("startup-");
-    return {std::move(name), startup, stop, root ? 0U : 1U};
+    const bool startup = name.find("startup-") != std::string::npos;
+    return {std::move(name), startup, stop, root ? 0U : 1U, false, ring, gather};
 }
 
 struct Result {

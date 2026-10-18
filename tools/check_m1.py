@@ -105,6 +105,14 @@ def run_helper(image, output, arguments, *, entrypoint, timeout=120, copies=(), 
     return report
 
 
+def verify_selection(selected, label):
+    names = {item["name"] for item in selected["tests"]}
+    regular = {"core_contracts", "wire_protocol", "communicator_contracts", "centralized_collectives",
+               "tcp_processes", "resolver_deadline", "installed_consumer"}
+    if (label == "broad" and len(names) != 9) or (label == "existing" and not regular <= names):
+        raise ValueError(f"incorrect {label} CTest selection")
+
+
 def run(output, no_cache):
     root = Path(__file__).resolve().parents[1]
     output = fresh(output)
@@ -141,12 +149,11 @@ def run(output, no_cache):
         if len(fault_results) != 28 or any(item["status"] != "passed" or item["case_elapsed_ms"] >= 5000 for item in fault_results):
             raise ValueError("native matrix/repeated evidence incomplete or outside five-second bound")
         write_json(output / "native-faults/results.json", fault_results)
-        for label, option, count in (("broad", "-L", 9), ("existing", "-LE", 7)):
+        for label, option in (("broad", "-L"), ("existing", "-LE")):
             folder = output / f"selection-{label}"
             run_helper(native, folder, ["--test-dir", "/workspace/build/native", option, "m1_integration", "--show-only=json-v1"], entrypoint="ctest")
             selected = json.loads((folder / "logs/program/stdout.log").read_text())
-            if len(selected["tests"]) != count:
-                raise ValueError(f"incorrect {label} CTest selection")
+            verify_selection(selected, label)
         executable = "/workspace/build/native/tests/meshtrain_failure_tests"
         run_helper(native, output / "missing-phase", ["--case", "startup-root-stop", "--omit-phase"], entrypoint=executable,
                    expected_exit=2, init=True, copies=[("/workspace/fault-evidence", "evidence")])

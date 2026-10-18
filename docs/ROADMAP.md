@@ -1,6 +1,6 @@
 # Roadmap
 
-Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap tracker](https://github.com/mohripan/capsulet-mesh-train/issues/1) and [milestones](https://github.com/mohripan/capsulet-mesh-train/milestones) track live progress; this document explains scope, dependencies and completion evidence. M1 and M2 are complete: see [CPU acceptance](openspecs/m1-validation/verification.md), [GPU training/CI evidence](openspecs/cuda-mlp-trainer/verification.md) and [build instructions](DEVELOPMENT.md). Continue with M3/#13's focused ring algorithm/measurement OpenSpec. Later work requires its own design/review/go-ahead.
+Milestones are durable outcome checkpoints, not a calendar. The [GitHub roadmap tracker](https://github.com/mohripan/capsulet-mesh-train/issues/1) and [milestones](https://github.com/mohripan/capsulet-mesh-train/milestones) track live progress; this document explains scope, dependencies and completion evidence. M1 and M2 are complete: see [CPU acceptance](openspecs/m1-validation/verification.md), [GPU training/CI evidence](openspecs/cuda-mlp-trainer/verification.md) and [build instructions](DEVELOPMENT.md). M3/#13's native ring implementation has local proof and awaits exact-revision CI/publication. Later work requires its own design/review/go-ahead.
 
 ## Milestone map
 
@@ -41,7 +41,7 @@ Measure staging and synchronization separately from network/reduction time. Comp
 
 ## M3: Algorithms and explanation through measurements
 
-The first focused draft is [#13's ring OpenSpec](openspecs/ring-all-reduce/proposal.md), with [algorithm/measurement design](openspecs/ring-all-reduce/design.md), [tasks](openspecs/ring-all-reduce/tasks.md) and Proposed [ADR 0006](adr/0006-blocking-ring-all-reduce.md). Review selection and owner implementation go-ahead are pending. Tree and benchmark work keep separate focused specs; this draft does not establish M3 completion.
+The first increment is [#13's ring OpenSpec](openspecs/ring-all-reduce/proposal.md), independently reviewed and owner-authorized, with Accepted [ADR 0006](adr/0006-blocking-ring-all-reduce.md). Native ring, duplex transport and wire v2 are implemented with [local verification](openspecs/ring-all-reduce/verification.md); exact-revision CI/publication remain before #13 closure. Tree and benchmark work keep separate focused specs; this does not establish M3 completion.
 
 Implement ring all-reduce as reduce-scatter plus all-gather, handling zero-size chunks and message lengths not divisible by worker count. Implement tree reduction plus broadcast for non-power-of-two groups.
 

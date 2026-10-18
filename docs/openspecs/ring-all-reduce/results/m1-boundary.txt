@@ -1,0 +1,13 @@
+Internal ctest changing into directory: /workspace/build/native
+Test project /workspace/build/native
+    Start 24: fault_startup-root-kill
+1/2 Test #24: fault_startup-root-kill ..........   Passed    0.01 sec
+    Start 31: fault_collective-worker-stop
+2/2 Test #31: fault_collective-worker-stop .....   Passed    1.01 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Label Time Summary:
+m1_integration    =   1.01 sec*proc (2 tests)
+
+Total Test time (real) =   1.01 sec

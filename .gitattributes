@@ -10,3 +10,5 @@ docs/openspecs/cuda-mlp-trainer/results/*.json text eol=lf
 docs/openspecs/cuda-mlp-trainer/results/*.csv -text whitespace=cr-at-eol
 docs/openspecs/cuda-mlp-trainer/results/*.txt text eol=lf
 docs/openspecs/cuda-mlp-trainer/results/driver.txt whitespace=-blank-at-eol,-blank-at-eof
+docs/openspecs/ring-all-reduce/results/*.json text eol=lf
+docs/openspecs/ring-all-reduce/results/*.txt text eol=lf whitespace=-blank-at-eol,-blank-at-eof

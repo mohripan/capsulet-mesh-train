@@ -40,5 +40,8 @@ void send_exact(const Socket& socket, std::span<const std::byte> bytes, Deadline
                 const ErrorContext& context);
 void receive_exact(const Socket& socket, std::span<std::byte> bytes, Deadline deadline,
                    const ErrorContext& context);
+void exchange_exact(const Socket& sender, std::span<const std::byte> outgoing,
+                    const Socket& receiver, std::span<std::byte> incoming, Deadline deadline,
+                    const ErrorContext& send_context, const ErrorContext& receive_context);
 
 } // namespace meshtrain::net

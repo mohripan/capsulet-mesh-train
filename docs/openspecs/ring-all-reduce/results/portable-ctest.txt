@@ -1,0 +1,106 @@
+Start testing: Oct 18 19:17 WIB
+----------------------------------------------------------
+1/4 Testing: core_contracts
+1/4 Test: core_contracts
+Command: "/mnt/c/Projects/capsulet-mesh-train/build/ring-portable/tests/meshtrain_core_tests"
+Directory: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/tests
+"core_contracts" start time: Oct 18 19:17 WIB
+Output:
+----------------------------------------------------------
+PASS valid groups
+PASS invalid membership
+PASS endpoint validation
+PASS duplicate endpoints
+PASS identity validation
+PASS limits validation
+PASS payload boundaries
+PASS error context
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"core_contracts" end time: Oct 18 19:17 WIB
+"core_contracts" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/4 Testing: wire_protocol
+2/4 Test: wire_protocol
+Command: "/mnt/c/Projects/capsulet-mesh-train/build/ring-portable/tests/meshtrain_protocol_tests"
+Directory: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/tests
+"wire_protocol" start time: Oct 18 19:17 WIB
+Output:
+----------------------------------------------------------
+PASS wire header and HELLO contracts
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"wire_protocol" end time: Oct 18 19:17 WIB
+"wire_protocol" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/4 Testing: communicator_contracts
+3/4 Test: communicator_contracts
+Command: "/mnt/c/Projects/capsulet-mesh-train/build/ring-portable/tests/meshtrain_communicator_tests"
+Directory: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/tests
+"communicator_contracts" start time: Oct 18 19:17 WIB
+Output:
+----------------------------------------------------------
+PASS communicator identity, ownership, lifecycle, and contextual failures
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"communicator_contracts" end time: Oct 18 19:17 WIB
+"communicator_contracts" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/4 Testing: installed_consumer
+4/4 Test: installed_consumer
+Command: "/usr/bin/cmake" "-DMESHTRAIN_SOURCE_DIR=/mnt/c/Projects/capsulet-mesh-train" "-DMESHTRAIN_BINARY_DIR=/mnt/c/Projects/capsulet-mesh-train/build/ring-portable" "-DMESHTRAIN_TEST_GENERATOR=Ninja" "-DMESHTRAIN_TEST_COMPILER=/usr/bin/c++" "-DMESHTRAIN_TEST_CONFIG=Release" "-P" "/mnt/c/Projects/capsulet-mesh-train/tests/cmake/install_consumer.cmake"
+Directory: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/tests
+"installed_consumer" start time: Oct 18 19:17 WIB
+Output:
+----------------------------------------------------------
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/lib/libmeshtrain_core.a
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/include/meshtrain
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/include/meshtrain/buffer.hpp
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/include/meshtrain/communicator.hpp
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/include/meshtrain/config.hpp
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/include/meshtrain/error.hpp
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/include/meshtrain/tcp.hpp
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/include/meshtrain/transport.hpp
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/lib/cmake/meshtrain/meshtrainTargets.cmake
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/lib/cmake/meshtrain/meshtrainTargets-release.cmake
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/lib/cmake/meshtrain/meshtrainConfig.cmake
+-- Installing: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/original/lib/cmake/meshtrain/meshtrainConfigVersion.cmake
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (1.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/consumer
+[1/2] Building CXX object CMakeFiles/meshtrain_consumer.dir/main.cpp.o
+[2/2] Linking CXX executable meshtrain_consumer
+Test project /mnt/c/Projects/capsulet-mesh-train/build/ring-portable/install-smoke/a7ddc974f464/consumer
+    Start 1: consume_installed_library
+1/1 Test #1: consume_installed_library ........   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec
+<end of output>
+Test time =   3.86 sec
+----------------------------------------------------------
+Test Passed.
+"installed_consumer" end time: Oct 18 19:17 WIB
+"installed_consumer" time elapsed: 00:00:03
+----------------------------------------------------------
+
+End testing: Oct 18 19:17 WIB

@@ -25,3 +25,8 @@ jobs:
       - name: Verify centralized SUM across four containers
         if: matrix.target == 'native-test'
         run: sh tools/check_collective_containers.sh meshtrain-native-test:ci
+      - name: Verify ring SUM and controller cleanup across four containers
+        if: matrix.target == 'native-test'
+        run: |
+          python3 tools/check_ring_containers.py meshtrain-native-test:ci --output build/ring-containers
+          python3 tools/check_ring_containers.py meshtrain-native-test:ci --scenario worker-exit --output build/ring-container-failure

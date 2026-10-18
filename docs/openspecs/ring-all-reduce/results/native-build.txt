@@ -1,0 +1,145 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.66kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/debian:bookworm-slim@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 139B 0.0s done
+#3 DONE 0.0s
+
+#4 [native-toolchain 1/3] FROM docker.io/library/debian:bookworm-slim@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587
+#4 resolve docker.io/library/debian:bookworm-slim@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 55.10kB 0.5s done
+#5 DONE 0.5s
+
+#6 [native-toolchain 2/3] RUN apt-get update     && apt-get install -y --no-install-recommends         g++=4:12.2.0-3 cmake=3.25.1-1 ninja-build=1.11.1-2~deb12u1     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [native-toolchain 3/3] WORKDIR /workspace
+#7 CACHED
+
+#8 [native-test 1/2] COPY . .
+#8 DONE 0.1s
+
+#9 [native-test 2/2] RUN ! command -v python && ! command -v python3     && cmake -S . -B build/native -G Ninja         -DCMAKE_BUILD_TYPE=Release -DMESHTRAIN_WARNINGS_AS_ERRORS=ON     && cmake --build build/native     && ctest --test-dir build/native --output-on-failure -LE m1_integration
+#9 0.194 -- The CXX compiler identification is GNU 12.2.0
+#9 0.200 -- Detecting CXX compiler ABI info
+#9 0.236 -- Detecting CXX compiler ABI info - done
+#9 0.239 -- Check for working CXX compiler: /usr/bin/c++ - skipped
+#9 0.240 -- Detecting CXX compile features
+#9 0.240 -- Detecting CXX compile features - done
+#9 0.242 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+#9 0.281 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+#9 0.281 -- Found Threads: TRUE  
+#9 0.283 -- Configuring done
+#9 0.288 -- Generating done
+#9 0.290 -- Build files have been written to: /workspace/build/native
+#9 0.724 [1/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/transport.cpp.o
+#9 0.764 [2/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/error.cpp.o
+#9 0.798 [3/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/deadline.cpp.o
+#9 0.999 [4/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/buffer.cpp.o
+#9 1.241 [5/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/protocol.cpp.o
+#9 1.311 [6/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/config.cpp.o
+#9 1.379 [7/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/linux/socket.cpp.o
+#9 1.407 [8/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/linux/resolver.cpp.o
+#9 1.530 [9/37] Building CXX object tests/CMakeFiles/meshtrain_communicator_tests.dir/communicator_tests.cpp.o
+#9 1.711 [10/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/tcp_startup.cpp.o
+#9 1.776 [11/37] Building CXX object tests/CMakeFiles/meshtrain_protocol_tests.dir/protocol_tests.cpp.o
+#9 1.820 [12/37] Building CXX object tests/CMakeFiles/meshtrain_core_tests.dir/core_tests.cpp.o
+#9 1.908 [13/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/ring.cpp.o
+#9 1.930 [14/37] Building CXX object tests/CMakeFiles/meshtrain_ring_tests.dir/ring_tests.cpp.o
+#9 1.977 [15/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/communicator.cpp.o
+#9 2.086 [16/37] Building CXX object tests/CMakeFiles/meshtrain_ring_tests.dir/ring_numerical.cpp.o
+#9 2.206 [17/37] Building CXX object tests/CMakeFiles/meshtrain_resolver_tests.dir/resolver_tests.cpp.o
+#9 2.251 [18/37] Building CXX object tests/CMakeFiles/meshtrain_ring_tests.dir/ring_duplex.cpp.o
+#9 2.279 [19/37] Building CXX object CMakeFiles/meshtrain_core.dir/src/tcp.cpp.o
+#9 2.295 [20/37] Linking CXX static library libmeshtrain_core.a
+#9 2.308 [21/37] Building CXX object tests/CMakeFiles/meshtrain_ring_tests.dir/ring_failures.cpp.o
+#9 2.353 [22/37] Linking CXX executable tests/meshtrain_resolver_tests
+#9 2.355 [23/37] Linking CXX executable tests/meshtrain_protocol_tests
+#9 2.359 [24/37] Linking CXX executable tests/meshtrain_core_tests
+#9 2.360 [25/37] Linking CXX executable tests/meshtrain_communicator_tests
+#9 2.563 [26/37] Building CXX object tests/CMakeFiles/meshtrain_collective_tests.dir/collective_tests.cpp.o
+#9 2.583 [27/37] Building CXX object tests/CMakeFiles/meshtrain_collective_tests.dir/collective_workers.cpp.o
+#9 2.611 [28/37] Building CXX object tests/CMakeFiles/meshtrain_ring_tests.dir/ring_startup.cpp.o
+#9 2.659 [29/37] Linking CXX executable tests/meshtrain_ring_tests
+#9 2.797 [30/37] Building CXX object tests/CMakeFiles/meshtrain_collective_tests.dir/collective_failures.cpp.o
+#9 2.836 [31/37] Linking CXX executable tests/meshtrain_collective_tests
+#9 2.855 [32/37] Building CXX object tests/CMakeFiles/meshtrain_tcp_tests.dir/tcp_tests.cpp.o
+#9 2.902 [33/37] Building CXX object tests/CMakeFiles/meshtrain_failure_tests.dir/failure_worker.cpp.o
+#9 3.082 [34/37] Building CXX object tests/CMakeFiles/meshtrain_tcp_tests.dir/tcp_workers.cpp.o
+#9 3.118 [35/37] Linking CXX executable tests/meshtrain_tcp_tests
+#9 3.258 [36/37] Building CXX object tests/CMakeFiles/meshtrain_failure_tests.dir/failure_tests.cpp.o
+#9 3.296 [37/37] Linking CXX executable tests/meshtrain_failure_tests
+#9 3.303 Internal ctest changing into directory: /workspace/build/native
+#9 3.303 Test project /workspace/build/native
+#9 3.304       Start  1: core_contracts
+#9 3.306  1/24 Test  #1: core_contracts ...................   Passed    0.00 sec
+#9 3.306       Start  2: wire_protocol
+#9 3.307  2/24 Test  #2: wire_protocol ....................   Passed    0.00 sec
+#9 3.307       Start  3: communicator_contracts
+#9 3.309  3/24 Test  #3: communicator_contracts ...........   Passed    0.00 sec
+#9 3.309       Start  4: ring_collectives
+#9 27.53  4/24 Test  #4: ring_collectives .................   Passed   24.22 sec
+#9 27.53       Start  5: ring_transport
+#9 29.46  5/24 Test  #5: ring_transport ...................   Passed    1.93 sec
+#9 29.46       Start  6: ring_failures
+#9 32.33  6/24 Test  #6: ring_failures ....................   Passed    2.87 sec
+#9 32.33       Start  7: ring_startup
+#9 38.71  7/24 Test  #7: ring_startup .....................   Passed    6.38 sec
+#9 38.71       Start  8: centralized_collectives
+#9 45.37  8/24 Test  #8: centralized_collectives ..........   Passed    6.66 sec
+#9 45.37       Start  9: tcp_processes
+#9 50.48  9/24 Test  #9: tcp_processes ....................   Passed    5.11 sec
+#9 50.48       Start 10: resolver_deadline
+#9 50.53 10/24 Test #10: resolver_deadline ................   Passed    0.05 sec
+#9 50.53       Start 11: ring-startup-root-kill
+#9 50.54 11/24 Test #11: ring-startup-root-kill ...........   Passed    0.01 sec
+#9 50.54       Start 12: ring-startup-root-stop
+#9 51.55 12/24 Test #12: ring-startup-root-stop ...........   Passed    1.01 sec
+#9 51.55       Start 13: ring-startup-worker-kill
+#9 51.55 13/24 Test #13: ring-startup-worker-kill .........   Passed    0.01 sec
+#9 51.55       Start 14: ring-startup-worker-stop
+#9 52.56 14/24 Test #14: ring-startup-worker-stop .........   Passed    1.01 sec
+#9 52.56       Start 15: ring-reduce-root-kill
+#9 52.57 15/24 Test #15: ring-reduce-root-kill ............   Passed    0.01 sec
+#9 52.57       Start 16: ring-reduce-root-stop
+#9 53.58 16/24 Test #16: ring-reduce-root-stop ............   Passed    1.01 sec
+#9 53.58       Start 17: ring-reduce-worker-kill
+#9 53.58 17/24 Test #17: ring-reduce-worker-kill ..........   Passed    0.01 sec
+#9 53.58       Start 18: ring-reduce-worker-stop
+#9 54.59 18/24 Test #18: ring-reduce-worker-stop ..........   Passed    1.01 sec
+#9 54.59       Start 19: ring-gather-root-kill
+#9 54.60 19/24 Test #19: ring-gather-root-kill ............   Passed    0.01 sec
+#9 54.60       Start 20: ring-gather-root-stop
+#9 55.61 20/24 Test #20: ring-gather-root-stop ............   Passed    1.01 sec
+#9 55.61       Start 21: ring-gather-worker-kill
+#9 55.61 21/24 Test #21: ring-gather-worker-kill ..........   Passed    0.01 sec
+#9 55.61       Start 22: ring-gather-worker-stop
+#9 56.62 22/24 Test #22: ring-gather-worker-stop ..........   Passed    1.01 sec
+#9 56.62       Start 23: ring_failed_cleanup
+#9 66.73 23/24 Test #23: ring_failed_cleanup ..............   Passed   10.11 sec
+#9 66.73       Start 33: installed_consumer
+#9 67.39 24/24 Test #33: installed_consumer ...............   Passed    0.66 sec
+#9 67.39 
+#9 67.39 100% tests passed, 0 tests failed out of 24
+#9 67.39 
+#9 67.39 Total Test time (real) =  64.09 sec
+#9 DONE 67.4s
+
+#10 exporting to image
+#10 exporting layers 0.1s done
+#10 exporting manifest sha256:692681f5340f8fd9f5c00b106af9c092d239a6f9642be5cb59d1bad6ca1f1bca done
+#10 exporting config sha256:02aeda7190af3acfb78750d205e7d022fab476e5d051b42438b81dd750f90c8f done
+#10 exporting attestation manifest sha256:1d2037d4211ea1c14c7e7c6e632fb09e527ba933b3bfd0f3201f2291ad1768bb 0.0s done
+#10 exporting manifest list sha256:8b055565c421c3b7dde0f6608bc5fbd225a3cb6fa8b6981f41b124143410ac61 done
+#10 naming to docker.io/library/meshtrain-native-test:ring-13-final done
+#10 unpacking to docker.io/library/meshtrain-native-test:ring-13-final 0.1s done
+#10 DONE 0.3s

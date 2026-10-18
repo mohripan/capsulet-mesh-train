@@ -22,6 +22,12 @@ class ByteTransport {
     virtual void receive_bytes(std::uint32_t peer, std::span<std::byte> bytes,
                                Deadline deadline) = 0;
 
+    // One synchronous operation progressing both directions; nonempty spans must
+    // be disjoint. Adapters without duplex support throw invalid_configuration.
+    virtual void exchange_bytes(std::uint32_t send_peer, std::span<const std::byte> outgoing,
+                                std::uint32_t receive_peer, std::span<std::byte> incoming,
+                                Deadline deadline);
+
     // Idempotent, noexcept, and safe concurrently with an operation. An
     // implementation must unblock outstanding I/O. Join active callers before
     // destroying the transport; the owner retains its lifetime during close.

@@ -2,7 +2,7 @@
 
 Date: 2026-10-18
 
-Status: draft; planning only, awaiting review selection and implementation go-ahead.
+Status: independently reviewed, owner-authorized and implemented; local verification passed, exact-revision CI/publication pending.
 
 Source: [issue #13](https://github.com/mohripan/capsulet-mesh-train/issues/13), under [M3 tracker #12](https://github.com/mohripan/capsulet-mesh-train/issues/12). M1/#5 and M2 are complete. The owner's “All right. Please continue!” after the M2 handoff starts this next OpenSpec. The previous conditional review/implementation instruction was recorded for #11, not this unpresented scope.
 
@@ -20,7 +20,7 @@ The change is architectural: algorithm selection, neighbor connectivity, duplex 
 - Introduce wire protocol v2 for both algorithms, with algorithm/phase/step/chunk/full-count metadata and bounded startup identity validation. Mixed v1/v2 workers fail; there is no compatibility negotiation. Existing consumers rebuild against the changed native library.
 - Implement uneven partitions and the two ring phases in private C++ components, using at most one largest-chunk FP32 scratch buffer per rank.
 - Add focused real-process conformance, malformed-frame, delayed-rank, cancellation/resource and small four-container ring checks. Retain existing native/package/binding/short CPU trainer regression coverage.
-- Record the durable contract in Proposed [ADR 0006](../../adr/0006-blocking-ring-all-reduce.md). The [design](design.md) also sets M3 measurement boundaries for follow-up specs.
+- Record the durable contract in Accepted [ADR 0006](../../adr/0006-blocking-ring-all-reduce.md). The [design](design.md) also sets M3 measurement boundaries for follow-up specs.
 
 Excluded: tree implementation (#14), comparative benchmark/calibration/report (#15), automatic algorithm choice, public reduce-scatter/all-gather or ZeRO (M5), Python algorithm selection/trainer artifact changes, CUDA changes/overlap, background progress threads, new transport libraries, recovery, orchestration, native Windows and physical-host/distinct-GPU validation. Existing Python/CPU/CUDA entry points continue to select centralized by default; their historical evidence is not ring evidence.
 
@@ -37,11 +37,11 @@ Excluded: tree implementation (#14), comparative benchmark/calibration/report (#
 
 ## Review and authorization
 
-- Review route: pending choice between personal review and a fresh context-independent sub-agent review.
-- Findings and disposition: author self-check only; see [verification.md](verification.md). No independent review has been launched for #13.
-- User go-ahead: pending for this presented scope. A conditional instruction to implement after the selected review and resolution of findings is sufficient; record the actual wording/date here and do not add another gate.
-- ADR 0006 remains Proposed. Accepted ADRs 0001–0005 remain historical contracts; the new record extends algorithm selection without changing the default centralized arithmetic/lifecycle rules.
+- Review route: fresh independent sub-agent `review_ring_spec`, started with `fork_turns="none"`, raw requirements and exact artifact paths, without the author's conversation or desired verdict.
+- Findings and disposition: [independent review](review.md) completed without blockers or required changes. Author planning self-check is recorded in [verification.md](verification.md).
+- User go-ahead: on 2026-10-18 the owner said “Okay. Let's continue. I guess now we can continue from before. You can use sub-agent and then implement after the review.” This authorizes the presented #13 scope after independent review and resolution of findings, including its explicit wire v2 upgrade. Do not introduce another gate for corrections within this scope.
+- ADR 0006 is Accepted after the review condition was satisfied under the owner's actual instruction. Accepted ADRs 0001–0005 remain historical contracts; the new record extends algorithm selection without changing the default centralized arithmetic/lifecycle rules.
 
 ## Delivery
 
-Planning artifacts only. The [design](design.md), [ordered tasks](tasks.md), Proposed ADR and [planning evidence](verification.md) describe the proposed implementation and its required verification. No ring code, runtime results or performance improvement is claimed.
+Native selection, duplex TCP, validated neighbor startup, wire v2 and unpadded ring phases are implemented. Required local process/fault/resource/package/container checks pass; [actual evidence and limits](verification.md) accompany the [design](design.md), [tasks](tasks.md) and Accepted ADR 0006. Exact implementation-revision CI and publication remain before #13 closes. No performance improvement is claimed.

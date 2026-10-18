@@ -1,0 +1,63 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.66kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 139B 0.0s done
+#3 DONE 0.0s
+
+#4 [python-toolchain 1/5] FROM docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+#4 resolve docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 47.07kB 0.2s done
+#5 DONE 0.3s
+
+#6 [python-toolchain 4/5] RUN python -m pip install --no-cache-dir --require-hashes -r /tmp/toolchain.lock
+#6 CACHED
+
+#7 [python-toolchain 5/5] WORKDIR /workspace
+#7 CACHED
+
+#8 [trainer-runtime 1/2] COPY requirements/training-cpu.lock /tmp/training-cpu.lock
+#8 CACHED
+
+#9 [python-toolchain 2/5] RUN apt-get update     && apt-get install -y --no-install-recommends g++=4:12.2.0-3     && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [python-toolchain 3/5] COPY requirements/toolchain.lock /tmp/toolchain.lock
+#10 CACHED
+
+#11 [trainer-runtime 2/2] RUN --mount=type=cache,target=/root/.cache/pip     python -m pip download --require-hashes --only-binary=:all: --no-deps         -r /tmp/training-cpu.lock -d /opt/meshtrain-training-wheels
+#11 CACHED
+
+#12 [trainer-smoke-test 1/2] COPY . .
+#12 DONE 0.1s
+
+#13 [trainer-smoke-test 2/2] RUN python tools/check_trainer.py --mode smoke --output build/trainer-smoke
+#13 0.332 Running: /usr/local/bin/python -m build --no-isolation --outdir /workspace/build/trainer-smoke/dist /workspace
+#13 10.76 Running: /workspace/build/trainer-smoke/runtime/bin/python -I -m pip install --no-index --find-links /opt/meshtrain-training-wheels --require-hashes -r /workspace/build/trainer-smoke/training-cpu-offline.lock
+#13 24.46 Running: /workspace/build/trainer-smoke/runtime/bin/python -I -m pip install --no-index --no-deps /workspace/build/trainer-smoke/dist/meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+#13 24.78 Running: /workspace/build/trainer-smoke/runtime/bin/python -I -m pip freeze
+#13 24.94 Running: /workspace/build/trainer-smoke/runtime/bin/python -I -m meshtrain.training run --output /workspace/build/trainer-smoke/run --world-size 2 --steps 3
+#13 28.62 Running: /workspace/build/trainer-smoke/runtime/bin/python -I -X faulthandler /workspace/build/trainer-smoke/checks/checks.py /workspace/build/trainer-smoke/run
+#13 47.16 PASS: installed CPU trainer smoke; 63 comparisons; evidence=/workspace/build/trainer-smoke
+#13 DONE 47.5s
+
+#14 exporting to image
+#14 exporting layers
+#14 exporting layers 17.7s done
+#14 exporting manifest sha256:2df91d4baaba24dd128509b88a9fa514434ee53891bdba2ad29bbb097afba918 0.0s done
+#14 exporting config sha256:abf0a917d5efd272c2bd13c582d9bb6a3edfcee17f8953f507b6c1d831a6d034 done
+#14 exporting attestation manifest sha256:b111226f08335ea39e0138ac7f5a316dfc3e73b8a597cb29f251415ed02b8e78 0.0s done
+#14 exporting manifest list sha256:049692dfa854b5733f442dceea10417f308c885d6c09e3dd5de82abd738600fc done
+#14 naming to docker.io/library/meshtrain-trainer-smoke-test:ring-13 done
+#14 unpacking to docker.io/library/meshtrain-trainer-smoke-test:ring-13
+#14 unpacking to docker.io/library/meshtrain-trainer-smoke-test:ring-13 3.2s done
+#14 DONE 21.0s

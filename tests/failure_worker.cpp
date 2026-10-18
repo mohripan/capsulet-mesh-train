@@ -1,4 +1,6 @@
 #include "failure_control.hpp"
+#include "protocol.hpp"
+#include "ring_fixture.hpp"
 
 #include <meshtrain/communicator.hpp>
 
@@ -28,6 +30,23 @@ class ObservedTransport final : public meshtrain::ByteTransport {
     }
     void close() noexcept override { transport_->close(); }
 
+    void exchange_bytes(std::uint32_t send, std::span<const std::byte> outgoing,
+                        std::uint32_t receive, std::span<std::byte> incoming,
+                        meshtrain::Deadline deadline) override {
+        if (part_ < 2U) {
+            std::copy(outgoing.begin(), outgoing.end(), encoded_.begin() + (part_ == 0U ? 0 : 8));
+        }
+        if (part_ == 1U) {
+            const auto frame = meshtrain::wire::decode_header(encoded_, 1024);
+            if (frame.phase == (active.gather ? meshtrain::wire::Phase::all_gather
+                                              : meshtrain::wire::Phase::reduce_scatter)) {
+                observe(current_rank == 0 ? 'R' : (current_rank == 1 ? 'S' : 'T'), deadline);
+            }
+        }
+        transport_->exchange_bytes(send, outgoing, receive, incoming, deadline);
+        part_ = (part_ + 1U) % 3U;
+    }
+
   private:
     void observe(char marker, meshtrain::Deadline deadline) {
         if (!observed_) {
@@ -37,6 +56,8 @@ class ObservedTransport final : public meshtrain::ByteTransport {
     }
     std::unique_ptr<ByteTransport> transport_;
     bool observed_{};
+    unsigned part_{};
+    std::array<std::byte, meshtrain::wire::header_bytes> encoded_{};
 };
 } // namespace
 
@@ -72,6 +93,9 @@ int worker(const Settings& scenario, std::uint32_t rank, std::uint16_t port, std
     active = scenario;
     current_rank = rank;
     auto config = test::tcp_group(rank, 3, port, "127.0.0.1", run);
+    if (scenario.ring) {
+        config = ringtest::config(rank, 3, port, "127.0.0.1", run);
+    }
     config.startup_timeout = 1000ms;
     config.collective_timeout = 1000ms;
     Result report;

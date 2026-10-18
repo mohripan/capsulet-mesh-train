@@ -16,12 +16,8 @@ struct TcpOptions {
 
 [[nodiscard]] bool tcp_enabled() noexcept;
 
-// Linux implementation. Blocks until every rank joins or startup fails.
-// Rank 0 accepts every other rank; nonzero ranks connect only to rank 0.
-// Calls perform exact byte transfers, not collective computation or framing.
-// One send/receive operation at a time; concurrent operations are rejected.
-// close() may run concurrently with I/O and is idempotent. Join active callers
-// before destroying the transport. Failed I/O permanently closes the group.
+// Joins a Linux TCP star or ring selected by config. One operation at a time;
+// close cancels active I/O. Ownership, topology and deadlines: docs/TCP_PROTOCOL.md.
 [[nodiscard]] std::unique_ptr<ByteTransport> connect_tcp(const RunConfig& config,
                                                          TcpOptions options = {});
 

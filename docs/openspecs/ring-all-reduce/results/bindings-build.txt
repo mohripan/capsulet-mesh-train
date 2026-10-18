@@ -1,0 +1,153 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.66kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 139B 0.0s done
+#3 DONE 0.0s
+
+#4 [python-toolchain 1/5] FROM docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+#4 resolve docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 1.91MB 0.2s done
+#5 DONE 0.3s
+
+#6 [python-toolchain 2/5] RUN apt-get update     && apt-get install -y --no-install-recommends g++=4:12.2.0-3     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [python-toolchain 5/5] WORKDIR /workspace
+#7 CACHED
+
+#8 [python-toolchain 3/5] COPY requirements/toolchain.lock /tmp/toolchain.lock
+#8 CACHED
+
+#9 [python-toolchain 4/5] RUN python -m pip install --no-cache-dir --require-hashes -r /tmp/toolchain.lock
+#9 CACHED
+
+#10 [python-bindings-runtime 1/2] COPY requirements/python-runtime.lock /tmp/python-runtime.lock
+#10 CACHED
+
+#11 [python-bindings-runtime 2/2] RUN --mount=type=cache,target=/root/.cache/pip     python -m pip download --require-hashes --only-binary=:all:         -r /tmp/python-runtime.lock -d /opt/meshtrain-runtime-wheels
+#11 CACHED
+
+#12 [python-bindings-test 1/2] COPY . .
+#12 DONE 0.1s
+
+#13 [python-bindings-test 2/2] RUN python tools/check_python_bindings.py
+#13 0.286 build==1.6.1
+#13 0.288 cmake==4.4.4
+#13 0.289 ninja==1.13.2
+#13 0.290 pybind11==3.1.0
+#13 0.291 scikit-build-core==1.1.1
+#13 0.382 * Getting build dependencies for sdist...
+#13 0.525 * Building sdist...
+#13 0.679 *** scikit-build-core 1.1.1 (sdist)
+#13 0.902 * Building wheel from sdist
+#13 0.902 * Getting build dependencies for wheel...
+#13 1.043 * Building wheel...
+#13 1.337 *** scikit-build-core 1.1.1 using CMake 4.4.4 (wheel)
+#13 1.340 *** Configuring CMake...
+#13 1.351 loading initial cache file /tmp/tmpifhwmtj8/build/CMakeInit.txt
+#13 1.475 -- The CXX compiler identification is GNU 12.2.0
+#13 1.486 -- Detecting CXX compiler ABI info
+#13 1.524 -- Detecting CXX compiler ABI info - done
+#13 1.532 -- Check for working CXX compiler: /usr/bin/g++ - skipped
+#13 1.532 -- Detecting CXX compile features
+#13 1.533 -- Detecting CXX compile features - done
+#13 1.546 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+#13 1.596 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+#13 1.598 -- Found Threads: TRUE
+#13 1.670 -- Found Python: /usr/local/bin/python (found suitable exact version "3.12.15") found components: Interpreter Development.Module
+#13 1.699 -- Performing Test HAS_FLTO_AUTO
+#13 1.796 -- Performing Test HAS_FLTO_AUTO - Success
+#13 1.796 -- Found pybind11: /usr/local/lib/python3.12/site-packages/pybind11/include (found version "3.1.0")
+#13 1.797 -- Configuring done (0.4s)
+#13 1.802 -- Generating done (0.0s)
+#13 1.807 -- Build files have been written to: /tmp/tmpifhwmtj8/build
+#13 1.816 *** Building project with Ninja...
+#13 2.391 [1/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/transport.cpp.o
+#13 2.421 [2/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/deadline.cpp.o
+#13 2.841 [3/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/error.cpp.o
+#13 2.844 [4/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/protocol.cpp.o
+#13 3.284 [5/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/buffer.cpp.o
+#13 3.297 [6/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/tcp_startup.cpp.o
+#13 3.625 [7/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/linux/resolver.cpp.o
+#13 3.907 [8/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/linux/socket.cpp.o
+#13 3.960 [9/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/tcp.cpp.o
+#13 3.982 [10/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/config.cpp.o
+#13 4.077 [11/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/ring.cpp.o
+#13 4.423 [12/18] Building CXX object CMakeFiles/meshtrain_core.dir/src/communicator.cpp.o
+#13 4.438 [13/18] Linking CXX static library libmeshtrain_core.a
+#13 5.942 [14/18] Building CXX object bindings/python/CMakeFiles/_native.dir/buffer.cpp.o
+#13 6.166 [15/18] Building CXX object bindings/python/CMakeFiles/_native.dir/module.cpp.o
+#13 6.536 [16/18] Building CXX object bindings/python/CMakeFiles/_native.dir/communicator.cpp.o
+#13 6.862 [17/18] Building CXX object bindings/python/CMakeFiles/_native.dir/config.cpp.o
+#13 9.560 [18/18] Linking CXX shared module bindings/python/_native.cpython-312-x86_64-linux-gnu.so
+#13 9.560 lto-wrapper: warning: using serial compilation of 4 LTRANS jobs
+#13 9.560 lto-wrapper: note: see the ‘-flto’ option documentation for more information
+#13 9.561 *** Installing project into wheel...
+#13 9.563 -- Install configuration: "Release"
+#13 9.564 -- Installing: /tmp/tmpifhwmtj8/wheel/platlib/meshtrain/_native.cpython-312-x86_64-linux-gnu.so
+#13 9.567 *** Making wheel...
+#13 9.595 *** Created meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+#13 9.615 Successfully built meshtrain-0.1.0.tar.gz and meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+#13 9.642 Wheel: meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+#13 9.642 Contents: ['meshtrain/__init__.py', 'meshtrain/__init__.pyi', 'meshtrain/_cuda_device.py', 'meshtrain/_native.cpython-312-x86_64-linux-gnu.so', 'meshtrain/cuda_adapter.py', 'meshtrain/cuda_gradient.py', 'meshtrain/py.typed', 'meshtrain/torch_adapter.py', 'meshtrain/training/__init__.py', 'meshtrain/training/__main__.py', 'meshtrain/training/artifacts.py', 'meshtrain/training/cuda_evidence.py', 'meshtrain/training/cuda_execution.py', 'meshtrain/training/cuda_worker.py', 'meshtrain/training/inputs.py', 'meshtrain/training/launcher.py', 'meshtrain/training/reference.py', 'meshtrain/training/results.py', 'meshtrain/training/selection.py', 'meshtrain/training/verification.py', 'meshtrain/training/worker.py', 'meshtrain/training/workload.py', 'meshtrain-0.1.0.dist-info/METADATA', 'meshtrain-0.1.0.dist-info/WHEEL', 'meshtrain-0.1.0.dist-info/licenses/LICENSE', 'meshtrain-0.1.0.dist-info/RECORD']
+#13 11.15 Looking in links: /opt/meshtrain-runtime-wheels
+#13 11.15 Processing /opt/meshtrain-runtime-wheels/numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from -r /workspace/requirements/python-runtime.lock (line 3))
+#13 11.19 Installing collected packages: numpy
+#13 12.43 Successfully installed numpy-2.5.4
+#13 12.71 Looking in links: /opt/meshtrain-runtime-wheels
+#13 12.72 Processing ./dist/meshtrain-0.1.0-cp312-cp312-linux_x86_64.whl
+#13 12.72 Installing collected packages: meshtrain
+#13 12.74 Successfully installed meshtrain-0.1.0
+#13 12.97 test_configuration (__main__.LocalContracts.test_configuration) ... ok
+#13 12.97 test_finished_inputs_and_communicators_collect (__main__.LocalContracts.test_finished_inputs_and_communicators_collect) ... ok
+#13 12.99 test_identity_bits_payload_failure_and_context_manager (__main__.LocalContracts.test_identity_bits_payload_failure_and_context_manager) ... ok
+#13 12.99 test_installed_package (__main__.LocalContracts.test_installed_package) ... Installed extension: /tmp/meshtrain-bindings-z4wysups/runtime/lib/python3.12/site-packages/meshtrain/_native.cpython-312-x86_64-linux-gnu.so
+#13 12.99 Python: 3.12.15; NumPy: 2.5.4
+#13 12.99 ok
+#13 12.99 test_rejected_inputs_and_valid_reuse (__main__.LocalContracts.test_rejected_inputs_and_valid_reuse) ... ok
+#13 12.99 test_close_unblocks_and_releases_input (__main__.ProcessContracts.test_close_unblocks_and_releases_input) ... Process evidence: {'mode': 'close', 'elapsed_seconds': 0.054608011996606365}
+#13 13.17 Process evidence: peer stopped
+#13 13.17 Collective Python handshake (close): 0.054287s
+#13 13.17 ok
+#13 13.17 test_startup_releases_gil (__main__.ProcessContracts.test_startup_releases_gil) ... Process evidence: startup progress
+#13 13.42 Process evidence: peer stopped
+#13 13.42 Startup Python handshake: 0.051489s
+#13 13.42 ok
+#13 13.42 test_timeout_fields_terminal_state_and_released_input (__main__.ProcessContracts.test_timeout_fields_terminal_state_and_released_input) ... Process evidence: {'mode': 'timeout', 'elapsed_seconds': 1.0020777350000571}
+#13 14.58 Process evidence: peer stopped
+#13 14.58 Collective Python handshake (timeout): 0.054345s
+#13 14.58 ok
+#13 14.58 test_two_process_original_storage_sum (__main__.ProcessContracts.test_two_process_original_storage_sum) ... Process evidence: {'calls': 4, 'max_absolute_error': 0.0}
+#13 14.74 Process evidence: {'calls': 4, 'max_absolute_error': 0.0}
+#13 14.74 ok
+#13 14.74 test_wait_lifetime_gil_and_overlapping_call (__main__.ProcessContracts.test_wait_lifetime_gil_and_overlapping_call) ... Process evidence: {'mode': 'success', 'elapsed_seconds': 0.060109367997938534}
+#13 14.93 Process evidence: peer stopped
+#13 14.93 Collective Python handshake (success): 0.059315s
+#13 14.93 ok
+#13 14.93 
+#13 14.93 ----------------------------------------------------------------------
+#13 14.93 Ran 10 tests in 1.968s
+#13 14.93 
+#13 14.93 OK
+#13 15.01 PASS: sdist-derived wheel, isolated install/import, buffer contracts, real TCP SUM, lifetime/GIL/failure checks
+#13 DONE 15.1s
+
+#14 exporting to image
+#14 exporting layers 0.1s done
+#14 exporting manifest sha256:a5a5b0a4ebd9ae331ce50b235c4852c1d843e923a505d6a7448dccefc0ada343 0.0s done
+#14 exporting config sha256:be6dbbae54f162b4be232ccbe5a5db2a4f6291954589472b0156a92e0751a39e 0.0s done
+#14 exporting attestation manifest sha256:40ecc7305cb8bcb545ffad6b5548e82463482237d72ff5aa23981aac10c1ee3d 0.0s done
+#14 exporting manifest list sha256:109d4787bceee3d8e7c04c2a66db250c8c2187a8ca425a90a0d0db7602f90d6b 0.0s done
+#14 naming to docker.io/library/meshtrain-python-bindings-test:ring-13 done
+#14 unpacking to docker.io/library/meshtrain-python-bindings-test:ring-13 0.1s done
+#14 DONE 0.3s

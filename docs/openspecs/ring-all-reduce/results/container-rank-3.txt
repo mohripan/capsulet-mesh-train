@@ -1,0 +1,2 @@
+algorithm=ring rank=3 world=4 counts=10 calls=20 max_abs=2.94297933578e-07 max_cross=2.38418579102e-07
+algorithm=centralized rank=3 world=4 counts=10 calls=20 max_abs=2.07684934139e-07 max_cross=0

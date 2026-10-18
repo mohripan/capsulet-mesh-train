@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 #include <algorithm>
+#include <array>
 #include <cerrno>
 #include <chrono>
 #include <climits>
@@ -98,8 +99,8 @@ void Socket::shutdown() noexcept {
 
 Socket listen(const RunConfig& config, const TcpOptions& options, Deadline deadline,
               const ErrorContext& context) {
-    const auto addresses =
-        resolve_ipv4({config.listen_address, config.endpoints[0].port}, deadline, context, true);
+    const auto addresses = resolve_ipv4({config.listen_address, config.endpoints[config.rank].port},
+                                        deadline, context, true);
     int last_error = EADDRNOTAVAIL;
     for (const auto& address : addresses) {
         check_deadline(deadline, context);
@@ -236,6 +237,74 @@ void receive_exact(const Socket& socket, std::span<std::byte> bytes, Deadline de
         }
         wait_for(socket.descriptor(), POLLIN, deadline, context);
     }
+}
+
+void exchange_exact(const Socket& sender, std::span<const std::byte> outgoing,
+                    const Socket& receiver, std::span<std::byte> incoming, Deadline deadline,
+                    const ErrorContext& send_context, const ErrorContext& receive_context) {
+    check_deadline(deadline, receive_context);
+    while (!outgoing.empty() || !incoming.empty()) {
+        const auto& waiting = incoming.empty() ? send_context : receive_context;
+        check_deadline(deadline, waiting);
+        bool progress = false;
+        if (!outgoing.empty()) {
+            const auto count = ::send(sender.descriptor(), outgoing.data(),
+                                      std::min<std::size_t>(outgoing.size(), 65536), MSG_NOSIGNAL);
+            if (count > 0) {
+                outgoing = outgoing.subspan(static_cast<std::size_t>(count));
+                progress = true;
+            } else if (count == 0) {
+                throw EngineError(ErrorCode::peer_closed, "socket made no send progress",
+                                  send_context);
+            } else if (errno != EAGAIN && errno != EWOULDBLOCK && errno != EINTR) {
+                system_error(errno, send_context);
+            }
+        }
+        if (!incoming.empty()) {
+            const auto count = ::recv(receiver.descriptor(), incoming.data(),
+                                      std::min<std::size_t>(incoming.size(), 65536), 0);
+            if (count > 0) {
+                incoming = incoming.subspan(static_cast<std::size_t>(count));
+                progress = true;
+            } else if (count == 0) {
+                throw EngineError(ErrorCode::peer_closed, "peer closed the byte stream",
+                                  receive_context);
+            } else if (errno != EAGAIN && errno != EWOULDBLOCK && errno != EINTR) {
+                system_error(errno, receive_context);
+            }
+        }
+        if (progress || (outgoing.empty() && incoming.empty())) {
+            continue;
+        }
+        std::array<pollfd, 2> watched{};
+        nfds_t count = 0;
+        if (!outgoing.empty()) {
+            watched[count++] = {sender.descriptor(), POLLOUT, 0};
+        }
+        if (!incoming.empty()) {
+            if (count == 1U && watched[0].fd == receiver.descriptor()) {
+                watched[0].events = static_cast<short>(watched[0].events | POLLIN);
+            } else {
+                watched[count++] = {receiver.descriptor(), POLLIN, 0};
+            }
+        }
+        check_deadline(deadline, waiting);
+        const auto left = std::chrono::ceil<std::chrono::milliseconds>(
+            deadline - std::chrono::steady_clock::now());
+        const auto timeout = static_cast<int>(std::clamp<std::int64_t>(left.count(), 1, INT_MAX));
+        const auto result = ::poll(watched.data(), count, timeout);
+        if (result < 0 && errno != EINTR) {
+            system_error(errno, waiting);
+        }
+        for (nfds_t index = 0; index < count; ++index) {
+            if ((watched[index].revents & POLLNVAL) != 0) {
+                throw EngineError(ErrorCode::transport_failure, "invalid exchange descriptor",
+                                  watched[index].fd == receiver.descriptor() ? receive_context
+                                                                             : send_context);
+            }
+        }
+    }
+    check_deadline(deadline, receive_context);
 }
 
 } // namespace meshtrain::net

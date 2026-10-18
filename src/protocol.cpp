@@ -35,37 +35,84 @@ bool printable(std::string_view text) {
 
 } // namespace
 
+void validate_prefix(std::span<const std::byte> bytes, const ErrorContext& context) {
+    if (bytes.size() != prefix_bytes || get(bytes, 0, 4) != magic || get(bytes, 4, 2) != version ||
+        get(bytes, 6, 2) < 1U || get(bytes, 6, 2) > 10U) {
+        reject("invalid frame magic, version, or operation", context);
+    }
+}
+
 void validate_header(const Header& header, std::size_t max_payload, const ErrorContext& context) {
-    if (header.source == header.destination) {
-        reject("frame source equals destination", context);
+    if (header.source == header.destination ||
+        (header.algorithm != AllReduceAlgorithm::centralized &&
+         header.algorithm != AllReduceAlgorithm::ring)) {
+        reject("invalid frame ranks or algorithm", context);
     }
     switch (header.operation) {
     case Operation::hello:
+    case Operation::edge_hello:
     case Operation::ready:
-    case Operation::error:
+    case Operation::ring_connect:
+    case Operation::edges_ready:
+    case Operation::error: {
         if (header.sequence != 0U || header.count != 0U || header.dtype != Dtype::none ||
-            header.reduction != Reduction::none) {
+            header.reduction != Reduction::none || header.phase != Phase::none ||
+            header.step != 0U || header.chunk != 0U || header.total_count != 0U ||
+            header.element_offset != 0U) {
             reject("invalid control-frame metadata", context);
         }
-        if (header.operation == Operation::hello &&
-            (header.destination != 0U || header.payload_bytes < 22U ||
-             header.payload_bytes > 404U)) {
-            reject("invalid HELLO frame", context);
+        const bool identity =
+            header.operation == Operation::hello || header.operation == Operation::edge_hello;
+        if (identity && (header.payload_bytes < 22U || header.payload_bytes > 404U)) {
+            reject("invalid identity frame length", context);
         }
-        if (header.operation == Operation::ready &&
-            (header.source != 0U || header.payload_bytes != 0U)) {
-            reject("invalid READY frame", context);
+        if ((header.operation == Operation::hello || header.operation == Operation::edges_ready) &&
+            header.destination != 0U) {
+            reject("invalid root control destination", context);
         }
-        if (header.operation == Operation::error && header.payload_bytes > 1024U) {
-            reject("oversized ERROR frame", context);
+        if ((header.operation == Operation::ready || header.operation == Operation::ring_connect) &&
+            header.source != 0U) {
+            reject("invalid root control source", context);
+        }
+        if ((header.operation == Operation::edge_hello ||
+             header.operation == Operation::ring_connect ||
+             header.operation == Operation::edges_ready) &&
+            header.algorithm != AllReduceAlgorithm::ring) {
+            reject("ring control requires ring algorithm", context);
+        }
+        if (header.operation == Operation::error) {
+            if (header.payload_bytes > 1024U) {
+                reject("oversized ERROR frame", context);
+            }
+        } else if (!identity && header.payload_bytes != 0U) {
+            reject("unexpected control payload", context);
         }
         return;
+    }
     case Operation::all_reduce_request:
     case Operation::all_reduce_result:
+    case Operation::ring_reduce:
+    case Operation::ring_gather:
         if (header.dtype != Dtype::float32 || header.reduction != Reduction::sum ||
             header.count > std::numeric_limits<std::uint64_t>::max() / 4U ||
-            header.payload_bytes != header.count * 4U || header.payload_bytes > max_payload) {
+            header.payload_bytes != header.count * 4U ||
+            header.total_count > std::numeric_limits<std::uint64_t>::max() / 4U ||
+            header.total_count * 4U > max_payload || header.element_offset > header.total_count ||
+            header.count > header.total_count - header.element_offset) {
             reject("invalid or oversized FP32 SUM frame", context);
+        }
+        if (header.operation == Operation::all_reduce_request ||
+            header.operation == Operation::all_reduce_result) {
+            if (header.algorithm != AllReduceAlgorithm::centralized ||
+                header.phase != Phase::none || header.step != 0U || header.chunk != 0U ||
+                header.element_offset != 0U || header.total_count != header.count) {
+                reject("invalid centralized metadata", context);
+            }
+        } else if (header.algorithm != AllReduceAlgorithm::ring ||
+                   header.phase != (header.operation == Operation::ring_reduce
+                                        ? Phase::reduce_scatter
+                                        : Phase::all_gather)) {
+            reject("invalid ring phase or algorithm", context);
         }
         return;
     }
@@ -86,15 +133,22 @@ std::array<std::byte, header_bytes> encode_header(const Header& header, std::siz
     put(bytes, 32, header.payload_bytes, 8);
     put(bytes, 40, static_cast<std::uint16_t>(header.dtype), 2);
     put(bytes, 42, static_cast<std::uint16_t>(header.reduction), 2);
+    put(bytes, 48, static_cast<std::uint16_t>(header.algorithm), 2);
+    put(bytes, 50, static_cast<std::uint16_t>(header.phase), 2);
+    put(bytes, 52, header.step, 4);
+    put(bytes, 56, header.chunk, 4);
+    put(bytes, 64, header.total_count, 8);
+    put(bytes, 72, header.element_offset, 8);
     return bytes;
 }
 
 Header decode_header(std::span<const std::byte> bytes, std::size_t max_payload,
                      const ErrorContext& context) {
     if (bytes.size() != header_bytes) {
-        reject("frame header must contain 48 bytes", context);
+        reject("frame header must contain 80 bytes", context);
     }
-    if (get(bytes, 0, 4) != magic || get(bytes, 4, 2) != version || get(bytes, 44, 4) != 0U) {
+    validate_prefix(bytes.first(prefix_bytes), context);
+    if (get(bytes, 44, 4) != 0U || get(bytes, 60, 4) != 0U) {
         reject("invalid frame magic, version, or reserved bits", context);
     }
     Header header;
@@ -106,6 +160,12 @@ Header decode_header(std::span<const std::byte> bytes, std::size_t max_payload,
     header.payload_bytes = get(bytes, 32, 8);
     header.dtype = static_cast<Dtype>(get(bytes, 40, 2));
     header.reduction = static_cast<Reduction>(get(bytes, 42, 2));
+    header.algorithm = static_cast<AllReduceAlgorithm>(get(bytes, 48, 2));
+    header.phase = static_cast<Phase>(get(bytes, 50, 2));
+    header.step = static_cast<std::uint32_t>(get(bytes, 52, 4));
+    header.chunk = static_cast<std::uint32_t>(get(bytes, 56, 4));
+    header.total_count = get(bytes, 64, 8);
+    header.element_offset = get(bytes, 72, 8);
     validate_header(header, max_payload, context);
     return header;
 }

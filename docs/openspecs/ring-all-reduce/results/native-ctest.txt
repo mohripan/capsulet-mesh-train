@@ -1,0 +1,818 @@
+Start testing: Oct 18 12:18 UTC
+----------------------------------------------------------
+1/33 Testing: core_contracts
+1/33 Test: core_contracts
+Command: "/workspace/build/native/tests/meshtrain_core_tests"
+Directory: /workspace/build/native/tests
+"core_contracts" start time: Oct 18 12:18 UTC
+Output:
+----------------------------------------------------------
+PASS valid groups
+PASS invalid membership
+PASS endpoint validation
+PASS duplicate endpoints
+PASS identity validation
+PASS limits validation
+PASS payload boundaries
+PASS error context
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"core_contracts" end time: Oct 18 12:18 UTC
+"core_contracts" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/33 Testing: wire_protocol
+2/33 Test: wire_protocol
+Command: "/workspace/build/native/tests/meshtrain_protocol_tests"
+Directory: /workspace/build/native/tests
+"wire_protocol" start time: Oct 18 12:18 UTC
+Output:
+----------------------------------------------------------
+PASS wire header and HELLO contracts
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"wire_protocol" end time: Oct 18 12:18 UTC
+"wire_protocol" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/33 Testing: communicator_contracts
+3/33 Test: communicator_contracts
+Command: "/workspace/build/native/tests/meshtrain_communicator_tests"
+Directory: /workspace/build/native/tests
+"communicator_contracts" start time: Oct 18 12:18 UTC
+Output:
+----------------------------------------------------------
+PASS communicator identity, ownership, lifecycle, and contextual failures
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"communicator_contracts" end time: Oct 18 12:18 UTC
+"communicator_contracts" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/33 Testing: ring_collectives
+4/33 Test: ring_collectives
+Command: "/workspace/build/native/tests/meshtrain_ring_tests"
+Directory: /workspace/build/native/tests
+"ring_collectives" start time: Oct 18 12:18 UTC
+Output:
+----------------------------------------------------------
+algorithm=ring rank=0 world=1 counts=8 calls=16 max_abs=0 max_cross=0
+algorithm=centralized rank=0 world=1 counts=8 calls=16 max_abs=0 max_cross=0
+PASS ring numerical workers=1 elapsed_ms=23
+algorithm=ring rank=1 world=2 counts=9 calls=18 max_abs=5.96046447754e-08 max_cross=0
+algorithm=centralized rank=1 world=2 counts=9 calls=18 max_abs=5.96046447754e-08 max_cross=0
+algorithm=ring rank=0 world=2 counts=9 calls=18 max_abs=5.96046447754e-08 max_cross=0
+algorithm=centralized rank=0 world=2 counts=9 calls=18 max_abs=5.96046447754e-08 max_cross=0
+PASS ring numerical workers=2 elapsed_ms=94
+algorithm=ring rank=1 world=3 counts=10 calls=20 max_abs=1.19209289551e-07 max_cross=1.19209289551e-07
+algorithm=centralized rank=1 world=3 counts=10 calls=20 max_abs=1.19209289551e-07 max_cross=0
+algorithm=ring rank=2 world=3 counts=10 calls=20 max_abs=1.19209289551e-07 max_cross=1.19209289551e-07
+algorithm=centralized rank=2 world=3 counts=10 calls=20 max_abs=1.19209289551e-07 max_cross=0
+algorithm=ring rank=0 world=3 counts=10 calls=20 max_abs=1.19209289551e-07 max_cross=1.19209289551e-07
+algorithm=centralized rank=0 world=3 counts=10 calls=20 max_abs=1.19209289551e-07 max_cross=0
+PASS ring numerical workers=3 elapsed_ms=7814
+algorithm=ring rank=1 world=4 counts=10 calls=20 max_abs=2.94297933578e-07 max_cross=2.38418579102e-07
+algorithm=centralized rank=1 world=4 counts=10 calls=20 max_abs=2.07684934139e-07 max_cross=0
+algorithm=ring rank=2 world=4 counts=10 calls=20 max_abs=2.94297933578e-07 max_cross=2.38418579102e-07
+algorithm=centralized rank=2 world=4 counts=10 calls=20 max_abs=2.07684934139e-07 max_cross=0
+algorithm=ring rank=3 world=4 counts=10 calls=20 max_abs=2.94297933578e-07 max_cross=2.38418579102e-07
+algorithm=centralized rank=3 world=4 counts=10 calls=20 max_abs=2.07684934139e-07 max_cross=0
+algorithm=ring rank=0 world=4 counts=10 calls=20 max_abs=2.94297933578e-07 max_cross=2.38418579102e-07
+algorithm=centralized rank=0 world=4 counts=10 calls=20 max_abs=2.07684934139e-07 max_cross=0
+PASS ring numerical workers=4 elapsed_ms=8339
+algorithm=ring rank=1 world=5 counts=10 calls=20 max_abs=3.0966475606e-07 max_cross=4.76837158203e-07
+algorithm=centralized rank=1 world=5 counts=10 calls=20 max_abs=2.6635825634e-07 max_cross=0
+algorithm=ring rank=2 world=5 counts=10 calls=20 max_abs=3.0966475606e-07 max_cross=4.76837158203e-07
+algorithm=centralized rank=2 world=5 counts=10 calls=20 max_abs=2.6635825634e-07 max_cross=0
+algorithm=ring rank=3 world=5 counts=10 calls=20 max_abs=3.0966475606e-07 max_cross=4.76837158203e-07
+algorithm=centralized rank=3 world=5 counts=10 calls=20 max_abs=2.6635825634e-07 max_cross=0
+algorithm=ring rank=4 world=5 counts=10 calls=20 max_abs=3.0966475606e-07 max_cross=4.76837158203e-07
+algorithm=centralized rank=4 world=5 counts=10 calls=20 max_abs=2.6635825634e-07 max_cross=0
+algorithm=ring rank=0 world=5 counts=10 calls=20 max_abs=3.0966475606e-07 max_cross=4.76837158203e-07
+algorithm=centralized rank=0 world=5 counts=10 calls=20 max_abs=2.6635825634e-07 max_cross=0
+PASS ring numerical workers=5 elapsed_ms=7949
+<end of output>
+Test time =  24.22 sec
+----------------------------------------------------------
+Test Passed.
+"ring_collectives" end time: Oct 18 12:19 UTC
+"ring_collectives" time elapsed: 00:00:24
+----------------------------------------------------------
+
+5/33 Testing: ring_transport
+5/33 Test: ring_transport
+Command: "/workspace/build/native/tests/meshtrain_ring_tests" "--transport"
+Directory: /workspace/build/native/tests
+"ring_transport" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+duplex scenario=duplex rank=1 fds_before=5 fds_after=5
+duplex scenario=duplex rank=0 fds_before=5 fds_after=5
+PASS ring duplex workers=2 elapsed_ms=175
+duplex scenario=duplex rank=1 fds_before=5 fds_after=5
+duplex scenario=duplex rank=0 fds_before=5 fds_after=5
+duplex scenario=duplex rank=2 fds_before=5 fds_after=5
+PASS ring duplex workers=3 elapsed_ms=397
+duplex scenario=duplex_small rank=2 fds_before=5 fds_after=5
+duplex scenario=duplex_small rank=1 fds_before=5 fds_after=5
+duplex scenario=duplex_small rank=0 fds_before=5 fds_after=5
+PASS ring duplex_small workers=3 elapsed_ms=131
+duplex scenario=duplex_cancel rank=0 fds_before=5 fds_after=5
+duplex scenario=duplex_cancel rank=1 fds_before=5 fds_after=5
+PASS ring duplex_cancel workers=2 elapsed_ms=254
+duplex scenario=duplex_timeout rank=0 fds_before=5 fds_after=5
+duplex scenario=duplex_timeout rank=1 fds_before=5 fds_after=5
+PASS ring duplex_timeout workers=2 elapsed_ms=506
+duplex scenario=duplex_drip rank=0 fds_before=5 fds_after=5
+duplex scenario=duplex_drip rank=1 fds_before=5 fds_after=5
+PASS ring duplex_drip workers=2 elapsed_ms=456
+duplex scenario=duplex_eof rank=1 fds_before=5 fds_after=5
+duplex scenario=duplex_eof rank=0 fds_before=5 fds_after=5
+PASS ring duplex_eof workers=2 elapsed_ms=6
+<end of output>
+Test time =   1.93 sec
+----------------------------------------------------------
+Test Passed.
+"ring_transport" end time: Oct 18 12:19 UTC
+"ring_transport" time elapsed: 00:00:01
+----------------------------------------------------------
+
+6/33 Testing: ring_failures
+6/33 Test: ring_failures
+Command: "/workspace/build/native/tests/meshtrain_ring_tests" "--failures"
+Directory: /workspace/build/native/tests
+"ring_failures" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+ring fault=bad_phase rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_phase rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_phase rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_phase workers=3 elapsed_ms=4
+ring fault=gather_phase rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_phase rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_phase rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_phase workers=3 elapsed_ms=4
+ring fault=bad_step rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_step rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_step rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_step workers=3 elapsed_ms=4
+ring fault=gather_step rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_step rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_step rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_step workers=3 elapsed_ms=4
+ring fault=bad_chunk rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_chunk rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_chunk rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_chunk workers=3 elapsed_ms=4
+ring fault=gather_chunk rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_chunk rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_chunk rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_chunk workers=3 elapsed_ms=4
+ring fault=bad_offset rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_offset rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_offset rank=1 category=peer_closed elapsed_ms=0 peer=2
+PASS ring bad_offset workers=3 elapsed_ms=4
+ring fault=gather_offset rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_offset rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_offset rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_offset workers=3 elapsed_ms=4
+ring fault=bad_total rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_total rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_total rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_total workers=3 elapsed_ms=4
+ring fault=gather_total rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_total rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_total rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_total workers=3 elapsed_ms=4
+ring fault=bad_count rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_count rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_count rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_count workers=3 elapsed_ms=4
+ring fault=gather_count rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_count rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_count rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_count workers=3 elapsed_ms=4
+ring fault=bad_algorithm rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_algorithm rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_algorithm rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_algorithm workers=3 elapsed_ms=4
+ring fault=gather_algorithm rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_algorithm rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_algorithm rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_algorithm workers=3 elapsed_ms=4
+ring fault=bad_dtype rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_dtype rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_dtype rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_dtype workers=3 elapsed_ms=4
+ring fault=gather_dtype rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_dtype rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_dtype rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_dtype workers=3 elapsed_ms=4
+ring fault=bad_reduction rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_reduction rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_reduction rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_reduction workers=3 elapsed_ms=4
+ring fault=gather_reduction rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_reduction rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_reduction rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_reduction workers=3 elapsed_ms=4
+ring fault=bad_source rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_source rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_source rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_source workers=3 elapsed_ms=4
+ring fault=gather_source rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_source rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_source rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_source workers=3 elapsed_ms=4
+ring fault=bad_destination rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_destination rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_destination rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_destination workers=3 elapsed_ms=4
+ring fault=gather_destination rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_destination rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_destination rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_destination workers=3 elapsed_ms=4
+ring fault=bad_sequence rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_sequence rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_sequence rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_sequence workers=3 elapsed_ms=4
+ring fault=gather_sequence rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_sequence rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_sequence rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_sequence workers=3 elapsed_ms=4
+ring fault=bad_oversize rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_oversize rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_oversize rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_oversize workers=3 elapsed_ms=4
+ring fault=gather_oversize rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_oversize rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_oversize rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_oversize workers=3 elapsed_ms=4
+ring fault=bad_version rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_version rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_version rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_version workers=3 elapsed_ms=4
+ring fault=gather_version rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_version rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_version rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_version workers=3 elapsed_ms=4
+ring fault=bad_operation rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_operation rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_operation rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_operation workers=3 elapsed_ms=4
+ring fault=gather_operation rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_operation rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_operation rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_operation workers=3 elapsed_ms=4
+ring fault=bad_reserved rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=bad_reserved rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=bad_reserved rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring bad_reserved workers=3 elapsed_ms=4
+ring fault=gather_reserved rank=2 category=protocol_mismatch elapsed_ms=0 peer=1
+ring fault=gather_reserved rank=0 category=peer_closed elapsed_ms=0 peer=2
+ring fault=gather_reserved rank=1 category=peer_closed elapsed_ms=0 peer=0
+PASS ring gather_reserved workers=3 elapsed_ms=4
+PASS ring failure_delay workers=3 elapsed_ms=85
+ring fault=failure_cumulative rank=2 category=timeout elapsed_ms=1001 peer=1
+ring fault=failure_cumulative rank=0 category=timeout elapsed_ms=1001 peer=2
+ring fault=failure_cumulative rank=1 category=timeout elapsed_ms=1200 peer=0
+PASS ring failure_cumulative workers=3 elapsed_ms=1206
+ring fault=failure_drip rank=0 category=timeout elapsed_ms=1000 peer=2
+ring fault=failure_drip rank=2 category=timeout elapsed_ms=1000 peer=1
+ring fault=failure_drip rank=1 category=timeout elapsed_ms=1081 peer=2
+PASS ring failure_drip workers=3 elapsed_ms=1086
+ring fault=failure_eof rank=1 category=peer_closed elapsed_ms=0 peer=2
+ring fault=failure_eof rank=2 category=peer_closed elapsed_ms=0 peer=1
+ring fault=failure_eof rank=0 category=peer_closed elapsed_ms=0 peer=2
+PASS ring failure_eof workers=3 elapsed_ms=4
+ring fault=failure_cancel rank=1 category=peer_closed elapsed_ms=0 peer=0
+ring fault=failure_cancel rank=2 category=peer_closed elapsed_ms=300 peer=0
+PASS ring failure_cancel workers=3 elapsed_ms=306
+ring fault=failure_limit rank=0 category=invalid_buffer elapsed_ms=0 peer=99
+ring fault=failure_limit rank=1 category=invalid_buffer elapsed_ms=0 peer=99
+ring fault=failure_limit rank=2 category=invalid_buffer elapsed_ms=0 peer=99
+PASS ring failure_limit workers=3 elapsed_ms=5
+PASS ring failure_order workers=3 elapsed_ms=4
+PASS ring failure_recreate workers=3 elapsed_ms=19
+<end of output>
+Test time =   2.87 sec
+----------------------------------------------------------
+Test Passed.
+"ring_failures" end time: Oct 18 12:19 UTC
+"ring_failures" time elapsed: 00:00:02
+----------------------------------------------------------
+
+7/33 Testing: ring_startup
+7/33 Test: ring_startup
+Command: "/workspace/build/native/tests/meshtrain_ring_tests" "--startup"
+Directory: /workspace/build/native/tests
+"ring_startup" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+startup case=startup_v1 rank=0 category=protocol_mismatch
+PASS ring startup_v1 workers=2 elapsed_ms=4
+PASS ring startup_delay workers=3 elapsed_ms=106
+startup case=startup_algorithm rank=0 category=protocol_mismatch
+startup case=startup_algorithm rank=1 category=peer_closed
+startup case=startup_algorithm rank=2 category=timeout
+PASS ring startup_algorithm workers=3 elapsed_ms=1005
+startup case=startup_run rank=0 category=protocol_mismatch
+startup case=startup_run rank=1 category=peer_closed
+startup case=startup_run rank=2 category=peer_closed
+PASS ring startup_run workers=3 elapsed_ms=4
+startup case=startup_context rank=0 category=protocol_mismatch
+startup case=startup_context rank=1 category=peer_closed
+startup case=startup_context rank=2 category=timeout
+PASS ring startup_context workers=3 elapsed_ms=1004
+startup case=startup_world rank=0 category=protocol_mismatch
+startup case=startup_world rank=1 category=peer_closed
+startup case=startup_world rank=2 category=timeout
+PASS ring startup_world workers=3 elapsed_ms=1005
+startup case=startup_limit rank=0 category=protocol_mismatch
+startup case=startup_limit rank=1 category=peer_closed
+startup case=startup_limit rank=2 category=timeout
+PASS ring startup_limit workers=3 elapsed_ms=1004
+startup case=startup_wrong_edge rank=2 category=protocol_mismatch
+startup case=startup_wrong_edge rank=0 category=peer_closed
+startup case=startup_wrong_edge rank=1 category=peer_closed
+PASS ring startup_wrong_edge workers=3 elapsed_ms=4
+startup case=startup_duplicate_rank rank=0 category=protocol_mismatch
+startup case=startup_duplicate_rank rank=2 category=peer_closed
+startup case=startup_duplicate_rank rank=1 category=peer_closed
+PASS ring startup_duplicate_rank workers=3 elapsed_ms=4
+startup case=startup_missing_edge rank=1 category=timeout
+startup case=startup_missing_edge rank=2 category=timeout
+startup case=startup_missing_edge rank=0 category=timeout
+PASS ring startup_missing_edge workers=3 elapsed_ms=1004
+startup case=startup_missing_ready rank=2 category=timeout
+startup case=startup_missing_ready rank=0 category=timeout
+startup case=startup_missing_ready rank=1 category=peer_closed
+PASS ring startup_missing_ready workers=3 elapsed_ms=1206
+startup case=startup_edge_run rank=2 category=protocol_mismatch
+startup case=startup_edge_run rank=0 category=peer_closed
+startup case=startup_edge_run rank=1 category=peer_closed
+PASS ring startup_edge_run workers=3 elapsed_ms=4
+startup case=startup_edge_limit rank=2 category=protocol_mismatch
+startup case=startup_edge_limit rank=0 category=peer_closed
+startup case=startup_edge_limit rank=1 category=peer_closed
+PASS ring startup_edge_limit workers=3 elapsed_ms=4
+startup case=startup_edge_repr rank=2 category=protocol_mismatch
+startup case=startup_edge_repr rank=0 category=peer_closed
+startup case=startup_edge_repr rank=1 category=peer_closed
+PASS ring startup_edge_repr workers=3 elapsed_ms=4
+startup case=startup_edge_version rank=2 category=protocol_mismatch
+startup case=startup_edge_version rank=0 category=peer_closed
+startup case=startup_edge_version rank=1 category=peer_closed
+PASS ring startup_edge_version workers=3 elapsed_ms=4
+<end of output>
+Test time =   6.38 sec
+----------------------------------------------------------
+Test Passed.
+"ring_startup" end time: Oct 18 12:19 UTC
+"ring_startup" time elapsed: 00:00:06
+----------------------------------------------------------
+
+8/33 Testing: centralized_collectives
+8/33 Test: centralized_collectives
+Command: "/workspace/build/native/tests/meshtrain_collective_tests"
+Directory: /workspace/build/native/tests
+"centralized_collectives" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+numerical rank=0 world=1 collectives=14 max_abs=0 max_rel=0
+PASS numerical workers=1 group_elapsed_ms=8
+numerical rank=0 world=2 collectives=14 max_abs=5.96046447754e-08 max_rel=5.9602857814e-08
+numerical rank=1 world=2 collectives=14 max_abs=5.96046447754e-08 max_rel=5.9602857814e-08
+PASS numerical workers=2 group_elapsed_ms=449
+numerical rank=1 world=3 collectives=14 max_abs=1.78813934326e-07 max_rel=0.00149031296572
+numerical rank=2 world=3 collectives=14 max_abs=1.78813934326e-07 max_rel=0.00149031296572
+numerical rank=0 world=3 collectives=14 max_abs=1.78813934326e-07 max_rel=0.00149031296572
+PASS numerical workers=3 group_elapsed_ms=323
+numerical rank=1 world=4 collectives=14 max_abs=2.98023223877e-07 max_rel=0.00297619047619
+numerical rank=2 world=4 collectives=14 max_abs=2.98023223877e-07 max_rel=0.00297619047619
+numerical rank=3 world=4 collectives=14 max_abs=2.98023223877e-07 max_rel=0.00297619047619
+numerical rank=0 world=4 collectives=14 max_abs=2.98023223877e-07 max_rel=0.00297619047619
+PASS numerical workers=4 group_elapsed_ms=327
+numerical rank=1 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+numerical rank=2 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+numerical rank=3 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+numerical rank=4 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+numerical rank=0 world=5 collectives=14 max_abs=4.76837158203e-07 max_rel=0.000932314003356
+PASS numerical workers=5 group_elapsed_ms=724
+PASS rank_order workers=3 group_elapsed_ms=4
+PASS reconnect workers=2 group_elapsed_ms=8
+failure case=count rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+failure case=count rank=1 category=peer_closed elapsed_ms=0 sequence=0
+PASS count workers=2 group_elapsed_ms=4
+failure case=local_limit rank=1 category=invalid_buffer elapsed_ms=0 sequence=0
+failure case=local_limit rank=0 category=peer_closed elapsed_ms=0 sequence=0
+PASS local_limit workers=2 group_elapsed_ms=4
+failure case=stale_sequence rank=0 category=protocol_mismatch elapsed_ms=0 sequence=1
+PASS stale_sequence workers=2 group_elapsed_ms=4
+failure case=future_sequence rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS future_sequence workers=2 group_elapsed_ms=4
+failure case=bad_dtype rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS bad_dtype workers=2 group_elapsed_ms=4
+failure case=bad_reduction rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS bad_reduction workers=2 group_elapsed_ms=4
+failure case=bad_count_bytes rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS bad_count_bytes workers=2 group_elapsed_ms=4
+failure case=oversize_data rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS oversize_data workers=2 group_elapsed_ms=4
+failure case=wrong_operation rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS wrong_operation workers=2 group_elapsed_ms=4
+failure case=wrong_source rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS wrong_source workers=2 group_elapsed_ms=4
+failure case=wrong_destination rank=0 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS wrong_destination workers=2 group_elapsed_ms=4
+failure case=result_sequence rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_sequence workers=2 group_elapsed_ms=4
+failure case=result_count rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_count workers=2 group_elapsed_ms=4
+failure case=result_source rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_source workers=2 group_elapsed_ms=4
+failure case=result_destination rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_destination workers=2 group_elapsed_ms=4
+failure case=result_dtype rank=1 category=protocol_mismatch elapsed_ms=0 sequence=0
+PASS result_dtype workers=2 group_elapsed_ms=4
+failure case=stall_payload rank=0 category=timeout elapsed_ms=1001 sequence=0
+PASS stall_payload workers=2 group_elapsed_ms=1006
+failure case=slow_payload rank=0 category=timeout elapsed_ms=1000 sequence=0
+PASS slow_payload workers=2 group_elapsed_ms=1406
+failure case=stalled_result rank=1 category=timeout elapsed_ms=1001 sequence=0
+PASS stalled_result workers=2 group_elapsed_ms=1006
+failure case=kill_root rank=1 category=peer_closed elapsed_ms=0 sequence=0
+PASS kill_root workers=2 group_elapsed_ms=4
+PASS cancel workers=2 group_elapsed_ms=4
+failure case=cumulative_deadline rank=0 category=timeout elapsed_ms=1000 sequence=0
+PASS cumulative_deadline workers=3 group_elapsed_ms=1305
+failure case=kill_worker rank=0 category=peer_closed elapsed_ms=0 sequence=0
+failure case=kill_worker rank=2 category=peer_closed elapsed_ms=0 sequence=0
+PASS kill_worker workers=3 group_elapsed_ms=4
+<end of output>
+Test time =   6.66 sec
+----------------------------------------------------------
+Test Passed.
+"centralized_collectives" end time: Oct 18 12:19 UTC
+"centralized_collectives" time elapsed: 00:00:06
+----------------------------------------------------------
+
+9/33 Testing: tcp_processes
+9/33 Test: tcp_processes
+Command: "/workspace/build/native/tests/meshtrain_tcp_tests"
+Directory: /workspace/build/native/tests
+"tcp_processes" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+PASS socket error/deadline/single-rank contracts
+PASS echo workers=1
+PASS echo workers=2
+PASS echo workers=3
+PASS echo workers=4
+PASS echo workers=5
+PASS late_root workers=2
+PASS fragment workers=2
+startup case=bad_magic elapsed_ms=0
+PASS bad_magic workers=2
+startup case=bad_version elapsed_ms=0
+PASS bad_version workers=2
+startup case=oversize elapsed_ms=0
+PASS oversize workers=2
+startup case=bad_repr elapsed_ms=0
+PASS bad_repr workers=2
+startup case=truncated elapsed_ms=0
+PASS truncated workers=2
+startup case=wrong_run elapsed_ms=0
+PASS wrong_run workers=2
+startup case=wrong_context elapsed_ms=0
+PASS wrong_context workers=2
+startup case=wrong_world elapsed_ms=0
+PASS wrong_world workers=2
+startup case=wrong_limit elapsed_ms=0
+PASS wrong_limit workers=2
+PASS bad_ready workers=2
+startup case=missing elapsed_ms=500
+PASS missing workers=2
+startup case=stall elapsed_ms=501
+PASS stall workers=2
+startup case=drip elapsed_ms=500
+PASS drip workers=2
+PASS peer_close workers=2
+PASS io_timeout workers=2
+PASS send_timeout workers=2
+startup case=bad_rank elapsed_ms=0
+PASS bad_rank workers=2
+PASS cancel workers=2
+PASS eintr workers=2
+PASS repeat workers=2
+startup case=duplicate elapsed_ms=0
+PASS duplicate workers=3
+startup case=incomplete elapsed_ms=501
+PASS incomplete workers=3
+<end of output>
+Test time =   5.11 sec
+----------------------------------------------------------
+Test Passed.
+"tcp_processes" end time: Oct 18 12:19 UTC
+"tcp_processes" time elapsed: 00:00:05
+----------------------------------------------------------
+
+10/33 Testing: resolver_deadline
+10/33 Test: resolver_deadline
+Command: "/workspace/build/native/tests/meshtrain_resolver_tests"
+Directory: /workspace/build/native/tests
+"resolver_deadline" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+PASS slow DNS deadline elapsed_ms=50; late completion retained input and freed output exactly once
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"resolver_deadline" end time: Oct 18 12:19 UTC
+"resolver_deadline" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/33 Testing: ring-startup-root-kill
+11/33 Test: ring-startup-root-kill
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-startup-root-kill"
+Directory: /workspace/build/native/tests
+"ring-startup-root-kill" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-startup-root-kill","run_id":"ring-startup-root-kill-1059-0","operation_timeout_ms":1000,"case_elapsed_ms":4.04253,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1061,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1062,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:43549","terminal":false,"sequence":null,"exit_code":1},{"rank":2,"pid":1063,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:43549","terminal":false,"sequence":null,"exit_code":1}]}
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-startup-root-kill" end time: Oct 18 12:19 UTC
+"ring-startup-root-kill" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/33 Testing: ring-startup-root-stop
+12/33 Test: ring-startup-root-stop
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-startup-root-stop"
+Directory: /workspace/build/native/tests
+"ring-startup-root-stop" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-startup-root-stop","run_id":"ring-startup-root-stop-1064-0","operation_timeout_ms":1000,"case_elapsed_ms":1005.37,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":1,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1066,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1067,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:44431","terminal":false,"sequence":null,"exit_code":1},{"rank":2,"pid":1068,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:44431","terminal":false,"sequence":null,"exit_code":1}]}
+<end of output>
+Test time =   1.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-startup-root-stop" end time: Oct 18 12:19 UTC
+"ring-startup-root-stop" time elapsed: 00:00:01
+----------------------------------------------------------
+
+13/33 Testing: ring-startup-worker-kill
+13/33 Test: ring-startup-worker-kill
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-startup-worker-kill"
+Directory: /workspace/build/native/tests
+"ring-startup-worker-kill" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-startup-worker-kill","run_id":"ring-startup-worker-kill-1069-0","operation_timeout_ms":1000,"case_elapsed_ms":3.96926,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1071,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.accept_hello","endpoint":"127.0.0.1:44703","terminal":false,"sequence":null,"exit_code":1},{"rank":1,"pid":1072,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1073,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:44703","terminal":false,"sequence":null,"exit_code":1}]}
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-startup-worker-kill" end time: Oct 18 12:19 UTC
+"ring-startup-worker-kill" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/33 Testing: ring-startup-worker-stop
+14/33 Test: ring-startup-worker-stop
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-startup-worker-stop"
+Directory: /workspace/build/native/tests
+"ring-startup-worker-stop" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-startup-worker-stop","run_id":"ring-startup-worker-stop-1074-0","operation_timeout_ms":1000,"case_elapsed_ms":1005.68,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":2,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1076,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.accept_hello","endpoint":"127.0.0.1:47271","terminal":false,"sequence":null,"exit_code":1},{"rank":1,"pid":1077,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1078,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:47271","terminal":false,"sequence":null,"exit_code":1}]}
+<end of output>
+Test time =   1.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-startup-worker-stop" end time: Oct 18 12:19 UTC
+"ring-startup-worker-stop" time elapsed: 00:00:01
+----------------------------------------------------------
+
+15/33 Testing: ring-reduce-root-kill
+15/33 Test: ring-reduce-root-kill
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-reduce-root-kill"
+Directory: /workspace/build/native/tests
+"ring-reduce-root-kill" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-reduce-root-kill","run_id":"ring-reduce-root-kill-1079-0","operation_timeout_ms":1000,"case_elapsed_ms":4.31038,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1081,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1082,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:38807","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1083,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:38808","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-reduce-root-kill" end time: Oct 18 12:19 UTC
+"ring-reduce-root-kill" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/33 Testing: ring-reduce-root-stop
+16/33 Test: ring-reduce-root-stop
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-reduce-root-stop"
+Directory: /workspace/build/native/tests
+"ring-reduce-root-stop" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-reduce-root-stop","run_id":"ring-reduce-root-stop-1084-0","operation_timeout_ms":1000,"case_elapsed_ms":1006.34,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":4,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1086,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1087,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:53503","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1088,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:53504","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =   1.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-reduce-root-stop" end time: Oct 18 12:19 UTC
+"ring-reduce-root-stop" time elapsed: 00:00:01
+----------------------------------------------------------
+
+17/33 Testing: ring-reduce-worker-kill
+17/33 Test: ring-reduce-worker-kill
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-reduce-worker-kill"
+Directory: /workspace/build/native/tests
+"ring-reduce-worker-kill" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-reduce-worker-kill","run_id":"ring-reduce-worker-kill-1089-0","operation_timeout_ms":1000,"case_elapsed_ms":3.93722,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1091,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:48187","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1092,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1093,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:48186","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-reduce-worker-kill" end time: Oct 18 12:19 UTC
+"ring-reduce-worker-kill" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/33 Testing: ring-reduce-worker-stop
+18/33 Test: ring-reduce-worker-stop
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-reduce-worker-stop"
+Directory: /workspace/build/native/tests
+"ring-reduce-worker-stop" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-reduce-worker-stop","run_id":"ring-reduce-worker-stop-1094-0","operation_timeout_ms":1000,"case_elapsed_ms":1005.95,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":3,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1096,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:44795","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1097,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1098,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:44794","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =   1.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-reduce-worker-stop" end time: Oct 18 12:19 UTC
+"ring-reduce-worker-stop" time elapsed: 00:00:01
+----------------------------------------------------------
+
+19/33 Testing: ring-gather-root-kill
+19/33 Test: ring-gather-root-kill
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-gather-root-kill"
+Directory: /workspace/build/native/tests
+"ring-gather-root-kill" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-gather-root-kill","run_id":"ring-gather-root-kill-1099-0","operation_timeout_ms":1000,"case_elapsed_ms":4.16756,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1101,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1102,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.all_gather.0.header","endpoint":"127.0.0.1:42765","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1103,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.all_gather.0.payload","endpoint":"127.0.0.1:42766","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-gather-root-kill" end time: Oct 18 12:19 UTC
+"ring-gather-root-kill" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/33 Testing: ring-gather-root-stop
+20/33 Test: ring-gather-root-stop
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-gather-root-stop"
+Directory: /workspace/build/native/tests
+"ring-gather-root-stop" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-gather-root-stop","run_id":"ring-gather-root-stop-1104-0","operation_timeout_ms":1000,"case_elapsed_ms":1006.6,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":4,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1106,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1107,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.all_gather.0.header","endpoint":"127.0.0.1:53693","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1108,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.all_gather.0.payload","endpoint":"127.0.0.1:53694","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =   1.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-gather-root-stop" end time: Oct 18 12:19 UTC
+"ring-gather-root-stop" time elapsed: 00:00:01
+----------------------------------------------------------
+
+21/33 Testing: ring-gather-worker-kill
+21/33 Test: ring-gather-worker-kill
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-gather-worker-kill"
+Directory: /workspace/build/native/tests
+"ring-gather-worker-kill" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-gather-worker-kill","run_id":"ring-gather-worker-kill-1109-0","operation_timeout_ms":1000,"case_elapsed_ms":3.88842,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1111,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.all_gather.0.payload","endpoint":"127.0.0.1:46551","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1112,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1113,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.all_gather.0.header","endpoint":"127.0.0.1:46550","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-gather-worker-kill" end time: Oct 18 12:19 UTC
+"ring-gather-worker-kill" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/33 Testing: ring-gather-worker-stop
+22/33 Test: ring-gather-worker-stop
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--case" "ring-gather-worker-stop"
+Directory: /workspace/build/native/tests
+"ring-gather-worker-stop" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-gather-worker-stop","run_id":"ring-gather-worker-stop-1114-0","operation_timeout_ms":1000,"case_elapsed_ms":1005.7,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":3,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1116,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.all_gather.0.payload","endpoint":"127.0.0.1:51205","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1117,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1118,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.all_gather.0.header","endpoint":"127.0.0.1:51204","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =   1.01 sec
+----------------------------------------------------------
+Test Passed.
+"ring-gather-worker-stop" end time: Oct 18 12:19 UTC
+"ring-gather-worker-stop" time elapsed: 00:00:01
+----------------------------------------------------------
+
+23/33 Testing: ring_failed_cleanup
+23/33 Test: ring_failed_cleanup
+Command: "/workspace/build/native/tests/meshtrain_failure_tests" "--ring-repeat"
+Directory: /workspace/build/native/tests
+"ring_failed_cleanup" start time: Oct 18 12:19 UTC
+Output:
+----------------------------------------------------------
+{"schema":1,"status":"passed","case":"ring-startup-root-kill","run_id":"ring-startup-root-kill-1119-1","operation_timeout_ms":1000,"case_elapsed_ms":4.12417,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1121,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1122,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:43801","terminal":false,"sequence":null,"exit_code":1},{"rank":2,"pid":1123,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:43801","terminal":false,"sequence":null,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-startup-root-stop","run_id":"ring-startup-root-stop-1119-2","operation_timeout_ms":1000,"case_elapsed_ms":1005.5,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":1,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1124,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1125,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:56513","terminal":false,"sequence":null,"exit_code":1},{"rank":2,"pid":1126,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:56513","terminal":false,"sequence":null,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-startup-worker-kill","run_id":"ring-startup-worker-kill-1119-3","operation_timeout_ms":1000,"case_elapsed_ms":4.19831,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1127,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.accept_hello","endpoint":"127.0.0.1:47303","terminal":false,"sequence":null,"exit_code":1},{"rank":1,"pid":1128,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1129,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:47303","terminal":false,"sequence":null,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-startup-worker-stop","run_id":"ring-startup-worker-stop-1119-4","operation_timeout_ms":1000,"case_elapsed_ms":1004.77,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":2,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1130,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.accept_hello","endpoint":"127.0.0.1:49181","terminal":false,"sequence":null,"exit_code":1},{"rank":1,"pid":1131,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1132,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:49181","terminal":false,"sequence":null,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-reduce-root-kill","run_id":"ring-reduce-root-kill-1119-5","operation_timeout_ms":1000,"case_elapsed_ms":4.17474,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1133,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1134,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:43085","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1135,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:43086","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-reduce-root-stop","run_id":"ring-reduce-root-stop-1119-6","operation_timeout_ms":1000,"case_elapsed_ms":1006.34,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":4,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1136,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1137,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:49969","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1138,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:49970","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-reduce-worker-kill","run_id":"ring-reduce-worker-kill-1119-7","operation_timeout_ms":1000,"case_elapsed_ms":4.41696,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1139,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:34041","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1140,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1141,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:34040","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-reduce-worker-stop","run_id":"ring-reduce-worker-stop-1119-8","operation_timeout_ms":1000,"case_elapsed_ms":1006.16,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":3,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1142,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:55029","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1143,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1144,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:55028","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-gather-root-kill","run_id":"ring-gather-root-kill-1119-9","operation_timeout_ms":1000,"case_elapsed_ms":5.34182,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1145,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1146,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.all_gather.0.header","endpoint":"127.0.0.1:38471","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1147,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.all_gather.0.payload","endpoint":"127.0.0.1:38472","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-gather-root-stop","run_id":"ring-gather-root-stop-1119-10","operation_timeout_ms":1000,"case_elapsed_ms":1006.5,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":4,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1148,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1149,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.all_gather.0.header","endpoint":"127.0.0.1:40107","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1150,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.all_gather.0.payload","endpoint":"127.0.0.1:40108","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-gather-worker-kill","run_id":"ring-gather-worker-kill-1119-11","operation_timeout_ms":1000,"case_elapsed_ms":5.44848,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1151,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.all_gather.0.payload","endpoint":"127.0.0.1:55103","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1152,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1153,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.all_gather.0.header","endpoint":"127.0.0.1:55102","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-gather-worker-stop","run_id":"ring-gather-worker-stop-1119-12","operation_timeout_ms":1000,"case_elapsed_ms":1006.16,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":3,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1154,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.all_gather.0.payload","endpoint":"127.0.0.1:40251","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1155,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1156,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.all_gather.0.header","endpoint":"127.0.0.1:40250","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-startup-root-kill","run_id":"ring-startup-root-kill-1119-13","operation_timeout_ms":1000,"case_elapsed_ms":4.0565,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1157,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1158,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:37801","terminal":false,"sequence":null,"exit_code":1},{"rank":2,"pid":1159,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:37801","terminal":false,"sequence":null,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-startup-root-stop","run_id":"ring-startup-root-stop-1119-14","operation_timeout_ms":1000,"case_elapsed_ms":1005.87,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":1,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1160,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1161,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:45029","terminal":false,"sequence":null,"exit_code":1},{"rank":2,"pid":1162,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:45029","terminal":false,"sequence":null,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-startup-worker-kill","run_id":"ring-startup-worker-kill-1119-15","operation_timeout_ms":1000,"case_elapsed_ms":4.06971,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1163,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.accept_hello","endpoint":"127.0.0.1:47267","terminal":false,"sequence":null,"exit_code":1},{"rank":1,"pid":1164,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1165,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"startup.receive_control","endpoint":"127.0.0.1:47267","terminal":false,"sequence":null,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-startup-worker-stop","run_id":"ring-startup-worker-stop-1119-16","operation_timeout_ms":1000,"case_elapsed_ms":1005.89,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":2,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1166,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.accept_hello","endpoint":"127.0.0.1:53715","terminal":false,"sequence":null,"exit_code":1},{"rank":1,"pid":1167,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1168,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"startup.receive_control","endpoint":"127.0.0.1:53715","terminal":false,"sequence":null,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-reduce-root-kill","run_id":"ring-reduce-root-kill-1119-17","operation_timeout_ms":1000,"case_elapsed_ms":5.00686,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1169,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1170,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:48685","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1171,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:48686","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-reduce-root-stop","run_id":"ring-reduce-root-stop-1119-18","operation_timeout_ms":1000,"case_elapsed_ms":1005.69,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":4,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1172,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":1,"pid":1173,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:32835","terminal":true,"sequence":0,"exit_code":1},{"rank":2,"pid":1174,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:32836","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-reduce-worker-kill","run_id":"ring-reduce-worker-kill-1119-19","operation_timeout_ms":1000,"case_elapsed_ms":3.90455,"group_exit_code":1,"stopped_confirmed":false,"stopped_socket_count":0,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1175,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:39495","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1176,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1177,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"peer_closed","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:39494","terminal":true,"sequence":0,"exit_code":1}]}
+{"schema":1,"status":"passed","case":"ring-reduce-worker-stop","run_id":"ring-reduce-worker-stop-1119-20","operation_timeout_ms":1000,"case_elapsed_ms":1005.6,"group_exit_code":1,"stopped_confirmed":true,"stopped_socket_count":3,"controller_fds_before":6,"controller_fds_after":6,"listener_reused":true,"workers":[{"rank":0,"pid":1178,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.payload","endpoint":"127.0.0.1:59345","terminal":true,"sequence":0,"exit_code":1},{"rank":1,"pid":1179,"reaped":true,"raw_wait_status":9,"cleanup":"OS_reclamation","signal":9},{"rank":2,"pid":1180,"reaped":true,"raw_wait_status":256,"cleanup":"verified_while_alive","fds_before":7,"fds_after":7,"code":"timeout","operation":"all_reduce_sum.ring.reduce_scatter.0.header","endpoint":"127.0.0.1:59344","terminal":true,"sequence":0,"exit_code":1}]}
+<end of output>
+Test time =  10.11 sec
+----------------------------------------------------------
+Test Passed.
+"ring_failed_cleanup" end time: Oct 18 12:20 UTC
+"ring_failed_cleanup" time elapsed: 00:00:10
+----------------------------------------------------------
+
+33/33 Testing: installed_consumer
+33/33 Test: installed_consumer
+Command: "/usr/bin/cmake" "-DMESHTRAIN_SOURCE_DIR=/workspace" "-DMESHTRAIN_BINARY_DIR=/workspace/build/native" "-DMESHTRAIN_TEST_GENERATOR=Ninja" "-DMESHTRAIN_TEST_COMPILER=/usr/bin/c++" "-DMESHTRAIN_TEST_CONFIG=Release" "-P" "/workspace/tests/cmake/install_consumer.cmake"
+Directory: /workspace/build/native/tests
+"installed_consumer" start time: Oct 18 12:20 UTC
+Output:
+----------------------------------------------------------
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/lib/libmeshtrain_core.a
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/include/meshtrain
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/include/meshtrain/tcp.hpp
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/include/meshtrain/config.hpp
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/include/meshtrain/transport.hpp
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/include/meshtrain/error.hpp
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/include/meshtrain/communicator.hpp
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/include/meshtrain/buffer.hpp
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/lib/cmake/meshtrain/meshtrainTargets.cmake
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/lib/cmake/meshtrain/meshtrainTargets-release.cmake
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/lib/cmake/meshtrain/meshtrainConfig.cmake
+-- Installing: /workspace/build/native/install-smoke/afafde578bb2/original/lib/cmake/meshtrain/meshtrainConfigVersion.cmake
+-- The CXX compiler identification is GNU 12.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/build/native/install-smoke/afafde578bb2/consumer
+[1/2] Building CXX object CMakeFiles/meshtrain_consumer.dir/main.cpp.o
+[2/2] Linking CXX executable meshtrain_consumer
+Internal ctest changing into directory: /workspace/build/native/install-smoke/afafde578bb2/consumer
+Test project /workspace/build/native/install-smoke/afafde578bb2/consumer
+    Start 1: consume_installed_library
+1/1 Test #1: consume_installed_library ........   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.00 sec
+<end of output>
+Test time =   0.66 sec
+----------------------------------------------------------
+Test Passed.
+"installed_consumer" end time: Oct 18 12:20 UTC
+"installed_consumer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 18 12:20 UTC

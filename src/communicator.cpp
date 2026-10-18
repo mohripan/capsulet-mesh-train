@@ -2,6 +2,7 @@
 
 #include "deadline.hpp"
 #include "protocol.hpp"
+#include "ring.hpp"
 
 #include <algorithm>
 #include <array>
@@ -43,7 +44,10 @@ class Communicator::Impl {
                                   current);
             }
             if (config_.world_size > 1U) {
-                if (config_.rank == 0U) {
+                if (config_.all_reduce_algorithm == AllReduceAlgorithm::ring) {
+                    detail::ring_all_reduce(config_, *transport_, buffer, deadline, current,
+                                            [&] { check_active(deadline, current); });
+                } else if (config_.rank == 0U) {
                     reduce_and_distribute(buffer, bytes, deadline, current);
                 } else {
                     exchange(buffer, bytes, deadline, current);
@@ -60,6 +64,10 @@ class Communicator::Impl {
             fail();
             // Socket errors know the peer but not this collective's sequence.
             // Preserve the original cause without nesting formatted diagnostics.
+            if (error.context().peer.has_value()) {
+                current.peer = error.context().peer;
+                current.peer_endpoint = error.context().peer_endpoint;
+            }
             throw EngineError(error.code(), error.message(), std::move(current));
         } catch (...) {
             fail();
@@ -119,14 +127,16 @@ class Communicator::Impl {
     }
     wire::Header header(wire::Operation operation, std::uint32_t peer, std::size_t count,
                         std::size_t bytes, const ErrorContext& current) const {
-        return {operation,
-                config_.rank,
-                peer,
-                *current.sequence,
-                count,
-                bytes,
-                wire::Dtype::float32,
-                wire::Reduction::sum};
+        wire::Header result{operation,
+                            config_.rank,
+                            peer,
+                            *current.sequence,
+                            count,
+                            bytes,
+                            wire::Dtype::float32,
+                            wire::Reduction::sum};
+        result.total_count = count;
+        return result;
     }
     void send_header(wire::Operation operation, std::uint32_t peer, std::size_t count,
                      std::size_t bytes, Deadline deadline, ErrorContext& current) {
@@ -141,7 +151,9 @@ class Communicator::Impl {
         target(current, peer, "receive_header");
         check_active(deadline, current);
         std::array<std::byte, wire::header_bytes> encoded{};
-        transport_->receive_bytes(peer, encoded, deadline);
+        transport_->receive_bytes(peer, std::span(encoded).first(wire::prefix_bytes), deadline);
+        wire::validate_prefix(std::span(encoded).first(wire::prefix_bytes), current);
+        transport_->receive_bytes(peer, std::span(encoded).subspan(wire::prefix_bytes), deadline);
         const auto received = wire::decode_header(encoded, config_.max_payload_bytes, current);
         if (received.operation != expected || received.source != peer ||
             received.destination != config_.rank || received.sequence != *current.sequence ||

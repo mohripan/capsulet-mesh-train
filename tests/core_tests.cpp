@@ -121,6 +121,10 @@ void identity_validation() {
 
 void limits_validation() {
     auto config = group();
+    config.all_reduce_algorithm = static_cast<meshtrain::AllReduceAlgorithm>(99);
+    expect_error([&] { meshtrain::validate(config); }, meshtrain::ErrorCode::invalid_configuration,
+                 "all_reduce_algorithm");
+    config = group();
     config.startup_timeout = std::chrono::milliseconds{0};
     expect_error([&] { meshtrain::validate(config); }, meshtrain::ErrorCode::invalid_configuration,
                  "timeouts");
