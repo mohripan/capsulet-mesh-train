@@ -29,7 +29,7 @@ Issue #10’s host-staged CUDA adapter is complete: `e557542` passed installed l
 
 M2 is complete: #11, tracker #9 and milestone 2 are closed after independent review/owner authorization, installed full GPU acceptance and exact-revision CPU CI at `b603284`. Both two-worker/100-step memory modes match an independent GPU reference at fixed tolerances, with raw cost/memory/failure/cleanup evidence. Read `docs/CUDA_TRAINING.md`, `docs/openspecs/cuda-mlp-trainer/verification.md` and Accepted ADR 0005. CPU/schema-1 and the native core retain their contracts; two workers shared one physical laptop GPU.
 
-Next is M3 tracker #12, starting with #13's focused ring algorithm/measurement OpenSpec, selected review and owner go-ahead before implementation. M2 completion does not approve unseen M3 details. Native Windows, GPU-container, physical multi-host/distinct-GPU and GPU-nightly execution need their own actual evidence.
+Active planning is #13 under M3 tracker #12. Read `docs/openspecs/ring-all-reduce/` and Proposed ADR 0006: explicit native ring selection, duplex host transport, neighbor startup, uneven chunks and wire v2. The draft awaits selected review and owner implementation go-ahead; no ring implementation is claimed. M2 completion does not approve unseen M3 details. Native Windows, GPU-container, physical multi-host/distinct-GPU and GPU-nightly execution need their own actual evidence.
 
 ## Project boundaries
 

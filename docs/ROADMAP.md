@@ -41,6 +41,8 @@ Measure staging and synchronization separately from network/reduction time. Comp
 
 ## M3: Algorithms and explanation through measurements
 
+The first focused draft is [#13's ring OpenSpec](openspecs/ring-all-reduce/proposal.md), with [algorithm/measurement design](openspecs/ring-all-reduce/design.md), [tasks](openspecs/ring-all-reduce/tasks.md) and Proposed [ADR 0006](adr/0006-blocking-ring-all-reduce.md). Review selection and owner implementation go-ahead are pending. Tree and benchmark work keep separate focused specs; this draft does not establish M3 completion.
+
 Implement ring all-reduce as reduce-scatter plus all-gather, handling zero-size chunks and message lengths not divisible by worker count. Implement tree reduction plus broadcast for non-power-of-two groups.
 
 Benchmark centralized, ring, and tree with the same rank counts, payload sizes, dtype, warm-up policy, timing boundary, and synchronization. Use Gloo for the initial CPU comparison; MPI is an optional additional baseline after its adapter exists. Store per-rank raw samples and report the maximum rank completion time per iteration, medians, and tail latency.
