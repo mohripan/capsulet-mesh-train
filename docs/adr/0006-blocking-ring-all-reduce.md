@@ -14,7 +14,7 @@ The standalone engine currently owns centralized FP32 SUM over a Linux TCP star.
 
 ## Decision and rationale
 
-Propose an explicit immutable native `RunConfig` algorithm choice, defaulting to centralized, and a private ring reduce-scatter/all-gather schedule. Ring partitions the full input contiguously without padding, receives at most one largest chunk in scratch, and uses FP32 addition with its documented per-chunk order. All-reduce remains blocking, in-place SUM with no implicit averaging. Internal phases do not create public sharding APIs.
+Use an explicit immutable native `RunConfig` algorithm choice, defaulting to centralized, and a private ring reduce-scatter/all-gather schedule. Ring partitions the full input contiguously without padding, receives at most one largest chunk in scratch, and uses FP32 addition with its documented per-chunk order. All-reduce remains blocking, in-place SUM with no implicit averaging. Internal phases do not create public sharding APIs.
 
 Extend `ByteTransport` with exact synchronous duplex exchange. A default unsupported implementation preserves source builds of centralized-only adapters and fails explicitly on a ring call. Linux TCP progresses both nonblocking directions on the caller's thread with one operation slot, a shared absolute deadline, RAII leases and concurrent-close cancellation. No background thread or third-party collective is introduced.
 

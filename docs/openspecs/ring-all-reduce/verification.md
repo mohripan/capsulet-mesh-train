@@ -2,7 +2,7 @@
 
 Date: 2026-10-18
 
-Status: implementation and required local checks passed; exact implementation-revision CI and issue closure pending. [Tasks](tasks.md), [review](review.md) and [authorization](proposal.md) retain the actual status.
+Status: complete. Required local verification and exact implementation-revision CI passed; #13 is closed. [Tasks](tasks.md), [review](review.md) and [authorization](proposal.md) retain the actual status.
 
 ## Planning baseline and inspection
 
@@ -83,6 +83,12 @@ Review of the actual nightly collector found two compatibility risks: its exact 
 
 ## Provenance, publication and limits
 
-[Behavioral source manifest](results/source.json) records 118 raw working-tree files at base `00997b8` plus the implementation. Build/controller records identify actual images; [evidence checksums](results/sha256.json) retain the selected original bytes. Exact pushed implementation revision and regular CI will be recorded after publication. Local package/container checks preceded final test-only four-byte-cap coverage and CMake formatting; exact-revision CI must cover the final committed tree before issue closure.
+[Behavioral source manifest](results/source.json) records 118 raw working-tree files at base `00997b8` plus the implementation. Build/controller records identify actual images; [evidence checksums](results/sha256.json) retain the selected original bytes. Implementation `aa1c13c` is pushed to main without co-author trailers; [raw/commit correspondence](results/source-commit.json) verifies all 118 raw hashes and Git-filtered committed blobs. Local package/container checks preceded final test-only four-byte-cap coverage and CMake formatting; the exact-revision CI below covers that final committed tree.
 
 These results establish Linux CPU processes, WSL and local Linux containers. They do not establish ring Python/training selection, GPU ring behavior, performance superiority, Gloo/MPI/NCCL comparison, calibrated model accuracy, native Windows, physical multi-host or distinct-GPU validity. #14/#15 and M3 remain open. Broad nightly/manual M1 and GPU acceptance retain their existing scopes.
+
+## Exact revision and closure
+
+[Implementation aa1c13cf97efa5eb56e9a5c8d133c36dd59e9abc](https://github.com/mohripan/capsulet-mesh-train/commit/aa1c13cf97efa5eb56e9a5c8d133c36dd59e9abc) passed [regular CI run 39127401157](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39127401157). All three native, binding and short CPU-trainer jobs passed, including original TCP/centralized container checks and healthy/induced-exit ring containers. [Original job/step provenance](results/ci.json) pins the successful run to the implementation SHA. No behavioral source changed during closure documentation; all 118 manifest files still match.
+
+After reading back that evidence, #13 was closed, #12's ring child and #14's dependency were checked, and the root roadmap handoff moved to #14's focused OpenSpec/review/go-ahead. #12/M3 and #14/#15 remain open. M1's stale root checkbox was reconciled against its already-closed tracker; its historical acceptance was not rerun or reclassified. The final documentation/evidence commit follows the standing main/no-co-author instruction and preserves unrelated local skills/configuration.

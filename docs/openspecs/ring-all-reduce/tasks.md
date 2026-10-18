@@ -1,6 +1,6 @@
 # Tasks: Native ring all-reduce with uneven and empty chunks
 
-Implementation status: independently reviewed and authorized in [proposal.md](proposal.md). Implementation and runtime verification are in progress; actual evidence is recorded in [verification.md](verification.md).
+Implementation status: independently reviewed and authorized in [proposal.md](proposal.md). Implementation and required verification are complete; actual evidence is recorded in [verification.md](verification.md).
 
 - [x] **Complete selected review and record the actual authorization.**
   - Outcome: resolve blocking findings in all affected artifacts; record review coverage/limits, instruction/date/scope and any conditions. Accept ADR 0006 only when supported by the owner's decision.
@@ -35,13 +35,13 @@ Implementation status: independently reviewed and authorized in [proposal.md](pr
 - [x] **Verify deployment and compatibility at the installed boundaries.**
   - Outcome: warning-clean standalone builds, relocated consumer, optional Python packaging/default trainer and small ring container group pass. No Python API/schema/CUDA changes.
   - Live verification: run default native CTest excluding broad `m1_integration`, repeat portable CTest with `MESHTRAIN_ENABLE_TCP=OFF`, run sdist-derived binding checks and short CPU trainer, and bounded four-container ring exchange using per-rank hostnames/listeners. Extend only focused regular CI/deployment checks needed for the new boundary; keep nightly/manual broad acceptance separate. Confirm scoped container/network cleanup on success and induced failure.
-  - Evidence: Native 24/24, portable 4/4, isolated binding checks, 63 short-trainer comparisons and healthy/failing four-container scoped cleanup pass. [Commands/raw evidence](verification.md#local-environment-and-commands). Exact-revision CI remains the publication task.
+  - Evidence: Native 24/24, portable 4/4, isolated binding checks, 63 short-trainer comparisons and healthy/failing four-container scoped cleanup pass. [Commands/raw evidence](verification.md#local-environment-and-commands). Exact-revision CI passed as recorded in the publication task.
 
-- [ ] **Reconcile contracts, publish evidence and close only verified work.**
+- [x] **Reconcile contracts, publish evidence and close only verified work.**
   - Outcome: document implemented v2 upgrade, explicit C++ selection, topology/duplex/numerical/lifecycle/scratch rules and supported environments; reconcile OpenSpec/ADR/navigation and GitHub #13/#12 status. Keep #14/#15/M3 and hardware claims open.
   - Live verification: links/status/diff checks; commit/push to `main` without co-author trailers; run/wait for regular CI on the exact implementation revision and record its result before closing #13. Confirm remote HEAD and preserve unrelated local configuration.
-  - Evidence: pending; tested revision, CI URL, final commands/raw results/limitations and issue reconciliation.
+  - Evidence: Implementation `aa1c13c` is pushed; [exact-revision CI](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39127401157) passed all three jobs. [Source/commit proof](results/source-commit.json), [CI provenance](results/ci.json) and [verification/closure](verification.md#exact-revision-and-closure) are recorded. #13 is closed, #14 dependency satisfied, #12/M3 and #14/#15 remain open.
 
 ## Completion
 
-Implemented with required local proof. Exact implementation-revision regular CI, publication and issue reconciliation remain in the last task. No benchmark or hardware acceptance beyond the report is claimed.
+Complete: reviewed/authorized implementation, required local evidence, exact implementation-revision CI and GitHub reconciliation passed. Next is #14's OpenSpec/review/go-ahead. No benchmark or hardware acceptance beyond the report is claimed.

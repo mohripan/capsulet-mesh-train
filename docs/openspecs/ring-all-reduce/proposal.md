@@ -2,7 +2,7 @@
 
 Date: 2026-10-18
 
-Status: independently reviewed, owner-authorized and implemented; local verification passed, exact-revision CI/publication pending.
+Status: complete; independently reviewed, owner-authorized, implemented, verified and pushed. #13 is closed.
 
 Source: [issue #13](https://github.com/mohripan/capsulet-mesh-train/issues/13), under [M3 tracker #12](https://github.com/mohripan/capsulet-mesh-train/issues/12). M1/#5 and M2 are complete. The owner's “All right. Please continue!” after the M2 handoff starts this next OpenSpec. The previous conditional review/implementation instruction was recorded for #11, not this unpresented scope.
 
@@ -44,4 +44,4 @@ Excluded: tree implementation (#14), comparative benchmark/calibration/report (#
 
 ## Delivery
 
-Native selection, duplex TCP, validated neighbor startup, wire v2 and unpadded ring phases are implemented. Required local process/fault/resource/package/container checks pass; [actual evidence and limits](verification.md) accompany the [design](design.md), [tasks](tasks.md) and Accepted ADR 0006. Exact implementation-revision CI and publication remain before #13 closes. No performance improvement is claimed.
+Native selection, duplex TCP, validated neighbor startup, wire v2 and unpadded ring phases are implemented. Required local process/fault/resource/package/container checks pass; [actual evidence and limits](verification.md) accompany the [design](design.md), [tasks](tasks.md) and Accepted ADR 0006. Implementation `aa1c13c` passed [exact-revision CI](https://github.com/mohripan/capsulet-mesh-train/actions/runs/39127401157); #13 is closed. #12/M3 stays open for #14/#15. No performance improvement is claimed.

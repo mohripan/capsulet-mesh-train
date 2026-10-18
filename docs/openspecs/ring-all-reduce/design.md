@@ -6,7 +6,7 @@ Read [proposal.md](proposal.md) for scope/authorization and [tasks.md](tasks.md)
 
 `Communicator` owns a joined `ByteTransport`, admits one blocking all-reduce, and closes the group on any admitted exception. Its sequence advances only on local success. `connect_tcp` currently builds a root star, admits one send or receive at a time, and uses shared RAII socket leases so concurrent close cannot recycle an active descriptor. All of these lifecycle rules remain.
 
-Proposed responsibility split:
+Responsibility split:
 
 | Area | Responsibility |
 | --- | --- |
@@ -128,7 +128,7 @@ The roadmap model `T_ring ≈ 2*(p-1)*alpha + 2*(p-1)/p*n/B` is a hypothesis for
 - Blocking send-then-receive or one I/O thread per direction: the former can deadlock; the latter adds lifetime/cancellation/join machinery before the asynchronous milestone. Caller-driven duplex polling fits the blocking API.
 - Preserve v1 and add a second complete codec: avoids a coordinated upgrade but duplicates control/data formats during an evolving pre-stable API. Explicit v2 rejection makes incompatibility visible.
 
-Main risks are topology startup sequencing, same-socket duplex progress, incorrect uneven offsets, lost failure context, and accidentally resetting deadlines per round. The focused checks below target each risk. There are no unresolved hardware requirements to perform local CPU verification; native Windows, physical hosts and distinct GPUs remain outside these claims. Review may revise these defaults before implementation authorization.
+Main risks are topology startup sequencing, same-socket duplex progress, incorrect uneven offsets, lost failure context, and accidentally resetting deadlines per round. The focused checks below target each risk. There are no unresolved hardware requirements to perform local CPU verification; native Windows, physical hosts and distinct GPUs remain outside these claims. These decisions are covered by the recorded independent review and owner authorization.
 
 ## Verification strategy
 

@@ -1,5 +1,6 @@
 {
   "bindings-build.txt": "d2fc41732de8abbf52dd2846b08d3fb78ee6dbdb0ce6395a0c0e32aa0f5d9d16",
+  "ci.json": "665104665bcc3327b6d0f88f73cfa63509f324b9a12ca341a72187bab96be54b",
   "container-failure-resources.json": "a31a6a86ca2fcc2293f587637993c74941d674dc9bc5579c45c47ac98561ae58",
   "container-failure.json": "ed2352dacb9b841253e6deaf341dd8b7e7d7196f38870df3962db2ca24f02e84",
   "container-healthy-resources.json": "61835b61cad817972e54e31683494685c9f5dd9237fc1775ef81375015690a97",
@@ -15,6 +16,7 @@
   "native-ctest.txt": "551a859173a616cd8e15458d3047463acece626f4cdb5f0f798761d58402ef48",
   "native-signals.json": "a8040e9ffe58f35a975abf32328c34137a8159fb4195f80f1ddea851b57f4f6a",
   "portable-ctest.txt": "47de8b8c365db3b88d1700d733166d1b934e670d009f173ca1a293bccea6a953",
+  "source-commit.json": "b1039af3a71a82b66001392b214c36e4ce4bca67ea2eca750110757b0b8aa6e6",
   "source.json": "605e542054049d6c72e51ed091efe616c5db19cd38d7477fbe01212deb49fb18",
   "trainer-build.txt": "476fe8fff00c30841b38bc2b6954ea75032d07c0411a1510c917300454a42f43"
 }
